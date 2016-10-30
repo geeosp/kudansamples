@@ -1,6 +1,8 @@
 package com.voxar.arauthtool;
 
 import android.app.Activity;
+import android.content.DialogInterface;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -40,10 +42,13 @@ public class TrackingActivity extends ARActivity implements ARImageTrackableList
 
 
         // make it smaller.
-        imageNode.scaleBy(0.5f, 0.5f, 0.5f);
+//        imageNode.scaleBy(0.5f, 0.5f, 0.5f);
 
         // add it to the lego trackable.
         legoTrackable.getWorld().addChild(imageNode);
+        legoTrackable.getWorld().getFullTransform();
+
+
 
     }
 
@@ -62,7 +67,21 @@ public class TrackingActivity extends ARActivity implements ARImageTrackableList
 
     @Override
     public void didDetect(ARImageTrackable trackable) {
-
+        new AlertDialog.Builder(getApplicationContext())
+                .setTitle("Delete entry")
+                .setMessage("Are you sure you want to delete this entry?")
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // continue with delete
+                    }
+                })
+                .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // do nothing
+                    }
+                })
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .show();
         Log.i("KudanSamples", "detected " + trackable.getName());
     }
 
