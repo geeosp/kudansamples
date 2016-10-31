@@ -13,7 +13,7 @@
     <TextView
         android:id="@+id/tv_lesson_item_title"
         android:text="LessonItem"
-        android:layout_height="100dp"
+        android:layout_height="85dp"
         android:layout_width="match_parent"
         android:gravity="center"
         android:background="#ff00ff"

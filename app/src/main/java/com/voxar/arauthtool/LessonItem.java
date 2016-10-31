@@ -15,10 +15,20 @@ public class LessonItem implements Serializable {
     }
     public LessonItemType type;
     public String content;
+    public String name;
 
-    public LessonItem(LessonItemType type, String content) {
+    public LessonItem(LessonItemType type,String name,  String content) {
         this.type = type;
         this.content = content;
+    this.name = name;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public LessonItemType getType() {

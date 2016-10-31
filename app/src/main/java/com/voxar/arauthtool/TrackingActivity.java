@@ -75,8 +75,9 @@ public class TrackingActivity extends ARActivity {
                 Log.i("geeo", "lesson size " + lesson.getLessonItems().size());
                 LessonItemAdapter adapter = new LessonItemAdapter((lesson.getLessonItems()));
                 listView.setAdapter(adapter);
-
-                listView.setVisibility(View.VISIBLE);
+                View v = findViewById(R.id.listviewroot);
+                v.setVisibility(View.VISIBLE);
+                //listView.setVisibility(View.VISIBLE);
 
             }
 
@@ -91,8 +92,8 @@ public class TrackingActivity extends ARActivity {
             public void didLose(ARImageTrackable trackable) {
 
                 Log.i("geeo", "lost " + trackable.getName());
-
-                listView.setVisibility(View.INVISIBLE);
+                View v = findViewById(R.id.listviewroot);
+                v.setVisibility(View.INVISIBLE);
             }
         });
         return trackable;
@@ -216,7 +217,7 @@ public class TrackingActivity extends ARActivity {
                     }
                 }
             });
-            //tv.setText( ""+itens.get(position).getType());
+            tv.setText("" + itens.get(position).getName());
             return convertView;
         }
 
