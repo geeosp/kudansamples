@@ -5,7 +5,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
-import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
@@ -14,14 +13,10 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
-import com.voxar.arauthtool.Book;
 import com.voxar.arauthtool.Lesson;
 import com.voxar.arauthtool.LessonItem;
 import com.voxar.arauthtool.TrackingActivity;
 
-import eu.kudan.kudan.ARAPIKey;
-import eu.kudan.kudan.ARImageNode;
-import eu.kudan.kudan.ARNode;
 import gun0912.tedbottompicker.TedBottomPicker;
 
 
@@ -60,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
                         public void onImageSelected(Uri uri) {
                             Lesson lesson  = new Lesson("Lesson 01" ,uri.getPath());
                             LessonItem item = new LessonItem(LessonItem.LessonItemType.URL,"http://www.google.com");
+                            lesson.addLessonItem(item);
                             Log.i("geeo",uri.getPath());
                             Intent intent = new Intent(getApplicationContext(), TrackingActivity.class);
                             intent.putExtra("lesson",lesson);

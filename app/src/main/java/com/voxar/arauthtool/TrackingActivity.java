@@ -1,8 +1,18 @@
 package com.voxar.arauthtool;
 
 
+import android.content.Intent;
+import android.database.DataSetObserver;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ListAdapter;
+import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -21,14 +31,15 @@ import eu.kudan.kudansamples.R;
 
 public class TrackingActivity extends ARActivity {
     public Lesson lesson;
-    public ARNode tracable;
+    // public ARNode tracable;
+    public ListView listView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tracking);
         lesson = (Lesson) getIntent().getExtras().get("lesson");
-
+        listView = (ListView) findViewById(R.id.lesson_list);
         //   uri = getIntent().getExtras().getString("filepath");
 
     }
@@ -36,19 +47,20 @@ public class TrackingActivity extends ARActivity {
     @Override
     public void setup() {
         super.setup();
-        ArrayList<LessonItem> lessons = lesson.getLessons();
-        ARImageTrackable imageTracked = addImageTrackableFromPath(lesson.getName(), lesson.getFilePath());
+        //  ArrayList<LessonItem> lessonItems = lesson.getLessons();
+        ARImageTrackable imageTracked = addImageTrackableFromPath(lesson);
 
-            addModelNode(imageTracked, "cube.jet");
+        addModelNode(imageTracked, "cube.jet");
 
     }
 
 
-    private ARImageTrackable addImageTrackableFromPath(String name, String path) {
+    private ARImageTrackable addImageTrackableFromPath(final Lesson lesson) {
+
 
         // Initialise image trackable
-        ARImageTrackable trackable = new ARImageTrackable(name);
-        trackable.loadFromPath(path);
+        ARImageTrackable trackable = new ARImageTrackable(lesson.getName());
+        trackable.loadFromPath(lesson.getFilePath());
 
         // Get instance of image tracker manager
         ARImageTracker trackableManager = ARImageTracker.getInstance();
@@ -60,6 +72,12 @@ public class TrackingActivity extends ARActivity {
             public void didDetect(ARImageTrackable trackable) {
 
                 Log.i("geeo", "detected " + trackable.getName());
+                Log.i("geeo", "lesson size " + lesson.getLessonItems().size());
+                LessonItemAdapter adapter = new LessonItemAdapter((lesson.getLessonItems()));
+                listView.setAdapter(adapter);
+
+                listView.setVisibility(View.VISIBLE);
+
             }
 
 
@@ -73,6 +91,8 @@ public class TrackingActivity extends ARActivity {
             public void didLose(ARImageTrackable trackable) {
 
                 Log.i("geeo", "lost " + trackable.getName());
+
+                listView.setVisibility(View.INVISIBLE);
             }
         });
         return trackable;
@@ -126,4 +146,93 @@ public class TrackingActivity extends ARActivity {
     }
 
 
+    class LessonItemAdapter implements ListAdapter {
+
+        ArrayList<LessonItem> itens;
+
+        LessonItemAdapter(ArrayList<LessonItem> itens) {
+            this.itens = itens;
+        }
+
+        @Override
+        public boolean areAllItemsEnabled() {
+            return true;
+        }
+
+        @Override
+        public boolean isEnabled(int i) {
+            return true;
+        }
+
+
+        @Override
+        public void registerDataSetObserver(DataSetObserver dataSetObserver) {
+
+        }
+
+        @Override
+        public void unregisterDataSetObserver(DataSetObserver dataSetObserver) {
+
+        }
+
+        @Override
+        public int getCount() {
+            return itens.size();
+        }
+
+        @Override
+        public Object getItem(int i) {
+            return itens.get(i);
+        }
+
+        @Override
+        public long getItemId(int i) {
+            return i;
+        }
+
+        @Override
+        public boolean hasStableIds() {
+            return false;
+        }
+
+        @Override
+        public View getView(final int position, View convertView, ViewGroup parent) {
+            if (convertView == null) {
+
+                LayoutInflater inflater = LayoutInflater.from(getApplicationContext());
+                convertView = inflater.inflate(R.layout.activity_tracking_lesson_item, parent, false);
+            }
+            TextView tv = (TextView) convertView.findViewById(R.id.tv_lesson_item_title);
+            tv.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    LessonItem item = itens.get(position);
+                    switch (item.getType()) {
+                        case URL:
+                            Intent i = new Intent(Intent.ACTION_VIEW,
+                                    Uri.parse(((LessonItem) getItem(position)).getContent()));
+                            startActivity(i);
+                            break;
+                    }
+                }
+            });
+            //tv.setText( ""+itens.get(position).getType());
+            return convertView;
+        }
+
+        @Override
+        public int getItemViewType(int i) {
+            return 0;
+        }
+
+        @Override
+        public int getViewTypeCount() {
+            return 1;
+        }
+
+        @Override
+        public boolean isEmpty() {
+            return itens.size() == 0;
+        }
+    }
 }

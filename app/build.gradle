@@ -34,4 +34,5 @@ dependencies {
     compile project(':cardboard')
     compile project(':kudanar')
     compile 'gun0912.ted:tedbottompicker:1.0.3'
+    compile 'com.android.support.constraint:constraint-layout:1.0.0-beta2'
 }

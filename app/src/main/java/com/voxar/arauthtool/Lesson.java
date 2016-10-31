@@ -10,20 +10,21 @@ import java.util.ArrayList;
 public class Lesson implements Serializable{
     String name;
     String filePath; //path to image tracked
-    ArrayList<LessonItem> lessons;//contenc to be linked to image
-    public void addLesson(LessonItem li) {
-        lessons.add(li);
+    ArrayList<LessonItem> lessonItems;//contenc to be linked to image
+    public void addLessonItem(LessonItem li) {
+        lessonItems.add(li);
     }
 
     public Lesson(String name, String filePath) {
         this.name = name;
         this.filePath = filePath;
+        this.lessonItems =new ArrayList<>();
     }
 
-    public Lesson(String name, String filePath, ArrayList<LessonItem> lessons) {
+    public Lesson(String name, String filePath, ArrayList<LessonItem> lessonItems) {
         this.name = name;
         this.filePath = filePath;
-        this.lessons = lessons;
+        this.lessonItems = lessonItems;
     }
 
     public String getName() {
@@ -42,11 +43,11 @@ public class Lesson implements Serializable{
         this.filePath = filePath;
     }
 
-    public ArrayList<LessonItem> getLessons() {
-        return lessons;
+    public ArrayList<LessonItem> getLessonItems() {
+        return lessonItems;
     }
 
-    public void setLessons(ArrayList<LessonItem> lessons) {
-        this.lessons = lessons;
+    public void setLessonItems(ArrayList<LessonItem> lessonItems) {
+        this.lessonItems = lessonItems;
     }
 }

@@ -5,21 +5,17 @@
     android:id="@+id/activity_tracking"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#42b586"
+    android:background="#ffffff"
     tools:context="com.voxar.arauthtool.TrackingActivity">
-<eu.kudan.kudan.ARView
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:id="@+id/arview"
-     />
 
 
-    <ListView
-        android:id="@+id/lesson_list"
+
+    <TextView
+        android:id="@+id/tv_lesson_item_title"
+        android:text="LessonItem"
+        android:layout_height="100dp"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:background="#22ffffff"
-        android:foregroundGravity="bottom"
-        android:layout_alignParentBottom="true"
-        />
+        android:gravity="center"
+        android:background="#ff00ff"
+         />
 </RelativeLayout>
