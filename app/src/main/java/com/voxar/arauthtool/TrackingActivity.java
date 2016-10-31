@@ -4,6 +4,8 @@ package com.voxar.arauthtool;
 import android.os.Bundle;
 import android.util.Log;
 
+import java.util.ArrayList;
+
 import eu.kudan.kudan.ARActivity;
 import eu.kudan.kudan.ARImageTrackable;
 import eu.kudan.kudan.ARImageTrackableListener;
@@ -18,22 +20,26 @@ import eu.kudan.kudan.ARView;
 import eu.kudan.kudansamples.R;
 
 public class TrackingActivity extends ARActivity {
-    public String uri;
+    public Lesson lesson;
     public ARNode tracable;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tracking);
-        uri = getIntent().getExtras().getString("filepath");
+        lesson = (Lesson) getIntent().getExtras().get("lesson");
+
+        //   uri = getIntent().getExtras().getString("filepath");
 
     }
 
     @Override
     public void setup() {
         super.setup();
-        ARImageTrackable imageTracked = addImageTrackableFromPath("photo01", uri);
-        addModelNode(imageTracked, "cube.jet");
+        ArrayList<LessonItem> lessons = lesson.getLessons();
+        ARImageTrackable imageTracked = addImageTrackableFromPath(lesson.getName(), lesson.getFilePath());
+
+            addModelNode(imageTracked, "cube.jet");
 
     }
 
@@ -41,7 +47,7 @@ public class TrackingActivity extends ARActivity {
     private ARImageTrackable addImageTrackableFromPath(String name, String path) {
 
         // Initialise image trackable
-       ARImageTrackable trackable = new ARImageTrackable(name);
+        ARImageTrackable trackable = new ARImageTrackable(name);
         trackable.loadFromPath(path);
 
         // Get instance of image tracker manager
@@ -60,7 +66,7 @@ public class TrackingActivity extends ARActivity {
             @Override
             public void didTrack(ARImageTrackable trackable) {
 
-            //    Log.i("geeo", "tracked" + trackable.getName());
+                //    Log.i("geeo", "tracked" + trackable.getName());
             }
 
             @Override
@@ -69,34 +75,34 @@ public class TrackingActivity extends ARActivity {
                 Log.i("geeo", "lost " + trackable.getName());
             }
         });
-return trackable;
+        return trackable;
 
     }
 
     private void addModelNode(ARImageTrackable trackable, String modelAsset) {
         // Import model
         ARModelImporter modelImporter = new ARModelImporter();
-      modelImporter.loadFromAsset(modelAsset);
-        ARModelNode modelNode = (ARModelNode)modelImporter.getNode();
+        modelImporter.loadFromAsset(modelAsset);
+        ARModelNode modelNode = (ARModelNode) modelImporter.getNode();
 
 
-         //Load model texture
+        //Load model texture
         ARTexture2D texture2D = new ARTexture2D();
         texture2D.loadFromAsset("green.png");
 
 
         // Apply model texture to model texture material
         ARLightMaterial material = new ARLightMaterial();
-      material.setTexture(texture2D);
+        material.setTexture(texture2D);
         material.setAmbient(0.8f, 0.8f, 0.8f);
 
         // Apply texture material to models mesh nodes
-        for(ARMeshNode meshNode : modelImporter.getMeshNodes()){
+        for (ARMeshNode meshNode : modelImporter.getMeshNodes()) {
             meshNode.setMaterial(material);
         }
 
 
-        modelNode.rotateByDegrees(90,1,0,0);
+        modelNode.rotateByDegrees(90, 1, 0, 0);
         modelNode.scaleByUniform(150f);
 
         // Add model node to image trackable

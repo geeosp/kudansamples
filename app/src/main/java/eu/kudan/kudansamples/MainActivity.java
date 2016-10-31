@@ -14,6 +14,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
+import com.voxar.arauthtool.Book;
+import com.voxar.arauthtool.Lesson;
+import com.voxar.arauthtool.LessonItem;
 import com.voxar.arauthtool.TrackingActivity;
 
 import eu.kudan.kudan.ARAPIKey;
@@ -51,49 +54,22 @@ public class MainActivity extends AppCompatActivity {
 
     public void onButtonPressed(View v) {
         permissionsRequest();
-        if (ContextCompat.checkSelfPermission(this,
-                Manifest.permission.READ_EXTERNAL_STORAGE)
-                != PackageManager.PERMISSION_GRANTED) {
-
-            ActivityCompat.requestPermissions(this,
-                    new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
-                    MY_PERMISSION_READ_EXTERNAL_STORAGE);
-        } else if (ContextCompat.checkSelfPermission(this,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                != PackageManager.PERMISSION_GRANTED) {
-
-            ActivityCompat.requestPermissions(this,
-                    new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
-                    MY_PERMISSION_WRITE_EXTERNAL_STORAGE);
-        } else if (ContextCompat.checkSelfPermission(this,
-                Manifest.permission.CAMERA)
-                != PackageManager.PERMISSION_GRANTED) {
-
-            ActivityCompat.requestPermissions(this,
-                    new String[]{Manifest.permission.CAMERA},
-                        MY_PERMISSION_CAMERA);
-        }
-
-
-
-
-
-        else {
-
             TedBottomPicker tedBottomPicker = new TedBottomPicker.Builder(MainActivity.this)
                     .setOnImageSelectedListener(new TedBottomPicker.OnImageSelectedListener() {
                         @Override
                         public void onImageSelected(Uri uri) {
+                            Lesson lesson  = new Lesson("Lesson 01" ,uri.getPath());
+                            LessonItem item = new LessonItem(LessonItem.LessonItemType.URL,"http://www.google.com");
                             Log.i("geeo",uri.getPath());
                             Intent intent = new Intent(getApplicationContext(), TrackingActivity.class);
-                            intent.putExtra("filepath",uri.getPath());
+                            intent.putExtra("lesson",lesson);
                             startActivity(intent);
                         }
                     })
                     .create();
 
             tedBottomPicker.show(getSupportFragmentManager());
-        }
+
     }
 
 
