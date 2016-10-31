@@ -1,12 +1,14 @@
 package eu.kudan.kudansamples;
 
 import android.Manifest;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,6 +17,7 @@ import android.view.View;
 import com.voxar.arauthtool.TrackingActivity;
 
 import eu.kudan.kudan.ARAPIKey;
+import eu.kudan.kudan.ARImageNode;
 import eu.kudan.kudan.ARNode;
 import gun0912.tedbottompicker.TedBottomPicker;
 
@@ -42,10 +45,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         //chamado quando oapp fica em evidencia;
         super.onResume();
+        permissionsRequest();
         //openARActivity();
     }
 
     public void onButtonPressed(View v) {
+        permissionsRequest();
         if (ContextCompat.checkSelfPermission(this,
                 Manifest.permission.READ_EXTERNAL_STORAGE)
                 != PackageManager.PERMISSION_GRANTED) {
@@ -126,20 +131,51 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        switch (requestCode) {
-            case MY_PERMISSION_CAMERA: {
-                // If request is cancelled, the result arrays are empty.
-                if (grantResults.length > 0
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    openARActivity();
+    // Requests app permissions
+    public void permissionsRequest() {
 
-                } else {
-
-                }
-            }
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.INTERNET)
+                != PackageManager.PERMISSION_GRANTED || ContextCompat.checkSelfPermission(this,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED || ContextCompat.checkSelfPermission(this,
+                Manifest.permission.READ_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED ||ContextCompat.checkSelfPermission(this,
+                Manifest.permission.CAMERA)
+                != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.INTERNET, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.CAMERA}, 111);
 
         }
     }
+
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case 111: {
+                if (grantResults.length > 0 && grantResults[0]== PackageManager.PERMISSION_GRANTED ) {
+
+                } else {
+                    permissionsNotSelected();
+                }
+            }
+        }
+    }
+
+    private void permissionsNotSelected() {
+        AlertDialog.Builder builder = new AlertDialog.Builder (this);
+        builder.setTitle("Permissions Requred");
+        builder.setMessage("Please enable the requested permissions in the app settings in order to use this demo app");
+        builder.setNeutralButton("Cancel", new DialogInterface.OnClickListener () {
+            public void onClick(DialogInterface dialog, int id) {
+                dialog.cancel();
+                System.exit(1);
+            }
+        });
+        AlertDialog noInternet = builder.create();
+        noInternet.show();
+    }
+
 }
