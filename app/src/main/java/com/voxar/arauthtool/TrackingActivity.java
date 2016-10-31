@@ -33,7 +33,7 @@ public class TrackingActivity extends ARActivity {
     public void setup() {
         super.setup();
         ARImageTrackable imageTracked = addImageTrackableFromPath("photo01", uri);
-        addModelNode(imageTracked, "cube.armodel");
+        addModelNode(imageTracked, "cube.jet");
 
     }
 
@@ -97,7 +97,7 @@ return trackable;
 
 
         modelNode.rotateByDegrees(90,1,0,0);
-        modelNode.scaleByUniform(0.25f);
+        modelNode.scaleByUniform(150f);
 
         // Add model node to image trackable
         trackable.getWorld().addChild(modelNode);
