@@ -16,6 +16,6 @@
         android:layout_height="85dp"
         android:layout_width="match_parent"
         android:gravity="center"
-        android:background="#ff00ff"
+        android:background="#ffaaaaff"
          />
 </RelativeLayout>

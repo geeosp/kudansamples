@@ -53,25 +53,14 @@ public class MainActivity extends AppCompatActivity {
                     .setOnImageSelectedListener(new TedBottomPicker.OnImageSelectedListener() {
                         @Override
                         public void onImageSelected(Uri uri) {
-                            Lesson lesson  = new Lesson("Lesson 01" ,uri.getPath());
-
-                            LessonItem item0 = new LessonItem(LessonItem.LessonItemType.URL,"Internet link", "http://www.google.com");
+                            Lesson lesson  = new Lesson("Revolução Francesa1" ,uri.getPath());
+                            LessonItem item0 = new LessonItem(LessonItem.LessonItemType.URL,"Wikipedia", "https://pt.wikipedia.org/wiki/Revolu%C3%A7%C3%A3o_Francesa"                   );
                             lesson.addLessonItem(item0);
-
-
-                           LessonItem item1 = new LessonItem(LessonItem.LessonItemType.URL,"Youtube Link", "https://www.youtube.com/watch?v=ouq9tU5DUOc");
+                           LessonItem item1 = new LessonItem(LessonItem.LessonItemType.URL,"Youtube", "https://www.youtube.com/watch?v=4nkwvmBKxek");
                             lesson.addLessonItem(item1);
-
-
-                            LessonItem item2 = new LessonItem(LessonItem.LessonItemType.URL,"Dropbox link", "https://www.dropbox.com/s/f5jghxyxxz5faul/CG-2-2016.pptx?dl=0");
-                            lesson.addLessonItem(item2);
-                            LessonItem item3 = new LessonItem(LessonItem.LessonItemType.URL,"Maps Link", "https://www.google.com.br/maps/place/R%C3%BAssia/@33.8094122,40.7922993,3z/data=!3m1!4b1!4m5!3m4!1s0x453c569a896724fb:0x1409fdf86611f613!8m2!3d61.52401!4d105.318756?hl=pt-BR");
-                            lesson.addLessonItem(item3);
-
-
-
-                            Log.i("geeo",uri.getPath());
+                            LessonItem item3 = new LessonItem(LessonItem.LessonItemType.URL,"Mapa", "https://www.google.com.br/maps/place/Fran%C3%A7a/@46.1350721,-2.28879,6z/data=!3m1!4b1!4m5!3m4!1s0xd54a02933785731:0x6bfd3f96c747d9f7!8m2!3d46.227638!4d2.213749");                         Log.i("geeo",uri.getPath());
                             Intent intent = new Intent(getApplicationContext(), TrackingActivity.class);
+                            lesson.addLessonItem(item3);
                             intent.putExtra("lesson",lesson);
                             startActivity(intent);
                         }

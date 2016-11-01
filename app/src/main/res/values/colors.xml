@@ -3,4 +3,6 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="app_background">#ffaaffff</color>
+    <color name="tracking_activity">#42b586</color>
 </resources>

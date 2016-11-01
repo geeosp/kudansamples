@@ -5,15 +5,32 @@
     android:id="@+id/activity_tracking"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#42b586"
-    tools:context="com.voxar.arauthtool.TrackingActivity">
+    android:background="@color/tracking_activity"
+    tools:context="com.voxar.arauthtool.TrackingActivity"
+    android:padding="10dp">
 
     <eu.kudan.kudan.ARView
         android:id="@+id/arview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+
+        />
 
 
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="80dp"
+    android:gravity="right"
+    android:id="@+id/tracking_symbol"
+    android:visibility="visible">
+    <ProgressBar
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_margin="20dp"
+        style="@android:style/Widget.Material.Light.ProgressBar.Large">
+
+    </ProgressBar>
+</RelativeLayout>
     <RelativeLayout
         android:id="@+id/listviewroot"
         android:layout_width="match_parent"

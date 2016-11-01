@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.database.DataSetObserver;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toolbar;
 
 import java.util.ArrayList;
 
@@ -77,8 +79,8 @@ public class TrackingActivity extends ARActivity {
                 listView.setAdapter(adapter);
                 View v = findViewById(R.id.listviewroot);
                 v.setVisibility(View.VISIBLE);
-                //listView.setVisibility(View.VISIBLE);
-
+                v = findViewById(R.id.tracking_symbol);
+                v.setVisibility(View. INVISIBLE);
             }
 
 
@@ -94,6 +96,8 @@ public class TrackingActivity extends ARActivity {
                 Log.i("geeo", "lost " + trackable.getName());
                 View v = findViewById(R.id.listviewroot);
                 v.setVisibility(View.INVISIBLE);
+                v = findViewById(R.id.tracking_symbol);
+                v.setVisibility(View.VISIBLE);
             }
         });
         return trackable;
