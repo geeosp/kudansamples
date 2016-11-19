@@ -2,6 +2,9 @@ package eu.kudan.kudansamples;
 
 import android.app.Application;
 
+import com.voxar.arauthtool.BookDatabase;
+import com.voxar.arauthtool.NaiveBookDatabase;
+
 import eu.kudan.kudan.ARAPIKey;
 
 
@@ -10,12 +13,19 @@ import eu.kudan.kudan.ARAPIKey;
  */
 
 public class MyApplication extends Application {
+
     @Override
     public void onCreate() {
         super.onCreate();
     ARAPIKey key = ARAPIKey.getInstance();
     key.setAPIKey("GAWAE-FBVCC-XA8ST-GQVZV-93PQB-X7SBD-P6V4W-6RS9C-CQRLH-78YEU-385XP-T6MCG-2CNWB-YK8SR-8UUQ");
+
     }
+
+   public  static BookDatabase getDatabase(){
+        return NaiveBookDatabase.getInstance();
+    }
+
 
 
 }

@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">kudansamples</string>
+    <string name="app_name">AR Auth Tool</string>
+    <string name="menu_create_book">Criar Livro</string>
 </resources>
