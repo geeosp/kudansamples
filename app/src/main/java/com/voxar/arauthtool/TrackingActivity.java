@@ -5,8 +5,6 @@ import android.content.Intent;
 import android.database.DataSetObserver;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v7.app.ActionBar;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,7 +12,6 @@ import android.view.ViewGroup;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toolbar;
 
 import java.util.ArrayList;
 
@@ -26,7 +23,6 @@ import eu.kudan.kudan.ARLightMaterial;
 import eu.kudan.kudan.ARMeshNode;
 import eu.kudan.kudan.ARModelImporter;
 import eu.kudan.kudan.ARModelNode;
-import eu.kudan.kudan.ARNode;
 import eu.kudan.kudan.ARTexture2D;
 import eu.kudan.kudan.ARView;
 import eu.kudan.kudansamples.R;
@@ -207,7 +203,7 @@ public class TrackingActivity extends ARActivity {
                 LayoutInflater inflater = LayoutInflater.from(getApplicationContext());
                 convertView = inflater.inflate(R.layout.activity_tracking_lesson_item, parent, false);
             }
-            TextView tv = (TextView) convertView.findViewById(R.id.tv_lesson_item_title);
+            TextView tv = (TextView) convertView.findViewById(R.id.tv_lesson_name);
             tv.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

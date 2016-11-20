@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">AR Auth Tool</string>
     <string name="menu_create_book">Criar Livro</string>
+    <string name="book_name_default">Novo Livro</string>
+    <string name="book_name_placeholder">Nome do Livro</string>
+
 </resources>

@@ -3,7 +3,6 @@ package com.voxar.arauthtool;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -41,6 +40,9 @@ public class BookListActivity extends AppCompatActivity {
 
         RecyclerView.LayoutManager layout = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
 
+
+        //RecyclerView.LayoutManager layout = new GridLayoutManager(this,2);
+
         recyclerView.setLayoutManager(layout);
 
 
@@ -77,11 +79,12 @@ public class BookListActivity extends AppCompatActivity {
 
     class BookListHolder extends RecyclerView.ViewHolder{
         TextView tv_bookName;
-
+        View view;
 
         public BookListHolder(View itemView) {
             super(itemView);
-            tv_bookName = (TextView) itemView.findViewById(R.id.tv_book_name);
+        this.view = itemView;
+        this.    tv_bookName = (TextView) itemView.findViewById(R.id.tv_book_name);
         }
     }
 
@@ -96,9 +99,17 @@ public class BookListActivity extends AppCompatActivity {
         }
 
         @Override
-        public void onBindViewHolder(BookListHolder holder, int position) {
+        public void onBindViewHolder(BookListHolder holder, final int position) {
             Book book = books.get(position);
             holder.tv_bookName.setText(book.getName());
+            holder.view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(getApplicationContext(), BookActivity.class);
+                    intent.putExtra("book_id", position);
+                    startActivity(intent);
+                }
+            });
         }
 
         @Override

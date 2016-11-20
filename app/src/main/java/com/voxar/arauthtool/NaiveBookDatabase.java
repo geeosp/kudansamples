@@ -1,6 +1,7 @@
 package com.voxar.arauthtool;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * Created by Geovane on 19/11/2016.
@@ -10,7 +11,7 @@ public class NaiveBookDatabase extends BookDatabase {
     private static NaiveBookDatabase instance=new NaiveBookDatabase();
 
     private NaiveBookDatabase(){
-
+        loadBooks();
     }
 
 
@@ -30,6 +31,14 @@ public class NaiveBookDatabase extends BookDatabase {
             books=new ArrayList<Book>();
             for (int i =0; i<50;i++){
                 Book b = new Book("Book" + i);
+                int rand = new Random().nextInt(10);
+                for (int k =0;k< rand;k++){
+                    Lesson l = new Lesson("Lesson "+k, "");
+                    b.addLesson(l);
+                }
+
+
+
                 books.add(b);
             }
         }

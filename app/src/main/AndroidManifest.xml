@@ -38,7 +38,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.voxar.arauthtool.EditBookActivity"></activity>
+        <activity android:name="com.voxar.arauthtool.EditBookActivity" />
+        <activity android:name="com.voxar.arauthtool.BookActivity" />
+        <activity android:name="com.voxar.arauthtool.LessonActivity"></activity>
     </application>
 
 </manifest>

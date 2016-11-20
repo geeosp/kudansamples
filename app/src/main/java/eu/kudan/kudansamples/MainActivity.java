@@ -50,27 +50,29 @@ public class MainActivity extends AppCompatActivity {
     public void onButtonPressed(View v) {
         permissionsRequest();
         TedBottomPicker tedBottomPicker = new TedBottomPicker.Builder(MainActivity.this)
-        .setOnImageSelectedListener(new TedBottomPicker.OnImageSelectedListener() {
-            @Override
-            public void onImageSelected(Uri uri) {
-                Lesson lesson = new Lesson("Revolução Francesa1", uri.getPath());
-                LessonItem item0 = new LessonItem(LessonItem.LessonItemType.URL, "Wikipedia", "https://pt.wikipedia.org/wiki/Revolu%C3%A7%C3%A3o_Francesa");
-                lesson.addLessonItem(item0);
-                LessonItem item1 = new LessonItem(LessonItem.LessonItemType.URL, "Youtube", "https://www.youtube.com/watch?v=4nkwvmBKxek");
-                lesson.addLessonItem(item1);
-                LessonItem item3 = new LessonItem(LessonItem.LessonItemType.URL, "Mapa", "https://www.google.com.br/maps/place/Fran%C3%A7a/@46.1350721,-2.28879,6z/data=!3m1!4b1!4m5!3m4!1s0xd54a02933785731:0x6bfd3f96c747d9f7!8m2!3d46.227638!4d2.213749");
-                Log.i("geeo", uri.getPath());
-                Intent intent = new Intent(getApplicationContext(), TrackingActivity.class);
-                lesson.addLessonItem(item3);
-                intent.putExtra("lesson", lesson);
-                startActivity(intent);
-            }
-        }).setOnErrorListener(new TedBottomPicker.OnErrorListener() {
+                .setOnImageSelectedListener(new TedBottomPicker.OnImageSelectedListener() {
+                    @Override
+                    public void onImageSelected(Uri uri) {
+                        Lesson lesson = new Lesson("Revolução Francesa1", uri.getPath());
+                        LessonItem item0 = new LessonItem(LessonItem.LessonItemType.URL, "Wikipedia", "https://pt.wikipedia.org/wiki/Revolu%C3%A7%C3%A3o_Francesa");
+                        lesson.addLessonItem(item0);
+                        LessonItem item1 = new LessonItem(LessonItem.LessonItemType.URL, "Youtube", "https://www.youtube.com/watch?v=4nkwvmBKxek");
+                        lesson.addLessonItem(item1);
+                        LessonItem item3 = new LessonItem(LessonItem.LessonItemType.URL, "Mapa", "https://www.google.com.br/maps/place/Fran%C3%A7a/@46.1350721,-2.28879,6z/data=!3m1!4b1!4m5!3m4!1s0xd54a02933785731:0x6bfd3f96c747d9f7!8m2!3d46.227638!4d2.213749");
+                        Log.i("geeo", uri.getPath());
+                        Intent intent = new Intent(getApplicationContext(), TrackingActivity.class);
+                        lesson.addLessonItem(item3);
+                        intent.putExtra("lesson", lesson);
+                        startActivity(intent);
+                    }
+                }).setOnErrorListener(new TedBottomPicker.OnErrorListener() {
                     @Override
                     public void onError(String message) {
                         Log.e("geeo", message);
                     }
+
                 })
+               // .showCameraTile(false)
                 .create();
 
         tedBottomPicker.show(getSupportFragmentManager());
@@ -83,24 +85,17 @@ public class MainActivity extends AppCompatActivity {
         if (ContextCompat.checkSelfPermission(this,
                 Manifest.permission.CAMERA)
                 != PackageManager.PERMISSION_GRANTED) {
-
             // Should we show an explanation?
             if (ActivityCompat.shouldShowRequestPermissionRationale(this,
                     Manifest.permission.CAMERA)) {
-
                 // Show an expanation to the user *asynchronously* -- don't block
                 // this thread waiting for the user's response! After the user
                 // sees the explanation, try again to request the permission.
-
             } else {
-
                 // No explanation needed, we can request the permission.
-
                 ActivityCompat.requestPermissions(this,
                         new String[]{Manifest.permission.CAMERA},
                         MY_PERMISSION_CAMERA);
-
-
             }
         } else {
             Intent intent = new Intent(this, TrackingActivity.class);
