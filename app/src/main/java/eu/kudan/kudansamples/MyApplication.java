@@ -2,8 +2,8 @@ package eu.kudan.kudansamples;
 
 import android.app.Application;
 
-import com.voxar.arauthtool.BookDatabase;
-import com.voxar.arauthtool.NaiveBookDatabase;
+import com.voxar.arauthtool.database.BookDatabase;
+import com.voxar.arauthtool.database.NaiveBookDatabase;
 
 import eu.kudan.kudan.ARAPIKey;
 

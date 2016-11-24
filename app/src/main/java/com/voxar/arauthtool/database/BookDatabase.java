@@ -1,4 +1,6 @@
-package com.voxar.arauthtool;
+package com.voxar.arauthtool.database;
+
+import com.voxar.arauthtool.models.Book;
 
 import java.util.ArrayList;
 

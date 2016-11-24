@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
 
-    tools:context="com.voxar.arauthtool.TrackingActivity"
+    tools:context="com.voxar.arauthtool.activities.TrackingActivity"
     android:padding="10dp">
 
     <eu.kudan.kudan.ARView

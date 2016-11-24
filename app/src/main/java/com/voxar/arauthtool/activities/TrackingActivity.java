@@ -1,4 +1,4 @@
-package com.voxar.arauthtool;
+package com.voxar.arauthtool.activities;
 
 
 import android.content.Intent;
@@ -12,6 +12,9 @@ import android.view.ViewGroup;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import com.voxar.arauthtool.models.Lesson;
+import com.voxar.arauthtool.models.LessonItem;
 
 import java.util.ArrayList;
 

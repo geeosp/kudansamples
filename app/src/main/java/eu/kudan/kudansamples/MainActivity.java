@@ -13,9 +13,10 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
-import com.voxar.arauthtool.Lesson;
-import com.voxar.arauthtool.LessonItem;
-import com.voxar.arauthtool.TrackingActivity;
+import com.voxar.arauthtool.activities.BookListActivity;
+import com.voxar.arauthtool.models.Lesson;
+import com.voxar.arauthtool.models.LessonItem;
+import com.voxar.arauthtool.activities.TrackingActivity;
 
 import gun0912.tedbottompicker.TedBottomPicker;
 
@@ -77,7 +78,10 @@ public class MainActivity extends AppCompatActivity {
 
         tedBottomPicker.show(getSupportFragmentManager());
     }
-
+public void  openBooksActivity(View v){
+    Intent intent = new Intent(this, BookListActivity.class);
+    startActivity(intent);
+}
 
     protected void openARActivity() {
 

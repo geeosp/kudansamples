@@ -1,4 +1,4 @@
-package com.voxar.arauthtool;
+package com.voxar.arauthtool.models;
 
 import java.io.Serializable;
 

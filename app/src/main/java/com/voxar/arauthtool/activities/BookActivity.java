@@ -1,4 +1,4 @@
-package com.voxar.arauthtool;
+package com.voxar.arauthtool.activities;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -10,6 +10,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import com.voxar.arauthtool.models.Book;
+import com.voxar.arauthtool.models.Lesson;
 
 import eu.kudan.kudansamples.MyApplication;
 import eu.kudan.kudansamples.R;

@@ -1,4 +1,7 @@
-package com.voxar.arauthtool;
+package com.voxar.arauthtool.database;
+
+import com.voxar.arauthtool.models.Book;
+import com.voxar.arauthtool.models.Lesson;
 
 import java.util.ArrayList;
 import java.util.Random;

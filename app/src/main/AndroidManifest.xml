@@ -29,18 +29,18 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.voxar.arauthtool.TrackingActivity"
+            android:name="com.voxar.arauthtool.activities.TrackingActivity"
             android:screenOrientation="portrait" />
-        <activity android:name="com.voxar.arauthtool.BookListActivity">
+        <activity android:name="com.voxar.arauthtool.activities.BookListActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.voxar.arauthtool.EditBookActivity" />
-        <activity android:name="com.voxar.arauthtool.BookActivity" />
-        <activity android:name="com.voxar.arauthtool.LessonActivity"></activity>
+        <activity android:name="com.voxar.arauthtool.activities.EditBookActivity" />
+        <activity android:name="com.voxar.arauthtool.activities.BookActivity" />
+        <activity android:name="com.voxar.arauthtool.activities.LessonActivity"></activity>
     </application>
 
 </manifest>

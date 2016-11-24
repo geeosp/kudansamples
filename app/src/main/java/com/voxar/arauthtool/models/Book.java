@@ -1,7 +1,6 @@
-package com.voxar.arauthtool;
+package com.voxar.arauthtool.models;
 
 import java.io.Serializable;
-import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Date;
 
