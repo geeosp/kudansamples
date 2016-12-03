@@ -55,11 +55,11 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onImageSelected(Uri uri) {
                         Lesson lesson = new Lesson("Revolução Francesa1", uri.getPath());
-                        LessonItem item0 = new LessonItem(LessonItem.LessonItemType.URL, "Wikipedia", "https://pt.wikipedia.org/wiki/Revolu%C3%A7%C3%A3o_Francesa");
+                        LessonItem item0 = new LessonItem(LessonItem.TYPE_URL, "Wikipedia", "https://pt.wikipedia.org/wiki/Revolu%C3%A7%C3%A3o_Francesa");
                         lesson.addLessonItem(item0);
-                        LessonItem item1 = new LessonItem(LessonItem.LessonItemType.URL, "Youtube", "https://www.youtube.com/watch?v=4nkwvmBKxek");
+                        LessonItem item1 = new LessonItem(LessonItem.TYPE_URL, "Youtube", "https://www.youtube.com/watch?v=4nkwvmBKxek");
                         lesson.addLessonItem(item1);
-                        LessonItem item3 = new LessonItem(LessonItem.LessonItemType.URL, "Mapa", "https://www.google.com.br/maps/place/Fran%C3%A7a/@46.1350721,-2.28879,6z/data=!3m1!4b1!4m5!3m4!1s0xd54a02933785731:0x6bfd3f96c747d9f7!8m2!3d46.227638!4d2.213749");
+                        LessonItem item3 = new LessonItem(LessonItem.TYPE_URL, "Mapa", "https://www.google.com.br/maps/place/Fran%C3%A7a/@46.1350721,-2.28879,6z/data=!3m1!4b1!4m5!3m4!1s0xd54a02933785731:0x6bfd3f96c747d9f7!8m2!3d46.227638!4d2.213749");
                         Log.i("geeo", uri.getPath());
                         Intent intent = new Intent(getApplicationContext(), TrackingActivity.class);
                         lesson.addLessonItem(item3);

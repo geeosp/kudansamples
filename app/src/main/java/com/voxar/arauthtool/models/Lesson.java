@@ -3,28 +3,37 @@ package com.voxar.arauthtool.models;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import io.realm.RealmList;
+import io.realm.RealmObject;
+
 /**
  * Created by Geovane on 30/10/2016.
  */
 
-public class Lesson implements Serializable{
+public class Lesson extends RealmObject  implements Serializable {
     String name;
     String filePath; //path to image tracked
-    ArrayList<LessonItem> lessonItems;//contenc to be linked to image
+    RealmList<LessonItem> lessonItems;//contenc to be linked to image
+
     public void addLessonItem(LessonItem li) {
         lessonItems.add(li);
+    }
+
+    public Lesson() {
     }
 
     public Lesson(String name, String filePath) {
         this.name = name;
         this.filePath = filePath;
-        this.lessonItems =new ArrayList<>();
+        this.lessonItems = new RealmList<LessonItem>();
     }
 
     public Lesson(String name, String filePath, ArrayList<LessonItem> lessonItems) {
         this.name = name;
         this.filePath = filePath;
-        this.lessonItems = lessonItems;
+        this.lessonItems = new RealmList<LessonItem>();
+        for (int i = 0; i < lessonItems.size(); i++)
+            this.lessonItems.add(lessonItems.get(i));
     }
 
     public String getName() {
@@ -43,11 +52,12 @@ public class Lesson implements Serializable{
         this.filePath = filePath;
     }
 
-    public ArrayList<LessonItem> getLessonItems() {
+    public RealmList<LessonItem> getLessonItems() {
         return lessonItems;
     }
 
     public void setLessonItems(ArrayList<LessonItem> lessonItems) {
-        this.lessonItems = lessonItems;
+        for (int i = 0; i < lessonItems.size(); i++)
+            this.lessonItems.add(lessonItems.get(i));
     }
 }

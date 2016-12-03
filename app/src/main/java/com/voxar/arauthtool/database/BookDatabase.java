@@ -11,9 +11,8 @@ import java.util.ArrayList;
 public abstract class BookDatabase {
 
     public abstract ArrayList<Book> loadBooks();
-    public abstract Book getBook(int id);
-    public abstract void saveBook(int id, Book book);
-    private static BookDatabase instance;
+    public abstract Book getBook(long id);
+    public abstract void saveBook(long id, Book book);
 
 
 

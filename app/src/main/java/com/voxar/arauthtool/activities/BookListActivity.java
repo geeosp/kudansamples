@@ -103,13 +103,13 @@ public class BookListActivity extends AppCompatActivity {
 
         @Override
         public void onBindViewHolder(BookListHolder holder, final int position) {
-            Book book = books.get(position);
+           final  Book book = books.get(position);
             holder.tv_bookName.setText(book.getName());
             holder.view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Intent intent = new Intent(getApplicationContext(), BookActivity.class);
-                    intent.putExtra("book_id", position);
+                    intent.putExtra("book_id", book.getId());
                     startActivity(intent);
                 }
             });

@@ -16,8 +16,6 @@ import android.widget.TextView;
 import com.voxar.arauthtool.models.Lesson;
 import com.voxar.arauthtool.models.LessonItem;
 
-import java.util.ArrayList;
-
 import eu.kudan.kudan.ARActivity;
 import eu.kudan.kudan.ARImageTrackable;
 import eu.kudan.kudan.ARImageTrackableListener;
@@ -29,6 +27,7 @@ import eu.kudan.kudan.ARModelNode;
 import eu.kudan.kudan.ARTexture2D;
 import eu.kudan.kudan.ARView;
 import eu.kudan.kudansamples.R;
+import io.realm.RealmList;
 
 public class TrackingActivity extends ARActivity {
     public Lesson lesson;
@@ -79,7 +78,7 @@ public class TrackingActivity extends ARActivity {
                 View v = findViewById(R.id.listviewroot);
                 v.setVisibility(View.VISIBLE);
                 v = findViewById(R.id.tracking_symbol);
-                v.setVisibility(View. INVISIBLE);
+                v.setVisibility(View.INVISIBLE);
             }
 
 
@@ -152,9 +151,9 @@ public class TrackingActivity extends ARActivity {
 
     class LessonItemAdapter implements ListAdapter {
 
-        ArrayList<LessonItem> itens;
+        RealmList<LessonItem> itens;
 
-        LessonItemAdapter(ArrayList<LessonItem> itens) {
+        LessonItemAdapter(RealmList<LessonItem> itens) {
             this.itens = itens;
         }
 
@@ -212,7 +211,7 @@ public class TrackingActivity extends ARActivity {
                 public void onClick(View view) {
                     LessonItem item = itens.get(position);
                     switch (item.getType()) {
-                        case URL:
+                        case LessonItem.TYPE_URL:
                             Intent i = new Intent(Intent.ACTION_VIEW,
                                     Uri.parse(((LessonItem) getItem(position)).getContent()));
                             startActivity(i);

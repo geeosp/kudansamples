@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,7 +27,8 @@ public class BookActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_book);
-        int bookId = getIntent().getIntExtra("book_id", -1);
+        long bookId = getIntent().getLongExtra("book_id", -1);
+        Log.e("geeo", ""+ bookId);
         if(bookId==-1){
             book = new Book(getResources().getString(R.string.book_name_default));
             editMode = true;
@@ -43,7 +45,7 @@ public class BookActivity extends AppCompatActivity {
 
        // RecyclerView.LayoutManager layout = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
 
-
+        setTitle(book.getName());
         LayoutManager layout = new GridLayoutManager(this,2);
 
         recyclerView.setLayoutManager(layout);

@@ -3,9 +3,10 @@ package eu.kudan.kudansamples;
 import android.app.Application;
 
 import com.voxar.arauthtool.database.BookDatabase;
-import com.voxar.arauthtool.database.NaiveBookDatabase;
+import com.voxar.arauthtool.database.RealmBookDatabase;
 
 import eu.kudan.kudan.ARAPIKey;
+import io.realm.Realm;
 
 
 /**
@@ -17,15 +18,15 @@ public class MyApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-    ARAPIKey key = ARAPIKey.getInstance();
-    key.setAPIKey("GAWAE-FBVCC-XA8ST-GQVZV-93PQB-X7SBD-P6V4W-6RS9C-CQRLH-78YEU-385XP-T6MCG-2CNWB-YK8SR-8UUQ");
+        ARAPIKey key = ARAPIKey.getInstance();
+        key.setAPIKey("GAWAE-FBVCC-XA8ST-GQVZV-93PQB-X7SBD-P6V4W-6RS9C-CQRLH-78YEU-385XP-T6MCG-2CNWB-YK8SR-8UUQ");
+        Realm.init(getApplicationContext());
 
     }
 
-   public  static BookDatabase getDatabase(){
-        return NaiveBookDatabase.getInstance();
+    public static BookDatabase getDatabase() {
+        return RealmBookDatabase.getInstance();
     }
-
 
 
 }

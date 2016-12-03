@@ -1,33 +1,46 @@
 package com.voxar.arauthtool.models;
 
 import java.io.Serializable;
+import java.io.SerializablePermission;
 import java.util.ArrayList;
 import java.util.Date;
+
+import io.realm.RealmList;
+import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
 
 /**
  * Created by Geovane on 30/10/2016.
  */
 
-public class Book implements Serializable {
-    private ArrayList<Lesson> lessons;
+public class Book extends RealmObject implements Serializable{
+    @PrimaryKey
+    long id;
+
+   private RealmList<Lesson> lessons;
     private String name;
     private Date createdDate;
-    long id;
     public void addLesson(Lesson l) {
         lessons.add(l);
     }
     public void removeLesson(int id){
         lessons.remove(id);
     }
+
+
+    public Book (){
+        this.id=System.currentTimeMillis();
+    }
+
     public Book(String name){
         this.name = name;
         this.createdDate = new Date();
-        this.lessons = new ArrayList<Lesson>();
+        this.lessons = new RealmList<Lesson>();
         this.id=System.currentTimeMillis();
     }
 
     public ArrayList<Lesson> getLessons() {
-        return lessons;
+        return new ArrayList<Lesson>();
     }
 
     public String getName() {
