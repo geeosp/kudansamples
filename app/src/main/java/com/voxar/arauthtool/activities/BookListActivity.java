@@ -63,7 +63,8 @@ public class BookListActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.menu_create_book:
-                Intent intent = new Intent(this, EditBookActivity.class);
+                Intent intent = new Intent(this, BookActivity.class);
+                intent.putExtra("book_id", -1);
                 startActivity(intent);
 
                 break;
