@@ -1,9 +1,10 @@
 package com.voxar.arauthtool.database;
 
-import com.voxar.arauthtool.models.Book;
-import com.voxar.arauthtool.models.realm.BookRealm;
+import android.util.Log;
 
-import java.util.ArrayList;
+import com.voxar.arauthtool.models.Book;
+import com.voxar.arauthtool.models.Lesson;
+
 import java.util.List;
 
 import io.realm.Realm;
@@ -21,6 +22,20 @@ public class RealmBookDatabase extends BookDatabase {
     public RealmBookDatabase() {
     }
 
+    public static RealmBookDatabase getInstance() {
+        if (instance == null) {
+            instance = new RealmBookDatabase();
+            if (instance.loadBooks().size() < 5) {
+                for (int i = 0; i < 5; i++) {
+                    Book b = new Book("Book " + i);
+                    b.addLesson(new Lesson());
+                    instance.saveBook( b);
+                }
+            }
+        }
+        return instance;
+    }
+
     @Override
     public void deleteBook(long bookId) {
         Realm realm = Realm.getDefaultInstance();
@@ -28,19 +43,6 @@ public class RealmBookDatabase extends BookDatabase {
         RealmResults<Book> result = realm.where(Book.class).equalTo("id", bookId).findAll();
         result.deleteAllFromRealm();
         realm.commitTransaction();
-    }
-
-    public static RealmBookDatabase getInstance() {
-        if (instance == null) {
-            instance = new RealmBookDatabase();
-            if (instance.loadBooks().size() < 5) {
-                for (int i = 0; i < 5; i++) {
-                    Book b = new Book("Book " + i);
-                    instance.saveBook(i, b);
-                }
-            }
-        }
-        return instance;
     }
 
     @Override
@@ -53,15 +55,25 @@ public class RealmBookDatabase extends BookDatabase {
     @Override
     public Book getBook(long id) {
         Realm realm = Realm.getDefaultInstance();
-        final RealmResults<Book> book = realm.where(Book.class).equalTo("id", id).findAll();
+        RealmResults<Book> book = realm.where(Book.class).equalTo("id", id).findAll();
         return new Book(book.first());
     }
 
     @Override
-    public void saveBook(long id, Book book) {
+    public void saveBook( Book book) {
         Realm realm = Realm.getDefaultInstance();
+        Log.e("DatabaseBookLessonCount", "" + book.getLessons().size());
+        List<Lesson> lessons = book.getLessons();
         realm.beginTransaction();
+
         realm.insertOrUpdate(book);
+
+
+        
         realm.commitTransaction();
+
+
+
+
     }
 }

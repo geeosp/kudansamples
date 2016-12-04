@@ -1,8 +1,8 @@
 package com.voxar.arauthtool.activities;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -13,11 +13,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-
 import com.voxar.arauthtool.database.BookDatabase;
 import com.voxar.arauthtool.models.Book;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import eu.kudan.kudansamples.MyApplication;
@@ -74,12 +72,14 @@ public class BookListActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
+           /*
             case R.id.menu_create_book:
                 Intent intent = new Intent(this, BookActivity.class);
                 intent.putExtra("book_id", -1);
                 startActivity(intent);
 
                 break;
+        */
         }
 
 
@@ -92,6 +92,16 @@ public class BookListActivity extends AppCompatActivity {
         books = database.loadBooks();
 
         bookAdapter.notifyDataSetChanged();
+    }
+
+    void onPlusFloatingPressed(View v) {
+    openCreateNewBook();
+    }
+    void openCreateNewBook(){
+        Intent intent = new Intent(this, BookActivity.class);
+        intent.putExtra("book_id", -1);
+        startActivity(intent);
+
     }
 
     class BookListHolder extends RecyclerView.ViewHolder {

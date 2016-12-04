@@ -1,10 +1,9 @@
 package com.voxar.arauthtool.activities;
 
 import android.content.Intent;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -22,11 +21,18 @@ import com.voxar.arauthtool.models.Lesson;
 
 import eu.kudan.kudansamples.MyApplication;
 import eu.kudan.kudansamples.R;
-import io.realm.Realm;
 
-import static android.support.v7.widget.RecyclerView.*;
+import static android.support.v7.widget.RecyclerView.INVISIBLE;
+import static android.support.v7.widget.RecyclerView.LayoutManager;
+import static android.support.v7.widget.RecyclerView.OnClickListener;
+import static android.support.v7.widget.RecyclerView.VISIBLE;
+import static android.support.v7.widget.RecyclerView.ViewHolder;
 
 public class BookActivity extends AppCompatActivity {
+    public static final int RESULT_EDITED = 1;
+    public static final int REQUEST_VIEW_LESSON = 0;
+    public static final int REQUEST_CREATE_LESSON = 1;
+
     Book book;
     boolean editMode;
     EditText et_bookName;
@@ -39,11 +45,12 @@ public class BookActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_book);
         long bookId = getIntent().getLongExtra("book_id", -1);
-        Log.e("geeo", "" + bookId);
-        et_bookName = (EditText) findViewById(R.id.et_book_name);
-        //  realm = Realm.getDefaultInstance();
 
         floatingActionButton = (FloatingActionButton) findViewById(R.id.floatingActionButton);
+        et_bookName = (EditText) findViewById(R.id.et_book_name);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        recyclerView = (RecyclerView) findViewById(R.id.recycler);
+
 
         if (bookId == -1) {
             book = new Book(getResources().getString(R.string.book_name_default));
@@ -53,11 +60,10 @@ public class BookActivity extends AppCompatActivity {
             book = MyApplication.getDatabase().getBook(bookId);
             setEditMode(false);
         }
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        // Sets the Toolbar to act as the ActionBar for this Activity window.
-        // Make sure the toolbar exists in the activity and is not null
+
+
         setSupportActionBar(toolbar);
-        recyclerView = (RecyclerView) findViewById(R.id.recycler);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         recyclerView.setAdapter(new LessonAdapter());
         // RecyclerView.LayoutManager layout = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         LayoutManager layout = new GridLayoutManager(this, 2);
@@ -70,8 +76,6 @@ public class BookActivity extends AppCompatActivity {
         et_bookName.setText(book.getName());
 
 
-
-
         recyclerView.invalidate();
     }
 
@@ -82,14 +86,14 @@ public class BookActivity extends AppCompatActivity {
             et_bookName.setVisibility(VISIBLE);
             et_bookName.setText(book.getName());
             floatingActionButton.setImageResource(R.drawable.ic_action_add);
-           floatingActionButton.setOnClickListener(new OnClickListener() {
-               @Override
-               public void onClick(View view) {
-                   openLesson(book.getId(), -1);
-               }
-           });
+            floatingActionButton.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    openLesson(REQUEST_CREATE_LESSON, null);
+                }
+            });
         } else {
-            et_bookName.setVisibility(INVISIBLE);
+            et_bookName.setVisibility(View.GONE);
             floatingActionButton.setImageResource(R.drawable.ic_action_play);
         }
         invalidateOptionsMenu();
@@ -119,17 +123,17 @@ public class BookActivity extends AppCompatActivity {
                 break;
             case R.id.menu_delete:
                 delete();
+
                 break;
+            case android.R.id.home:
+                this.finish();
         }
-        return super.onOptionsItemSelected(item);
+        return true;
     }
 
     void save() {
         book.setName(et_bookName.getText().toString());
-
-
-        MyApplication.getDatabase().saveBook(book.getId(), book);
-
+        MyApplication.getDatabase().saveBook( book);
         setEditMode(false);
         updateViews();
     }
@@ -151,20 +155,42 @@ public class BookActivity extends AppCompatActivity {
 
     }
 
-    void playBook(){
-
-    }
-    void openLesson(long bookId, long lessonId){
-        Intent intent =  new Intent(this, LessonActivity.class)
-                ;
-        intent.putExtra("book_id", bookId);
-        intent.putExtra("lesson_id", lessonId);
-        startActivity(intent);
+    void playBook() {
 
     }
 
+    void openLesson(int request, Lesson lesson) {
+        Intent intent = new Intent(this, LessonActivity.class);
+        intent.putExtra("request", request);
+        if (request == REQUEST_VIEW_LESSON) {
+            Limbo.setCurrentLesson(lesson);
+        }
+        startActivityForResult(intent, request);
+
+    }
 
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // Check which request we're responding to
+        if (resultCode == RESULT_EDITED) {
+            Lesson lesson = (Lesson) data.getExtras().get("lesson");
+            switch (requestCode) {
+                case REQUEST_CREATE_LESSON:
+                    book.getLessons().add(lesson);
+
+                    break;
+                case REQUEST_VIEW_LESSON:
+                    for (int i = 0; i < book.getLessons().size(); i++) {
+                        if (book.getLessons().get(i).getId() == lesson.getId()) {
+                            book.getLessons().set(i, lesson);
+                        }
+                    }
+
+                    break;
+            }
+        }
+    }
 
 
     class LessonListHolder extends ViewHolder {
@@ -179,8 +205,6 @@ public class BookActivity extends AppCompatActivity {
     }
 
     class LessonAdapter extends RecyclerView.Adapter<LessonListHolder> {
-
-
         @Override
         public LessonListHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             View view = LayoutInflater.from(getApplicationContext()).inflate(R.layout.lesson_list_item_layout, parent, false);
@@ -195,7 +219,9 @@ public class BookActivity extends AppCompatActivity {
             holder.view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    openLesson(book.getId(), lesson.getId());
+                    Lesson n = new Lesson();
+                    n.set(lesson);
+                    openLesson(REQUEST_VIEW_LESSON, n);
                 }
             });
         }
@@ -205,7 +231,5 @@ public class BookActivity extends AppCompatActivity {
             return book.getLessons().size();
         }
     }
-
-
 }
 

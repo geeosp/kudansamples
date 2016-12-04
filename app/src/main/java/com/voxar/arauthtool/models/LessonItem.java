@@ -8,22 +8,31 @@ import io.realm.RealmObject;
  * Created by Geovane on 30/10/2016.
  */
 
-public class LessonItem extends RealmObject  implements Serializable {
+public class LessonItem extends RealmObject  {
 
 
-    public static final  int TYPE_URL = 0;
-    public static final  int TYPE_FILE = 1;
+    public static final int TYPE_URL = 0;
+    public static final int TYPE_FILE = 1;
+
+    long id;
+    int type;
+    String content;
+    String name;
+
+    public LessonItem() {
+        this.id = System.currentTimeMillis();
+    }
 
 
-    public LessonItem(){}
-    public int  type;
-    public String content;
-    public String name;
-
-    public LessonItem(int type,String name,  String content) {
+    public LessonItem(int type, String name, String content) {
         this.type = type;
         this.content = content;
-    this.name = name;
+        this.name = name;
+        this.id = System.currentTimeMillis();
+    }
+
+    public long getId() {
+        return id;
     }
 
     public String getName() {

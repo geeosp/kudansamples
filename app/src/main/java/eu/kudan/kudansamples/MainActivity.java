@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
                         Log.i("geeo", uri.getPath());
                         Intent intent = new Intent(getApplicationContext(), TrackingActivity.class);
                         lesson.addLessonItem(item3);
-                        intent.putExtra("lesson", lesson);
+                      //  intent.putExtra("lesson", lesson);
                         startActivity(intent);
                     }
                 }).setOnErrorListener(new TedBottomPicker.OnErrorListener() {

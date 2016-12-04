@@ -13,7 +13,7 @@ public abstract class BookDatabase {
 
     public abstract List<Book> loadBooks();
     public abstract Book getBook(long id);
-    public abstract void saveBook(long id, Book book);
+    public abstract void saveBook(Book book);
 
 
     public abstract void deleteBook(long id);
