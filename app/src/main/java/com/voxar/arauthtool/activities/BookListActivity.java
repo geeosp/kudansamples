@@ -27,6 +27,9 @@ public class BookListActivity extends AppCompatActivity {
     BookDatabase database;
     List<Book> books;
     RecyclerView recyclerView;
+    BookAdapter bookAdapter;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,8 +43,9 @@ public class BookListActivity extends AppCompatActivity {
         database = MyApplication.getDatabase();
         books = database.loadBooks();
 
-         recyclerView = (RecyclerView) findViewById(R.id.recycler);
-        recyclerView.setAdapter(new BookAdapter());
+        recyclerView = (RecyclerView) findViewById(R.id.recycler);
+        bookAdapter = new BookAdapter();
+        recyclerView.setAdapter(bookAdapter);
 
         RecyclerView.LayoutManager layout = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
 
@@ -69,7 +73,7 @@ public class BookListActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.menu_create_book:
                 Intent intent = new Intent(this, BookActivity.class);
                 intent.putExtra("book_id", -1);
@@ -82,37 +86,38 @@ public class BookListActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        books = database.loadBooks();
 
+        bookAdapter.notifyDataSetChanged();
+    }
 
-
-
-
-
-
-    class BookListHolder extends RecyclerView.ViewHolder{
+    class BookListHolder extends RecyclerView.ViewHolder {
         TextView tv_bookName;
         View view;
 
         public BookListHolder(View itemView) {
             super(itemView);
-        this.view = itemView;
-        this.    tv_bookName = (TextView) itemView.findViewById(R.id.tv_book_name);
+            this.view = itemView;
+            this.tv_bookName = (TextView) itemView.findViewById(R.id.tv_book_name);
         }
     }
 
-    class BookAdapter extends RecyclerView.Adapter<BookListHolder>{
+    class BookAdapter extends RecyclerView.Adapter<BookListHolder> {
 
 
         @Override
         public BookListHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View view  = LayoutInflater.from(getApplicationContext()).inflate(R.layout.book_list_item_layout,parent, false);
+            View view = LayoutInflater.from(getApplicationContext()).inflate(R.layout.book_list_item_layout, parent, false);
             BookListHolder holder = new BookListHolder(view);
             return holder;
         }
 
         @Override
         public void onBindViewHolder(BookListHolder holder, final int position) {
-           final  Book book = books.get(position);
+            final Book book = books.get(position);
             holder.tv_bookName.setText(book.getName());
             holder.view.setOnClickListener(new View.OnClickListener() {
                 @Override

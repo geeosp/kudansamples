@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.io.SerializablePermission;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import io.realm.RealmList;
 import io.realm.RealmObject;
@@ -29,8 +30,17 @@ public class Book extends RealmObject implements Serializable{
 
 
     public Book (){
+
         this.id=System.currentTimeMillis();
     }
+
+    public Book (Book book){
+        setName(book.getName());
+        setId(book.getId());
+        createdDate = book.getCreatedDate();
+        lessons = (RealmList<Lesson>) book.getLessons();
+    }
+
 
     public Book(String name){
         this.name = name;
@@ -39,8 +49,8 @@ public class Book extends RealmObject implements Serializable{
         this.id=System.currentTimeMillis();
     }
 
-    public ArrayList<Lesson> getLessons() {
-        return new ArrayList<Lesson>();
+    public List<Lesson> getLessons() {
+        return new RealmList<>();
     }
 
     public String getName() {

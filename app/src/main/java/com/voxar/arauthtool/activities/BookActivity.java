@@ -9,7 +9,6 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,7 +28,7 @@ public class BookActivity extends AppCompatActivity {
     Book book;
     boolean editMode;
     EditText et_bookName;
-    Realm realm;
+    //Realm realm;
     RecyclerView recyclerView;
 
     @Override
@@ -39,7 +38,7 @@ public class BookActivity extends AppCompatActivity {
         long bookId = getIntent().getLongExtra("book_id", -1);
         Log.e("geeo", "" + bookId);
         et_bookName = (EditText) findViewById(R.id.et_book_name);
-        realm = Realm.getDefaultInstance();
+      //  realm = Realm.getDefaultInstance();
 
 
         if (bookId == -1) {
@@ -56,12 +55,8 @@ public class BookActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         recyclerView = (RecyclerView) findViewById(R.id.recycler);
         recyclerView.setAdapter(new LessonAdapter());
-
         // RecyclerView.LayoutManager layout = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
-
-
         LayoutManager layout = new GridLayoutManager(this, 2);
-
         recyclerView.setLayoutManager(layout);
         updateViews();
     }
@@ -78,13 +73,10 @@ public class BookActivity extends AppCompatActivity {
         if (editMode) {
             et_bookName.setVisibility(VISIBLE);
             et_bookName.setText(book.getName());
-            realm.beginTransaction();
+        //    realm.beginTransaction();
         } else {
-
             et_bookName.setVisibility(INVISIBLE);
         }
-
-
         invalidateOptionsMenu();
     }
 
@@ -96,10 +88,7 @@ public class BookActivity extends AppCompatActivity {
             getMenuInflater().inflate(R.menu.menu_book_view, menu);
         }
         return true;
-
     }
-
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -107,32 +96,33 @@ public class BookActivity extends AppCompatActivity {
                 setEditMode(true);
                 break;
             case R.id.menu_save:
-                saveBook();
+                save();
                 break;
             case R.id.menu_cancel:
                 setEditMode(false);
                 break;
-
-
         }
-
-
         return super.onOptionsItemSelected(item);
     }
-
-    void saveBook() {
-
-
+    void save() {
         book.setName(et_bookName.getText().toString());
-        realm.commitTransaction();
-        setEditMode(false);
-    }
 
+
+        MyApplication.getDatabase().saveBook(book.getId(), book);
+
+        setEditMode(false);
+        updateViews();
+    }
     void cancelEdit() {
-        realm.cancelTransaction();
+        //realm.cancelTransaction();
         setEditMode(false);
+    }
+    @Override
+    protected void onStop() {
+        super.onStop();
 
     }
+
 
     class LessonListHolder extends ViewHolder {
         TextView tv_lessonName;
@@ -176,12 +166,6 @@ public class BookActivity extends AppCompatActivity {
         }
     }
 
-    @Override
-    protected void onStop() {
-        super.onStop();
-        if(realm.isInTransaction()){
-            realm.cancelTransaction();
-        }
-    }
+
 }
 
