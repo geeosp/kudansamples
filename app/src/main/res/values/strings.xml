@@ -8,5 +8,6 @@
     <string name="book_name_default">Novo Livro</string>
     <string name="book_name_placeholder">Nome do Livro</string>
     <string name="et_book_name_hint">Digite o nome do livro aqui</string>
+    <string name="menu_delete">Deletar</string>
 
 </resources>

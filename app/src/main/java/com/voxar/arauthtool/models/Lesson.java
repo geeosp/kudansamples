@@ -5,15 +5,23 @@ import java.util.ArrayList;
 
 import io.realm.RealmList;
 import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
 
 /**
  * Created by Geovane on 30/10/2016.
  */
 
 public class Lesson extends RealmObject  implements Serializable {
+   @PrimaryKey
+    long Id;
+
     String name;
     String filePath; //path to image tracked
     RealmList<LessonItem> lessonItems;//contenc to be linked to image
+
+    public long getId() {
+        return Id;
+    }
 
     public void addLessonItem(LessonItem li) {
         lessonItems.add(li);

@@ -21,12 +21,21 @@ public class RealmBookDatabase extends BookDatabase {
     public RealmBookDatabase() {
     }
 
+    @Override
+    public void deleteBook(long bookId) {
+        Realm realm = Realm.getDefaultInstance();
+        realm.beginTransaction();
+        RealmResults<Book> result = realm.where(Book.class).equalTo("id", bookId).findAll();
+        result.deleteAllFromRealm();
+        realm.commitTransaction();
+    }
+
     public static RealmBookDatabase getInstance() {
         if (instance == null) {
             instance = new RealmBookDatabase();
             if (instance.loadBooks().size() < 5) {
                 for (int i = 0; i < 5; i++) {
-                    Book b = new Book("Book " + i );
+                    Book b = new Book("Book " + i);
                     instance.saveBook(i, b);
                 }
             }
@@ -38,7 +47,7 @@ public class RealmBookDatabase extends BookDatabase {
     public List<Book> loadBooks() {
         Realm realm = Realm.getDefaultInstance();
         final RealmResults<Book> books = realm.where(Book.class).findAll();
-       return books;
+        return books;
     }
 
     @Override

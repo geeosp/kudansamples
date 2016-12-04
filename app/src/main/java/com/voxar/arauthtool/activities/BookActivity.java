@@ -1,6 +1,8 @@
 package com.voxar.arauthtool.activities;
 
 import android.content.Intent;
+import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -30,6 +32,7 @@ public class BookActivity extends AppCompatActivity {
     EditText et_bookName;
     //Realm realm;
     RecyclerView recyclerView;
+    FloatingActionButton floatingActionButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,8 +41,9 @@ public class BookActivity extends AppCompatActivity {
         long bookId = getIntent().getLongExtra("book_id", -1);
         Log.e("geeo", "" + bookId);
         et_bookName = (EditText) findViewById(R.id.et_book_name);
-      //  realm = Realm.getDefaultInstance();
+        //  realm = Realm.getDefaultInstance();
 
+        floatingActionButton = (FloatingActionButton) findViewById(R.id.floatingActionButton);
 
         if (bookId == -1) {
             book = new Book(getResources().getString(R.string.book_name_default));
@@ -64,6 +68,10 @@ public class BookActivity extends AppCompatActivity {
     void updateViews() {
         setTitle(book.getName());
         et_bookName.setText(book.getName());
+
+
+
+
         recyclerView.invalidate();
     }
 
@@ -73,9 +81,16 @@ public class BookActivity extends AppCompatActivity {
         if (editMode) {
             et_bookName.setVisibility(VISIBLE);
             et_bookName.setText(book.getName());
-        //    realm.beginTransaction();
+            floatingActionButton.setImageResource(R.drawable.ic_action_add);
+           floatingActionButton.setOnClickListener(new OnClickListener() {
+               @Override
+               public void onClick(View view) {
+                   openLesson(book.getId(), -1);
+               }
+           });
         } else {
             et_bookName.setVisibility(INVISIBLE);
+            floatingActionButton.setImageResource(R.drawable.ic_action_play);
         }
         invalidateOptionsMenu();
     }
@@ -89,6 +104,7 @@ public class BookActivity extends AppCompatActivity {
         }
         return true;
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -101,9 +117,13 @@ public class BookActivity extends AppCompatActivity {
             case R.id.menu_cancel:
                 setEditMode(false);
                 break;
+            case R.id.menu_delete:
+                delete();
+                break;
         }
         return super.onOptionsItemSelected(item);
     }
+
     void save() {
         book.setName(et_bookName.getText().toString());
 
@@ -113,15 +133,38 @@ public class BookActivity extends AppCompatActivity {
         setEditMode(false);
         updateViews();
     }
+
+    void delete() {
+        MyApplication.getDatabase().deleteBook(book.getId());
+        finish();
+    }
+
+
     void cancelEdit() {
         //realm.cancelTransaction();
         setEditMode(false);
     }
+
     @Override
     protected void onStop() {
         super.onStop();
 
     }
+
+    void playBook(){
+
+    }
+    void openLesson(long bookId, long lessonId){
+        Intent intent =  new Intent(this, LessonActivity.class)
+                ;
+        intent.putExtra("book_id", bookId);
+        intent.putExtra("lesson_id", lessonId);
+        startActivity(intent);
+
+    }
+
+
+
 
 
     class LessonListHolder extends ViewHolder {
@@ -147,15 +190,12 @@ public class BookActivity extends AppCompatActivity {
 
         @Override
         public void onBindViewHolder(LessonListHolder holder, final int position) {
-            Lesson lesson = book.getLessons().get(position);
+            final Lesson lesson = book.getLessons().get(position);
             holder.tv_lessonName.setText(lesson.getName());
             holder.view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent intent = new Intent(getApplicationContext(), LessonActivity.class);
-                    intent.putExtra("book_id", book.getId());
-                    intent.putExtra("lesson_id", position);
-                    startActivity(intent);
+                    openLesson(book.getId(), lesson.getId());
                 }
             });
         }

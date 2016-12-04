@@ -16,5 +16,5 @@ public abstract class BookDatabase {
     public abstract void saveBook(long id, Book book);
 
 
-
+    public abstract void deleteBook(long id);
 }
