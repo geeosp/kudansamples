@@ -18,13 +18,15 @@ import com.voxar.arauthtool.database.BookDatabase;
 import com.voxar.arauthtool.models.Book;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import eu.kudan.kudansamples.MyApplication;
 import eu.kudan.kudansamples.R;
 
 public class BookListActivity extends AppCompatActivity {
     BookDatabase database;
-    ArrayList<Book> books;
+    List<Book> books;
+    RecyclerView recyclerView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,7 +40,7 @@ public class BookListActivity extends AppCompatActivity {
         database = MyApplication.getDatabase();
         books = database.loadBooks();
 
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler);
+         recyclerView = (RecyclerView) findViewById(R.id.recycler);
         recyclerView.setAdapter(new BookAdapter());
 
         RecyclerView.LayoutManager layout = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
@@ -51,10 +53,16 @@ public class BookListActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onPostResume() {
+        super.onPostResume();
+        recyclerView.invalidate();
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
+
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }

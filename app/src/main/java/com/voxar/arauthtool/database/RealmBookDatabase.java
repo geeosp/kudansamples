@@ -1,9 +1,10 @@
 package com.voxar.arauthtool.database;
 
 import com.voxar.arauthtool.models.Book;
+import com.voxar.arauthtool.models.realm.BookRealm;
 
 import java.util.ArrayList;
-import java.util.ListIterator;
+import java.util.List;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
@@ -41,28 +42,20 @@ public class RealmBookDatabase extends BookDatabase {
     }
 
     @Override
-    public ArrayList<Book> loadBooks() {
+    public List<Book> loadBooks() {
         Realm realm = Realm.getDefaultInstance();
         final RealmResults<Book> books = realm.where(Book.class).findAll();
 
 
-        ListIterator<Book> iterator = books.listIterator();
-        ArrayList<Book> arrayList = new ArrayList<>();
-        while (iterator.hasNext()) {
-            arrayList.add(iterator.next());
-        }
 
-        return arrayList;
+        return books;
     }
 
     @Override
     public Book getBook(long id) {
-
         Realm realm = Realm.getDefaultInstance();
         final RealmResults<Book> book = realm.where(Book.class).equalTo("id", id).findAll();
         return book.first();
-
-
     }
 
     @Override

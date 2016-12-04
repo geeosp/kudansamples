@@ -1,7 +1,12 @@
 <resources>
     <string name="app_name">AR Auth Tool</string>
     <string name="menu_create_book">Criar Livro</string>
+    <string name="menu_edit">Editar</string>
+    <string name="menu_cancel">Cancelar</string>
+    <string name="menu_save">Salvar</string>
+
     <string name="book_name_default">Novo Livro</string>
     <string name="book_name_placeholder">Nome do Livro</string>
+    <string name="et_book_name_hint">Digite o nome do livro aqui</string>
 
 </resources>

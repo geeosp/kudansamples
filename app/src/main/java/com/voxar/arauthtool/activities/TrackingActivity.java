@@ -16,6 +16,8 @@ import android.widget.TextView;
 import com.voxar.arauthtool.models.Lesson;
 import com.voxar.arauthtool.models.LessonItem;
 
+import java.util.List;
+
 import eu.kudan.kudan.ARActivity;
 import eu.kudan.kudan.ARImageTrackable;
 import eu.kudan.kudan.ARImageTrackableListener;
@@ -73,7 +75,7 @@ public class TrackingActivity extends ARActivity {
 
                 Log.i("geeo", "detected " + trackable.getName());
                 Log.i("geeo", "lesson size " + lesson.getLessonItems().size());
-                LessonItemAdapter adapter = new LessonItemAdapter((lesson.getLessonItems()));
+                LessonItemAdapter adapter = new LessonItemAdapter(lesson.getLessonItems());
                 listView.setAdapter(adapter);
                 View v = findViewById(R.id.listviewroot);
                 v.setVisibility(View.VISIBLE);
@@ -151,9 +153,9 @@ public class TrackingActivity extends ARActivity {
 
     class LessonItemAdapter implements ListAdapter {
 
-        RealmList<LessonItem> itens;
+        List<LessonItem> itens;
 
-        LessonItemAdapter(RealmList<LessonItem> itens) {
+        LessonItemAdapter(List<LessonItem> itens) {
             this.itens = itens;
         }
 
