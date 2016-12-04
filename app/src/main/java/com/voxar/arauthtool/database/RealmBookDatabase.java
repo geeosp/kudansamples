@@ -56,20 +56,16 @@ public class RealmBookDatabase extends BookDatabase {
     public Book getBook(long id) {
         Realm realm = Realm.getDefaultInstance();
         RealmResults<Book> book = realm.where(Book.class).equalTo("id", id).findAll();
-        return new Book(book.first());
+        return realm.copyFromRealm(book.first());
+        //return new Book(book.first());
     }
 
     @Override
     public void saveBook( Book book) {
         Realm realm = Realm.getDefaultInstance();
         Log.e("DatabaseBookLessonCount", "" + book.getLessons().size());
-        List<Lesson> lessons = book.getLessons();
         realm.beginTransaction();
-
         realm.insertOrUpdate(book);
-
-
-        
         realm.commitTransaction();
 
 
