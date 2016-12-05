@@ -101,7 +101,7 @@ public class BookActivity extends AppCompatActivity {
             });
         }
         invalidateOptionsMenu();
-        recyclerView.invalidate();
+        recyclerView.setAdapter(new LessonAdapter());
     }
 
 
@@ -157,7 +157,7 @@ public class BookActivity extends AppCompatActivity {
 
 
     void cancelEdit() {
-        //realm.cancelTransaction();
+        updateViews();
         setEditMode(false);
     }
 
@@ -216,8 +216,7 @@ public class BookActivity extends AppCompatActivity {
 
 
         updateViews();
-        updateViews();
-        updateViews();
+
     }
 
 

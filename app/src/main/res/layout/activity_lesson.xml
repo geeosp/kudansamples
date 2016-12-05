@@ -38,15 +38,28 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            android:layout_gravity="center">
+            android:layout_gravity="center"
+            android:layout_margin="5dp"
+            >
 
             <ImageView
-
+                android:id="@+id/iv_lesson_image"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
-                android:layout_margin="10dp"
-                android:background="@color/aqua" />
+                android:background="@color/aqua"
+
+
+
+                />
+
+            <Button
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_alignBottom="@id/iv_lesson_image"
+                android:layout_alignEnd="@id/iv_lesson_image"
+                android:onClick="pickImage"
+                />
         </RelativeLayout>
 
         <android.support.v7.widget.RecyclerView
