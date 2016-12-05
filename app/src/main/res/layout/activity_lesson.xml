@@ -17,27 +17,49 @@
         android:minHeight="?attr/actionBarSize"
         android:theme="@style/ToolbarTheme"></android.support.v7.widget.Toolbar>
 
-    <EditText
-        android:id="@+id/et_lesson_name"
-        style="@style/Widget.AppCompat.AutoCompleteTextView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-
-        android:layout_below="@id/toolbar"
-        android:hint="@string/et_lesson_name_hint"
-        android:maxLines="1"
-
-        android:textSize="24sp" />
-
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recycler"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/et_book_name"
-        android:padding="2dp">
+        android:layout_below="@id/toolbar"
+        android:orientation="vertical">
 
-    </android.support.v7.widget.RecyclerView>
+
+        <EditText
+            android:id="@+id/et_lesson_name"
+            style="@style/Widget.AppCompat.AutoCompleteTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:hint="@string/et_lesson_name_hint"
+            android:maxLines="1"
+
+            android:textSize="24sp" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_gravity="center">
+
+            <ImageView
+
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_margin="10dp"
+                android:background="@color/aqua" />
+        </RelativeLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/et_book_name"
+
+            android:padding="2dp">
+
+        </android.support.v7.widget.RecyclerView>
+
+    </LinearLayout>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/floatingActionButton"

@@ -3,18 +3,19 @@ package com.voxar.arauthtool.models;
 import java.io.Serializable;
 
 import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
 
 /**
  * Created by Geovane on 30/10/2016.
  */
 
 public class LessonItem extends RealmObject  {
-
+    @PrimaryKey
+     long id;
 
     public static final int TYPE_URL = 0;
     public static final int TYPE_FILE = 1;
 
-    long id;
     int type;
     String content;
     String name;

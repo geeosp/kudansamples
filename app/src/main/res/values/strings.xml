@@ -9,5 +9,6 @@
     <string name="book_name_default">Novo Livro</string>
     <string name="et_book_name_hint">Digite o nome do livro aqui</string>
     <string name="et_lesson_name_hint">Ponha o nome da lição aqui</string>
+    <string name="lesson_edit_title">Editar Lição</string>
 
 </resources>

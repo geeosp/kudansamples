@@ -25,15 +25,43 @@ public class RealmBookDatabase extends BookDatabase {
     public static RealmBookDatabase getInstance() {
         if (instance == null) {
             instance = new RealmBookDatabase();
+         //   instance.deleteAll();
+
+
             if (instance.loadBooks().size() < 5) {
                 for (int i = 0; i < 5; i++) {
                     Book b = new Book("Book " + i);
-                    b.addLesson(new Lesson());
-                    instance.saveBook( b);
+
+                    Lesson a = new Lesson(b.getName() + 1, "https://static.pexels.com/photos/36487/above-adventure-aerial-air.jpg");
+                    b.addLesson(a);
+                    Log.e("lessonId", "" + a.getId());
+                    instance.saveBook(b);
+
+
+                    Lesson c = new Lesson(b.getName() + 2, "http://www.w3schools.com/howto/img_fjords.jpg");
+
+
+                    Log.e("lessonId", "" + c.getId());
+                    b.addLesson(c);
+                    instance.saveBook(b);
+
+
+                    Lesson d = new Lesson("Geo", "https://www.planwallpaper.com/static/images/butterfly-wallpaper.jpeg");
+                    b.addLesson(d);
+                    Log.e("lessonId", "" + d.getId());
+                    instance.saveBook(b);
+
                 }
             }
         }
         return instance;
+    }
+
+    void deleteAll() {
+        Realm realm = Realm.getDefaultInstance();
+        realm.beginTransaction();
+        realm.deleteAll();
+        realm.commitTransaction();
     }
 
     @Override
@@ -61,14 +89,16 @@ public class RealmBookDatabase extends BookDatabase {
     }
 
     @Override
-    public void saveBook( Book book) {
+    public void saveBook(Book b) {
         Realm realm = Realm.getDefaultInstance();
-        Log.e("DatabaseBookLessonCount", "" + book.getLessons().size());
         realm.beginTransaction();
-        realm.insertOrUpdate(book);
+
+
+        Log.e("DatabaseBookLessonCount", "" + b.getLessons().size());
+
+
+        realm.insertOrUpdate(b);
         realm.commitTransaction();
-
-
 
 
     }

@@ -1,19 +1,23 @@
 package com.voxar.arauthtool.models;
 
-import java.io.Serializable;
 import java.util.Date;
 import java.util.Iterator;
-import java.util.List;
 
 import io.realm.RealmList;
 import io.realm.RealmObject;
+import io.realm.annotations.Ignore;
 import io.realm.annotations.PrimaryKey;
 
 /**
  * Created by Geovane on 30/10/2016.
  */
 
-public class Book extends RealmObject  {
+public class Book extends RealmObject {
+
+    @Ignore
+    static long lastId;
+
+
     @PrimaryKey
     long id;
 
@@ -22,40 +26,47 @@ public class Book extends RealmObject  {
     private Date createdDate;
 
     public Book() {
-
-        this.id = System.currentTimeMillis();
-    }
-
-    public Book(Book book) {
-        setName(book.getName());
-        setId(book.getId());
-        createdDate = book.getCreatedDate();
-        lessons = (RealmList<Lesson>) book.getLessons();
+        this.id = Math.max(lastId + 1, System.currentTimeMillis());
+        lastId = this.id + 1;
     }
 
 
     public Book(String name) {
+        this.id = Math.max(lastId + 1, System.currentTimeMillis());
+        lastId = this.id + 1;
         this.name = name;
         this.createdDate = new Date();
         this.lessons = new RealmList<Lesson>();
         this.id = System.currentTimeMillis();
     }
 
-
-    public void setLessons(RealmList<Lesson> lessons) {
-        this.lessons = lessons;
-    }
-
-
-
     public void addLesson(Lesson l) {
         lessons.add(l);
     }
 
+    public void removeLesson(long lessonId) {
+        for (int i = 0; i < lessons.size(); i++) {
+            if (lessons.get(i).getId() == lessonId) {
+                lessons.remove(i);
+            }
+        }
+    }
 
+    public void updateLesson(Lesson lesson) {
 
-    public List<Lesson> getLessons() {
+        for (int i = 0; i < lessons.size(); i++) {
+            if (lessons.get(i).getId() == lesson.getId()) {
+                lessons.set(i, lesson);
+            }
+        }
+    }
+
+    public RealmList<Lesson> getLessons() {
         return lessons;
+    }
+
+    public void setLessons(RealmList<Lesson> lessons) {
+        this.lessons = lessons;
     }
 
     public Lesson getLesson(long lessonId) {
@@ -86,8 +97,6 @@ public class Book extends RealmObject  {
         return id;
     }
 
-    public void setId(long id) {
-        this.id = id;
-    }
+
 }
 
