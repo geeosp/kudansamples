@@ -77,9 +77,10 @@ public class BookActivity extends AppCompatActivity {
     }
 
     void updateViews() {
-        setTitle(book.getName());
         et_bookName.setText(book.getName());
         if (editMode) {
+
+            setTitle(getResources().getString(R.string.edit_book));
             et_bookName.setVisibility(VISIBLE);
             et_bookName.setText(book.getName());
             floatingActionButton.setImageResource(R.drawable.ic_action_add);
@@ -91,6 +92,7 @@ public class BookActivity extends AppCompatActivity {
             });
 
         } else {
+            setTitle(book.getName());
             et_bookName.setVisibility(View.GONE);
             floatingActionButton.setImageResource(R.drawable.ic_action_play);
             floatingActionButton.setOnClickListener(new OnClickListener() {
@@ -194,7 +196,7 @@ public class BookActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         // Check which request we're responding to
-                Log.e("RESULTCODE: ","RESULT_DELETED");
+        Log.e("RESULTCODE: ", "RESULT_DELETED");
         Lesson lesson = Limbo.getCurrentLesson();
         Limbo.setCurrentLesson(null);
         switch (resultCode) {
@@ -209,10 +211,9 @@ public class BookActivity extends AppCompatActivity {
                 }
                 break;
             case RESULT_DELETED:
-               book.removeLesson(lesson.getId());
+                book.removeLesson(lesson.getId());
                 break;
         }
-
 
 
         updateViews();

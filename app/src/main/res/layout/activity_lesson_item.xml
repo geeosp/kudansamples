@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_lesson_item"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.voxar.arauthtool.activities.LessonItemActivity">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+
+        android:minHeight="?attr/actionBarSize"
+        android:theme="@style/ToolbarTheme"></android.support.v7.widget.Toolbar>
+
+    <TextView
+        android:id="@+id/lesson_item_edit_explanation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/toolbar"
+        android:text="@string/lesson_item_edit_explanation" />
+
+    <!--LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/lesson_item_edit_explanation"
+        android:orientation="horizontal">
+
+
+        <TextView
+            android:id="@+id/tv_lesson_item_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tipo: "
+            android:textSize="18sp" />
+
+        <Spinner
+            android:id="@+id/sp_choose_lesson_item_type"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/tv_lesson_item_type"
+            android:layout_alignStart="@id/tv_lesson_item_type"></Spinner>
+    </LinearLayout-->
+    <EditText
+        android:id="@+id/et_lesson_item_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/lesson_item_name_hint" />
+
+    <EditText
+        android:id="@+id/et_lesson_item_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/lesson_item_content_hint"
+        android:inputType="textUri" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/lesson_item_edit_explanation"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/bt_copy_clipboard"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableTop="@drawable/ic_action_copy"
+            android:onClick="paste"
+            android:text="@string/paste"></Button>
+
+        <Button
+            android:id="@+id/bt_pick_file"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableTop="@drawable/ic_action_pick_file"
+            android:onClick="pickFile"
+            android:text="@string/pick_file"></Button>
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -6,9 +6,21 @@
     <string name="menu_save">Salvar</string>
     <string name="menu_delete">Deletar</string>
 
+    <string name="edit_book">Editar Livro</string>
+    <string name="edit_lesson">Editar Lição</string>
+    <string name="edit_lesson_item">Editar Item</string>
     <string name="book_name_default">Novo Livro</string>
     <string name="et_book_name_hint">Digite o nome do livro aqui</string>
     <string name="et_lesson_name_hint">Ponha o nome da lição aqui</string>
     <string name="lesson_edit_title">Editar Lição</string>
+    <string name="lesson_item_edit_explanation">Escolha o tipo de informação que você quer guardar/n Voce pode escolher entre colar um item da internet ou copiar um arquivo </string>
+    <string name="lesson_item_name_hint">Nome do Item</string>
+    <string name="lesson_item_content_hint">Cole uma pagina web aqui ou escolha um arquivo</string>
+    <string-array name="list_item_types">
+        <item>URL </item>
+        <item>Arquivo</item>
+    </string-array>
+    <string name="paste">colar</string>
+    <string name="pick_file">Escolher Arquivo</string>
 
 </resources>

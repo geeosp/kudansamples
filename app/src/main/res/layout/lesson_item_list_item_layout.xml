@@ -30,20 +30,15 @@
             android:layout_marginLeft="6dp"
             android:layout_marginTop="3dp"
             android:orientation="vertical">
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="150dp"
-                android:background="@color/image_placeholder"
-                android:id="@+id/iv_lesson_thumbnail"/>
+
             <TextView
 
                 android:layout_gravity="center_horizontal"
-                android:id="@+id/tv_lesson_name"
+                android:id="@+id/tv_lesson_item_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="lesson name"
                 android:textSize="24sp" />
-
         </LinearLayout>
     </android.support.v7.widget.CardView>
 </RelativeLayout>

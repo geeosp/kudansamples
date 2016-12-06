@@ -26,31 +26,21 @@ public class RealmBookDatabase extends BookDatabase {
         if (instance == null) {
             instance = new RealmBookDatabase();
          //   instance.deleteAll();
-
-
             if (instance.loadBooks().size() < 5) {
                 for (int i = 0; i < 5; i++) {
                     Book b = new Book("Book " + i);
-
-                    Lesson a = new Lesson(b.getName() + 1, "https://static.pexels.com/photos/36487/above-adventure-aerial-air.jpg");
+                    Lesson a = new Lesson("Lição 1" , "https://static.pexels.com/photos/36487/above-adventure-aerial-air.jpg");
                     b.addLesson(a);
                     Log.e("lessonId", "" + a.getId());
                     instance.saveBook(b);
-
-
-                    Lesson c = new Lesson(b.getName() + 2, "http://www.w3schools.com/howto/img_fjords.jpg");
-
-
+                    Lesson c = new Lesson("Lição 2", "http://www.w3schools.com/howto/img_fjords.jpg");
                     Log.e("lessonId", "" + c.getId());
                     b.addLesson(c);
                     instance.saveBook(b);
-
-
-                    Lesson d = new Lesson("Geo", "https://www.planwallpaper.com/static/images/butterfly-wallpaper.jpeg");
+                    Lesson d = new Lesson("Lição 3", "https://www.planwallpaper.com/static/images/butterfly-wallpaper.jpeg");
                     b.addLesson(d);
                     Log.e("lessonId", "" + d.getId());
                     instance.saveBook(b);
-
                 }
             }
         }
@@ -92,14 +82,8 @@ public class RealmBookDatabase extends BookDatabase {
     public void saveBook(Book b) {
         Realm realm = Realm.getDefaultInstance();
         realm.beginTransaction();
-
-
         Log.e("DatabaseBookLessonCount", "" + b.getLessons().size());
-
-
         realm.insertOrUpdate(b);
         realm.commitTransaction();
-
-
     }
 }
