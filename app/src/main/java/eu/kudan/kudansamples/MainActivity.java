@@ -4,21 +4,15 @@ import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.net.Uri;
+import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 
 import com.voxar.arauthtool.activities.BookListActivity;
-import com.voxar.arauthtool.models.Lesson;
-import com.voxar.arauthtool.models.LessonItem;
 import com.voxar.arauthtool.activities.TrackingActivity;
-
-import gun0912.tedbottompicker.TedBottomPicker;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -52,10 +46,11 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
-public void  openBooksActivity(View v){
-    Intent intent = new Intent(this, BookListActivity.class);
-    startActivity(intent);
-}
+
+    public void openBooksActivity(View v) {
+        Intent intent = new Intent(this, BookListActivity.class);
+        startActivity(intent);
+    }
 
     protected void openARActivity() {
 
@@ -93,7 +88,7 @@ public void  openBooksActivity(View v){
                 Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 != PackageManager.PERMISSION_GRANTED || ContextCompat.checkSelfPermission(this,
                 Manifest.permission.READ_EXTERNAL_STORAGE)
-                != PackageManager.PERMISSION_GRANTED ||ContextCompat.checkSelfPermission(this,
+                != PackageManager.PERMISSION_GRANTED || ContextCompat.checkSelfPermission(this,
                 Manifest.permission.CAMERA)
                 != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this,
@@ -108,7 +103,7 @@ public void  openBooksActivity(View v){
                                            String permissions[], int[] grantResults) {
         switch (requestCode) {
             case 111: {
-                if (grantResults.length > 0 && grantResults[0]== PackageManager.PERMISSION_GRANTED ) {
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 
                 } else {
                     permissionsNotSelected();
@@ -118,10 +113,10 @@ public void  openBooksActivity(View v){
     }
 
     private void permissionsNotSelected() {
-        AlertDialog.Builder builder = new AlertDialog.Builder (this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Permissions Requred");
         builder.setMessage("Please enable the requested permissions in the app settings in order to use this demo app");
-        builder.setNeutralButton("Cancel", new DialogInterface.OnClickListener () {
+        builder.setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 dialog.cancel();
                 System.exit(1);
