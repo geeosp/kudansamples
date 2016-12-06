@@ -13,6 +13,7 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.voxar.arauthtool.models.Book;
 import com.voxar.arauthtool.models.Lesson;
 import com.voxar.arauthtool.models.LessonItem;
 
@@ -28,34 +29,35 @@ import eu.kudan.kudan.ARModelImporter;
 import eu.kudan.kudan.ARModelNode;
 import eu.kudan.kudan.ARTexture2D;
 import eu.kudan.kudan.ARView;
+import eu.kudan.kudansamples.MyApplication;
 import eu.kudan.kudansamples.R;
-import io.realm.RealmList;
 
-public class TrackingActivity extends ARActivity {
-    public Lesson lesson;
+public class TrackingActivityFinal extends ARActivity {
+    public Book book;
     // public ARNode tracable;
     public ListView listView;
-
-
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tracking);
-        lesson = (Lesson) getIntent().getExtras().get("lesson");
+        long bookId = getIntent().getLongExtra("bookId", -1);
+        book = MyApplication.getDatabase().getBook(bookId);
         listView = (ListView) findViewById(R.id.lesson_list);
-        //   uri = getIntent().getExtras().getString("filepath");
 
     }
 
     @Override
     public void setup() {
         super.setup();
-        //  ArrayList<LessonItem> lessonItems = lesson.getLessons();
-        ARImageTrackable imageTracked = addImageTrackableFromPath(lesson);
+        for (int i = 0; i < book.getLessons().size(); i++) {
 
-        addModelNode(imageTracked, "cube.jet");
+            ARImageTrackable imageTracked = addImageTrackableFromPath(book.getLessons().get(i));
+
+            addModelNode(imageTracked, "cube.jet");
+        }
+
 
     }
 
@@ -64,7 +66,7 @@ public class TrackingActivity extends ARActivity {
 
 
         // Initialise image trackable
-        ARImageTrackable trackable = new ARImageTrackable(lesson.getName());
+        ARImageTrackable trackable = new ARImageTrackable("" + lesson.getId());
         trackable.loadFromPath(lesson.getFilePath());
 
         // Get instance of image tracker manager
@@ -155,7 +157,6 @@ public class TrackingActivity extends ARActivity {
 
 
     class LessonItemAdapter implements ListAdapter {
-
         List<LessonItem> itens;
 
         LessonItemAdapter(List<LessonItem> itens) {
@@ -195,7 +196,7 @@ public class TrackingActivity extends ARActivity {
 
         @Override
         public long getItemId(int i) {
-            return i;
+            return itens.get(i).getId();
         }
 
         @Override

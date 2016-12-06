@@ -31,6 +31,9 @@
         <activity
             android:name="com.voxar.arauthtool.activities.TrackingActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name="com.voxar.arauthtool.activities.TrackingActivityFinal"
+            android:screenOrientation="portrait" />
         <activity android:name="com.voxar.arauthtool.activities.BookListActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

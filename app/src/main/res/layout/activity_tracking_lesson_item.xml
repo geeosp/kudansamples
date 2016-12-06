@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_tracking"
     android:layout_width="match_parent"
@@ -9,14 +8,18 @@
     tools:context="com.voxar.arauthtool.activities.TrackingActivity">
 
 
-
-
-    <TextView
-        android:id="@+id/tv_lesson_name"
-        android:text="LessonItem"
-        android:layout_height="85dp"
+    <android.support.v7.widget.CardView
         android:layout_width="match_parent"
-        android:gravity="center"
+        android:layout_height="wrap_content">
 
-         />
+        <TextView
+            android:id="@+id/tv_lesson_name"
+            android:layout_width="match_parent"
+            android:layout_height="85dp"
+            android:gravity="center"
+            android:text="LessonItem"
+            android:textSize="20dp"
+
+            />
+    </android.support.v7.widget.CardView>
 </RelativeLayout>

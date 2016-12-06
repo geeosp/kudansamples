@@ -170,7 +170,9 @@ public class BookActivity extends AppCompatActivity {
     }
 
     void playBook() {
-
+        Intent intent = new Intent(this, TrackingActivityFinal.class);
+        intent.putExtra("bookId", book.getId());
+        startActivity(intent);
     }
 
     void openLesson(int request, long lessonId) {

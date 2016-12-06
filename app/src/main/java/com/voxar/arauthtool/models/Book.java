@@ -28,6 +28,7 @@ public class Book extends RealmObject {
     public Book() {
         this.id = Math.max(lastId + 1, System.currentTimeMillis());
         lastId = this.id + 1;
+        this.name="";
     }
 
 

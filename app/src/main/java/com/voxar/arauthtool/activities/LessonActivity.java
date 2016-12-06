@@ -246,6 +246,7 @@ public class LessonActivity extends AppCompatActivity {
 
         @Override
         public int getItemCount() {
+            lesson.getLessonItems();
             return lesson.getLessonItems().size();
         }
 

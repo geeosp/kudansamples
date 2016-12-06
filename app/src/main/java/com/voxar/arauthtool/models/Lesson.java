@@ -23,6 +23,9 @@ public class Lesson extends RealmObject {
     public Lesson() {
         this.id = Math.max(lastId + 1, System.currentTimeMillis());
         lastId = this.id + 1;
+        this.lessonItems = new RealmList<LessonItem>();
+        this.filePath="";
+        this.name ="";
     }
 
     public Lesson(String name, String filePath) {
