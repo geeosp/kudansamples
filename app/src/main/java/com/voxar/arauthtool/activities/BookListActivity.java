@@ -94,7 +94,8 @@ public class BookListActivity extends AppCompatActivity {
         bookAdapter.notifyDataSetChanged();
     }
 
-    void onPlusFloatingPressed(View v) {
+    public void onPlusFloatingPressed(View v) {
+
         openCreateNewBook();
     }
 
