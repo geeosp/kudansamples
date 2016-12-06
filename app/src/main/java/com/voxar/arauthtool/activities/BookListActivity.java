@@ -1,6 +1,7 @@
 package com.voxar.arauthtool.activities;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -66,14 +67,14 @@ public class BookListActivity extends AppCompatActivity {
 
     // Requests app permissions
     public void permissionsRequest() {
-
-        if (ContextCompat.checkSelfPermission(this,
+        Context ctx = getApplicationContext();
+        if (ContextCompat.checkSelfPermission(ctx,
                 Manifest.permission.INTERNET)
-                != PackageManager.PERMISSION_GRANTED || ContextCompat.checkSelfPermission(this,
+                != PackageManager.PERMISSION_GRANTED || ContextCompat.checkSelfPermission(ctx,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                != PackageManager.PERMISSION_GRANTED || ContextCompat.checkSelfPermission(this,
+                != PackageManager.PERMISSION_GRANTED || ContextCompat.checkSelfPermission(ctx,
                 Manifest.permission.READ_EXTERNAL_STORAGE)
-                != PackageManager.PERMISSION_GRANTED || ContextCompat.checkSelfPermission(this,
+                != PackageManager.PERMISSION_GRANTED || ContextCompat.checkSelfPermission(ctx,
                 Manifest.permission.CAMERA)
                 != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this,
