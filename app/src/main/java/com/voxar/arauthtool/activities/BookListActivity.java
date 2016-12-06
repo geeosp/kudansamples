@@ -95,9 +95,10 @@ public class BookListActivity extends AppCompatActivity {
     }
 
     void onPlusFloatingPressed(View v) {
-    openCreateNewBook();
+        openCreateNewBook();
     }
-    void openCreateNewBook(){
+
+    void openCreateNewBook() {
         Intent intent = new Intent(this, BookActivity.class);
         intent.putExtra("book_id", -1);
         startActivity(intent);

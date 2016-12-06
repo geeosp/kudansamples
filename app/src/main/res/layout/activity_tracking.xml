@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_tracking"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
 
-    tools:context="com.voxar.arauthtool.activities.TrackingActivity"
-    android:padding="10dp">
+    android:padding="10dp"
+    tools:context="com.voxar.arauthtool.activities.TrackingActivity">
 
     <eu.kudan.kudan.ARView
         android:id="@+id/arview"
@@ -17,28 +16,30 @@
         />
 
 
-<RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="80dp"
-    android:gravity="right"
-    android:id="@+id/tracking_symbol"
-    android:visibility="visible">
-    <ProgressBar
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_margin="20dp"
-        style="@android:style/Widget.Material.Light.ProgressBar.Large">
+    <RelativeLayout
+        android:id="@+id/tracking_symbol"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:gravity="right"
+        android:visibility="visible">
 
-    </ProgressBar>
-</RelativeLayout>
+        <ProgressBar
+            style="@android:style/Widget.Material.Light.ProgressBar.Large"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_margin="20dp">
+
+        </ProgressBar>
+    </RelativeLayout>
+
     <RelativeLayout
         android:id="@+id/listviewroot"
         android:layout_width="match_parent"
         android:layout_height="300dp"
         android:layout_alignParentBottom="true"
 
-        android:visibility="invisible"
-        android:gravity="bottom">
+        android:gravity="bottom"
+        android:visibility="invisible">
 
         <ListView
             android:id="@+id/lesson_list"

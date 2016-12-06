@@ -204,7 +204,7 @@ public class LessonItemActivity extends AppCompatActivity {
                     Log.e("TAG", "Uri: " + uri.toString());
                     Log.e("TAG", "Uri: " + uri.getPath());
                     et_lesson_item_content.setText(uri.toString());
-lessonItem.setType(LessonItem.TYPE_FILE);
+                    lessonItem.setType(LessonItem.TYPE_FILE);
 
                 }
         }

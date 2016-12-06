@@ -29,14 +29,11 @@ import eu.kudan.kudan.ARModelNode;
 import eu.kudan.kudan.ARTexture2D;
 import eu.kudan.kudan.ARView;
 import eu.kudan.kudansamples.R;
-import io.realm.RealmList;
 
 public class TrackingActivity extends ARActivity {
     public Lesson lesson;
     // public ARNode tracable;
     public ListView listView;
-
-
 
 
     @Override

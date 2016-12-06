@@ -15,6 +15,10 @@ import io.realm.Realm;
 
 public class MyApplication extends Application {
 
+    public static BookDatabase getDatabase() {
+        return RealmBookDatabase.getInstance();
+    }
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -22,10 +26,6 @@ public class MyApplication extends Application {
         key.setAPIKey("GAWAE-FBVCC-XA8ST-GQVZV-93PQB-X7SBD-P6V4W-6RS9C-CQRLH-78YEU-385XP-T6MCG-2CNWB-YK8SR-8UUQ");
         Realm.init(getApplicationContext());
 
-    }
-
-    public static BookDatabase getDatabase() {
-        return RealmBookDatabase.getInstance();
     }
 
 
