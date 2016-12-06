@@ -17,6 +17,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.nguyenhoanglam.imagepicker.activity.ImagePicker;
 import com.nguyenhoanglam.imagepicker.activity.ImagePickerActivity;
 import com.nguyenhoanglam.imagepicker.model.Image;
@@ -85,6 +86,12 @@ public class LessonActivity extends AppCompatActivity {
     void updateViews() {
 
         recyclerView.setAdapter(new LessonItemAdapter());
+        Glide
+                .with(getApplicationContext())
+                .load(lesson.getFilePath())
+                .centerCrop()
+                .crossFade()
+                .into(iv_lesson_image);
     }
 
     @Override
