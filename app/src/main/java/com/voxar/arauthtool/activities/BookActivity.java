@@ -21,6 +21,7 @@ import com.bumptech.glide.Glide;
 import com.voxar.arauthtool.models.Book;
 import com.voxar.arauthtool.models.Lesson;
 
+import cn.refactor.lib.colordialog.ColorDialog;
 import eu.kudan.kudansamples.MyApplication;
 import eu.kudan.kudansamples.R;
 
@@ -132,15 +133,22 @@ public class BookActivity extends AppCompatActivity {
             case R.id.menu_save:
                 save();
                 break;
-            case R.id.menu_cancel:
-                setEditMode(false);
+            case R.id.menu_discard:
+                cancelEdit();
                 break;
             case R.id.menu_delete:
                 delete();
 
                 break;
             case android.R.id.home:
-                this.finish();
+                if (editMode) {
+                    cancelEdit();
+                } else {
+
+                    this.finish();
+                }
+
+
         }
         return true;
     }
@@ -153,14 +161,51 @@ public class BookActivity extends AppCompatActivity {
     }
 
     void delete() {
-        MyApplication.getDatabase().deleteBook(book.getId());
-        finish();
+        ColorDialog dialog = new ColorDialog(this);
+        dialog.setAnimationEnable(true);
+        dialog.setTitle(getString(R.string.sure_want_to_delete));
+        dialog.setContentText(getString(R.string.book_lost_forever));
+        dialog.setPositiveListener(getString(R.string.ok), new ColorDialog.OnPositiveListener() {
+            @Override
+            public void onClick(ColorDialog dialog) {
+                dialog.dismiss();
+                MyApplication.getDatabase().deleteBook(book.getId());
+                finish();
+            }
+        });
+        dialog.setNegativeListener(getString(R.string.cancel), new ColorDialog.OnNegativeListener() {
+            @Override
+            public void onClick(ColorDialog dialog) {
+                dialog.dismiss();
+            }
+        });
+        //    dialog.setCancelable(true);
+        dialog.show();
+
+
     }
 
 
     void cancelEdit() {
-        updateViews();
-        setEditMode(false);
+        ColorDialog dialog = new ColorDialog(this);
+        dialog.setAnimationEnable(true);
+        dialog.setTitle(getString(R.string.sure_want_to_cancel));
+        dialog.setContentText(getString(R.string.changes_will_not_be_saved));
+        dialog.setPositiveListener(getString(R.string.ok), new ColorDialog.OnPositiveListener() {
+            @Override
+            public void onClick(ColorDialog dialog) {
+                dialog.dismiss();
+                setEditMode(false);
+            }
+        });
+        dialog.setNegativeListener(getString(R.string.cancel), new ColorDialog.OnNegativeListener() {
+            @Override
+            public void onClick(ColorDialog dialog) {
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
+
     }
 
     @Override

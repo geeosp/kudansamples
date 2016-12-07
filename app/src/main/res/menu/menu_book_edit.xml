@@ -3,13 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/menu_cancel"
+        android:id="@+id/menu_discard"
         android:icon="@drawable/ic_action_cancel"
+        android:orderInCategory="1"
         android:title="@string/menu_cancel"
         app:showAsAction="ifRoom"></item>
     <item
         android:id="@+id/menu_save"
         android:icon="@drawable/ic_action_save"
+        android:orderInCategory="0"
         android:title="@string/menu_save"
         app:showAsAction="ifRoom"></item>
 </menu>

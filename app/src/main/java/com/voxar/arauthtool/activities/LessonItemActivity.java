@@ -14,12 +14,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
-import com.google.android.gms.appindexing.Thing;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.voxar.arauthtool.models.LessonItem;
 
+import cn.refactor.lib.colordialog.ColorDialog;
 import eu.kudan.kudansamples.R;
 
 public class LessonItemActivity extends AppCompatActivity {
@@ -124,7 +123,7 @@ public class LessonItemActivity extends AppCompatActivity {
             case R.id.menu_save:
                 save();
                 break;
-            case R.id.menu_cancel:
+            case R.id.menu_discard:
                 cancel();
                 break;
             case R.id.menu_delete:
@@ -184,14 +183,49 @@ public class LessonItemActivity extends AppCompatActivity {
     }
 
     void delete() {
-        setResult(LessonActivity.RESULT_LESSON_ITEM_DELETED);
-        Limbo.setCurrentLessonItem(lessonItem);
-        finish();
+        ColorDialog dialog = new ColorDialog(this);
+        dialog.setAnimationEnable(true);
+        dialog.setTitle(getString(R.string.sure_want_to_delete));
+        dialog.setContentText(getString(R.string.lesson_item_lost_forever));
+        dialog.setPositiveListener(getString(R.string.ok), new ColorDialog.OnPositiveListener() {
+            @Override
+            public void onClick(ColorDialog dialog) {
+                dialog.dismiss();
+                setResult(LessonActivity.RESULT_LESSON_ITEM_DELETED);
+                Limbo.setCurrentLessonItem(lessonItem);
+                finish();
+            }
+        });
+        dialog.setNegativeListener(getString(R.string.cancel), new ColorDialog.OnNegativeListener() {
+            @Override
+            public void onClick(ColorDialog dialog) {
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
+
     }
 
     void cancel() {
-        Limbo.setCurrentLesson(null);
-        finish();
+        ColorDialog dialog = new ColorDialog(this);
+        dialog.setAnimationEnable(true);
+        dialog.setTitle(getString(R.string.sure_want_to_cancel));
+        dialog.setContentText(getString(R.string.changes_will_not_be_saved));
+        dialog.setPositiveListener(getString(R.string.ok), new ColorDialog.OnPositiveListener() {
+            @Override
+            public void onClick(ColorDialog dialog) {
+                Limbo.setCurrentLesson(null);
+                finish();
+            }
+        });
+        dialog.setNegativeListener(getString(R.string.cancel), new ColorDialog.OnNegativeListener() {
+            @Override
+            public void onClick(ColorDialog dialog) {
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
+
     }
 
     @Override
@@ -208,42 +242,6 @@ public class LessonItemActivity extends AppCompatActivity {
 
                 }
         }
-    }
-
-    /**
-     * ATTENTION: This was auto-generated to implement the App Indexing API.
-     * See https://g.co/AppIndexing/AndroidStudio for more information.
-     */
-    public Action getIndexApiAction() {
-        Thing object = new Thing.Builder()
-                .setName("LessonItem Page") // TODO: Define a title for the content shown.
-                // TODO: Make sure this auto-generated URL is correct.
-                .setUrl(Uri.parse("http://[ENTER-YOUR-URL-HERE]"))
-                .build();
-        return new Action.Builder(Action.TYPE_VIEW)
-                .setObject(object)
-                .setActionStatus(Action.STATUS_TYPE_COMPLETED)
-                .build();
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        client.connect();
-        AppIndex.AppIndexApi.start(client, getIndexApiAction());
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        AppIndex.AppIndexApi.end(client, getIndexApiAction());
-        client.disconnect();
     }
 
 

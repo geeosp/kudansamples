@@ -7,7 +7,7 @@
         android:title="@string/menu_delete"
         app:showAsAction="never"></item>
     <item
-        android:id="@+id/menu_cancel"
+        android:id="@+id/menu_discard"
         android:icon="@drawable/ic_action_cancel"
         android:title="@string/menu_cancel"
         app:showAsAction="ifRoom"></item>

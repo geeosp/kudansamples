@@ -2,7 +2,7 @@
     <string name="app_name">AR Auth Tool</string>
     <string name="menu_create_book">Criar Livro</string>
     <string name="menu_edit">Editar</string>
-    <string name="menu_cancel">Cancelar</string>
+    <string name="menu_cancel">Descartar</string>
     <string name="menu_save">Salvar</string>
     <string name="menu_delete">Deletar</string>
 
@@ -10,17 +10,27 @@
     <string name="edit_lesson">Editar Lição</string>
     <string name="edit_lesson_item">Editar Item</string>
     <string name="book_name_default">Novo Livro</string>
-    <string name="et_book_name_hint">Digite o nome do livro aqui</string>
-    <string name="et_lesson_name_hint">Ponha o nome da lição aqui</string>
+    <string name="et_book_name_hint">Aqui vem o nome do seu livro</string>
+    <string name="et_lesson_name_hint">Qual o nome dessa lição?</string>
     <string name="lesson_edit_title">Editar Lição</string>
-    <string name="lesson_item_edit_explanation">Escolha o tipo de informação que você quer guardar/n Voce pode escolher entre colar um item da internet ou copiar um arquivo </string>
+    <string name="lesson_item_edit_explanation">Escolha o tipo de informação que você quer guardar\nVoce pode escolher entre colar um item da internet ou copiar um arquivo </string>
     <string name="lesson_item_name_hint">Nome do Item</string>
-    <string name="lesson_item_content_hint">Cole uma pagina web aqui ou escolha um arquivo</string>
+    <string name="lesson_item_content_hint">Cole uma página web aqui ou escolha um arquivo</string>
     <string-array name="list_item_types">
-        <item>URL </item>
+        <item>Internet URL</item>
         <item>Arquivo</item>
     </string-array>
     <string name="paste">colar</string>
     <string name="pick_file">Escolher Arquivo</string>
+    <string name="do_not_have_books">Você sainda nao tem nenhum livro, Clique no + abaixo e adicione algum</string>
+    <string name="do_not_have_lessons">Este livro ainda nao tem nenhuma lição, adicione algumas abaixo</string>
+    <string name="do_not_have_lesson_itens">Essa lição continua vazia, adicione algo!</string>
+    <string name="sure_want_to_delete">Tem certeza que vai deletar?</string>
+    <string name="lesson_item_lost_forever">Esse item jamas poderá ser recuperado</string>
+    <string name="book_lost_forever">O livro será perdido para sempre</string>
+    <string name="lesson_lost_forever">A lição será perdida para sempre</string>
+    <string name="cancel">Cancelar</string>
+    <string name="sure_want_to_cancel">Descartar alterações?</string>
+    <string name="changes_will_not_be_saved">Todas as suas alterções não salvas serão descartadas</string>
 
 </resources>
