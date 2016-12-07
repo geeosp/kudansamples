@@ -5,7 +5,7 @@
         android:id="@+id/menu_discard"
         android:icon="@drawable/ic_action_cancel"
         android:title="@string/menu_cancel"
-        app:showAsAction="ifRoom"></item>
+        app:showAsAction="never"></item>
     <item
         android:id="@+id/menu_save"
         android:icon="@drawable/ic_action_save"
