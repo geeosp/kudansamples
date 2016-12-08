@@ -227,7 +227,7 @@ public class TrackingActivityFinal extends ARActivity {
                             Uri uri = Uri.parse(((LessonItem) getItem(position)).getContent());
                             Intent intent = new Intent();
                             intent.setAction(Intent.ACTION_VIEW); // SET CUSTOM INTENT ACTION
-                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            //    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                             intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION); // GRANT TEMPORARY READ PERMISSION
                             intent.setData(uri);
                             startActivity(intent);
