@@ -26,6 +26,7 @@ import com.voxar.arauthtool.models.LessonItem;
 
 import java.util.ArrayList;
 
+import cn.refactor.lib.colordialog.ColorDialog;
 import eu.kudan.kudansamples.R;
 
 public class LessonActivity extends AppCompatActivity {
@@ -115,7 +116,7 @@ public class LessonActivity extends AppCompatActivity {
             case R.id.menu_save:
                 save();
                 break;
-            case R.id.menu_cancel:
+            case R.id.menu_discard:
                 cancel();
                 break;
             case R.id.menu_delete:
@@ -139,14 +140,50 @@ public class LessonActivity extends AppCompatActivity {
     }
 
     void delete() {
-        setResult(BookActivity.RESULT_DELETED);
-        Limbo.setCurrentLesson(lesson);
-        finish();
+        ColorDialog dialog = new ColorDialog(this);
+        dialog.setAnimationEnable(true);
+        dialog.setTitle(getString(R.string.sure_want_to_delete));
+        dialog.setContentText(getString(R.string.lesson_lost_forever));
+        dialog.setPositiveListener(getString(R.string.ok), new ColorDialog.OnPositiveListener() {
+            @Override
+            public void onClick(ColorDialog dialog) {
+                dialog.dismiss();
+                setResult(BookActivity.RESULT_DELETED);
+                Limbo.setCurrentLesson(lesson);
+                finish();
+            }
+        });
+        dialog.setNegativeListener(getString(R.string.cancel), new ColorDialog.OnNegativeListener() {
+            @Override
+            public void onClick(ColorDialog dialog) {
+                dialog.dismiss();
+            }
+        });
+        //    dialog.setCancelable(true);
+        dialog.show();
+
     }
 
     void cancel() {
-        Limbo.setCurrentLesson(null);
-        finish();
+        ColorDialog dialog = new ColorDialog(this);
+        dialog.setAnimationEnable(true);
+        dialog.setTitle(getString(R.string.sure_want_to_cancel));
+        dialog.setContentText(getString(R.string.changes_will_not_be_saved));
+        dialog.setPositiveListener(getString(R.string.ok), new ColorDialog.OnPositiveListener() {
+            @Override
+            public void onClick(ColorDialog dialog) {
+                dialog.show();
+                Limbo.setCurrentLesson(null);
+                finish();
+            }
+        });
+        dialog.setNegativeListener(getString(R.string.cancel), new ColorDialog.OnNegativeListener() {
+            @Override
+            public void onClick(ColorDialog dialog) {
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
     }
 
     public void createLessonItem(View v) {
