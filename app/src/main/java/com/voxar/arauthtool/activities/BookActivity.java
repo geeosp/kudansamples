@@ -18,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.signature.StringSignature;
 import com.voxar.arauthtool.models.Book;
 import com.voxar.arauthtool.models.Lesson;
 
@@ -309,6 +310,7 @@ public class BookActivity extends AppCompatActivity {
                     .load(lesson.getFilePath())
                     .centerCrop()
                     .crossFade()
+                    .signature(new StringSignature(String.valueOf(System.currentTimeMillis())))
                     .into(holder.iv_lesson_thumbnail);
         }
 

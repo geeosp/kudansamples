@@ -98,6 +98,7 @@ public class RealmBookDatabase extends BookDatabase {
         Realm realm = Realm.getDefaultInstance();
         realm.beginTransaction();
         Log.d("DatabaseBookLessonCount", "" + book.getLessons().size());
+
         for (int l = 0; l < book.getLessons().size(); l++) {
             //para cada liçao, salve a
             Lesson lesson = book.getLessons().get(l);
@@ -109,14 +110,19 @@ public class RealmBookDatabase extends BookDatabase {
                 File newFile = new File(ctx.getFilesDir(), "" + lesson.getId() + extension);
                 String newPath = newFile.getPath();
                 Log.d("SavingBook", "newFilePath: " + newPath);
-                if (!path.equals(newPath)) {
-                    try {
-                        copy(oldFile, newFile);
-                    } catch (IOException e) {
-                        Log.e("SavingBook", "Not Sucessfull" + e.getMessage());
+                try {
+                    if (newFile.exists()) {
+                        newFile.delete();
+                        newFile.createNewFile();
+
                     }
-                    lesson.setFilePath(newPath);
+                    copy(oldFile, newFile);
+                    Log.e("SavingBook", "Sucessfull" + newFile.getPath());
+                } catch (IOException e) {
+                    Log.e("SavingBook", "Not Sucessfull" + e.getMessage());
                 }
+                lesson.setFilePath(newPath);
+                book.getLessons().set(l, lesson);
             }
         }
 
