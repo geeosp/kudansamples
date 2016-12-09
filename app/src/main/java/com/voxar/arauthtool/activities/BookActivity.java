@@ -243,21 +243,23 @@ public class BookActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         // Check which request we're responding to
-        Log.e("RESULTCODE: ", "RESULT_DELETED");
         Lesson lesson = Limbo.getCurrentLesson();
         Limbo.setCurrentLesson(null);
         switch (resultCode) {
             case RESULT_EDITED:
                 switch (requestCode) {
                     case REQUEST_CREATE_LESSON:
+                        Log.d("BOOK_ACTV_RES: ", "RESULT_CREATE");
                         book.getLessons().add(lesson);
                         break;
                     case REQUEST_EDIT_LESSON:
+                        Log.d("BOOK_ACTV_RES: ", "RESULT_EDITED");
                         book.updateLesson(lesson);
                         break;
                 }
                 break;
             case RESULT_DELETED:
+                Log.d("BOOK_ACTV_RES: ", "RESULT_DELETED");
                 book.removeLesson(lesson.getId());
                 break;
         }

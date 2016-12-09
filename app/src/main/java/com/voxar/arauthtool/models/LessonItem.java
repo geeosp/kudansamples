@@ -13,8 +13,14 @@ public class LessonItem extends RealmObject {
     @PrimaryKey
     long id;
     int type;
-    String content;
     String name;
+
+
+    //    String content;
+    String fileName;
+    String fileMIMEType;
+    String path;
+
 
     public LessonItem() {
         this.id = System.currentTimeMillis();
@@ -23,7 +29,7 @@ public class LessonItem extends RealmObject {
 
     public LessonItem(int type, String name, String content) {
         this.type = type;
-        this.content = content;
+        this.path = content;
         this.name = name;
         this.id = System.currentTimeMillis();
     }
@@ -50,10 +56,10 @@ public class LessonItem extends RealmObject {
     }
 
     public String getContent() {
-        return content;
+        return path;
     }
 
     public void setContent(String content) {
-        this.content = content;
+        this.path = path;
     }
 }

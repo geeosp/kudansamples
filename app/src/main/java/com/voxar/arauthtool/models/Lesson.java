@@ -12,13 +12,32 @@ import io.realm.annotations.PrimaryKey;
  */
 
 public class Lesson extends RealmObject {
+
+
+    //used to generate id in runTime
     @Ignore
     static long lastId;
     @PrimaryKey
-    long id;
-    String name;
+    long id;//is also the name of the file saved in the internal storage
     String filePath; //path to image tracked
+    String name;
+    //use to export data within jsons
+    @Ignore
+    byte[] fileData;
+    @Ignore
+    String exension;// Extension of the image
+
+
+
+
+
+
+
+
+
+
     RealmList<LessonItem> lessonItems;//conteudo to be linked to image
+
 
     public Lesson() {
         this.id = Math.max(lastId + 1, System.currentTimeMillis());
@@ -28,6 +47,7 @@ public class Lesson extends RealmObject {
         this.name = "";
     }
 
+    /*
     public Lesson(String name, String filePath) {
         this.id = Math.max(lastId + 1, System.currentTimeMillis());
         lastId = this.id + 1;
@@ -36,7 +56,7 @@ public class Lesson extends RealmObject {
         this.lessonItems = new RealmList<LessonItem>();
 
     }
-
+*/
 
     public long getId() {
         return id;

@@ -22,6 +22,7 @@ public class FileTest extends AppCompatActivity {
         setContentView(R.layout.activity_file_test);
         textView = (TextView) findViewById(R.id.textView);
 
+
         Realm realm = Realm.getDefaultInstance();
         List<Book> books = realm.copyFromRealm(realm.where(Book.class).findAll());
         Iterator<Book> it = books.iterator();
