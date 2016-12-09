@@ -16,7 +16,16 @@
         android:layout_height="wrap_content"
         android:text="@string/pick_file"
         android:onClick="pickFile"/>
-
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Copy"
+        android:onClick="copy"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/pick_file"
+        android:onClick="openInternFile"/>
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
