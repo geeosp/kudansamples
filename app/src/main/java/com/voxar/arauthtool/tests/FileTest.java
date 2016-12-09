@@ -3,6 +3,7 @@ package com.voxar.arauthtool.tests;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 
 import com.voxar.arauthtool.models.Book;
@@ -12,6 +13,8 @@ import java.util.List;
 
 import eu.kudan.kudansamples.R;
 import io.realm.Realm;
+import ir.sohreco.androidfilechooser.ExternalStorageNotAvailableException;
+import ir.sohreco.androidfilechooser.FileChooserDialog;
 
 public class FileTest extends AppCompatActivity {
     TextView textView;
@@ -40,4 +43,20 @@ public class FileTest extends AppCompatActivity {
         //Book b = new Gson().fromJson(json, Book.class);
         textView.setText(json);
     }
+
+    public void pickFile(View v){
+        FileChooserDialog.Builder builder = new FileChooserDialog.Builder(FileChooserDialog.ChooserType.FILE_CHOOSER, new FileChooserDialog.ChooserListener() {
+            @Override
+            public void onSelect(String path) {
+                textView.setText(path);
+            }
+        });
+        try {
+            builder.build().show(getSupportFragmentManager(), null);
+        } catch (ExternalStorageNotAvailableException e) {
+            e.printStackTrace();
+        }
+    }
+
+
 }
