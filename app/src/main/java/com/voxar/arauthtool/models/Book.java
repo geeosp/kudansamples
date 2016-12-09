@@ -1,5 +1,7 @@
 package com.voxar.arauthtool.models;
 
+import com.google.gson.Gson;
+
 import java.util.Date;
 import java.util.Iterator;
 
@@ -98,6 +100,10 @@ public class Book extends RealmObject {
         return id;
     }
 
+    public String toJSON() {
+        return new Gson().toJson(this);
 
+
+    }
 }
 

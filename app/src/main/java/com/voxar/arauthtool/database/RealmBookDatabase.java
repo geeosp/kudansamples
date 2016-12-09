@@ -3,6 +3,7 @@ package com.voxar.arauthtool.database;
 import android.util.Log;
 
 import com.voxar.arauthtool.models.Book;
+import com.voxar.arauthtool.models.Lesson;
 
 import java.util.List;
 
@@ -25,7 +26,14 @@ public class RealmBookDatabase extends BookDatabase {
         if (instance == null) {
             instance = new RealmBookDatabase();
             //   instance.deleteAll();
-           /* if (instance.loadBooks().size() < 5) {
+            prepopulate();
+        }
+        return instance;
+    }
+
+    static void prepopulate() {
+
+        if (instance.loadBooks().size() < 5) {
                 for (int i = 0; i < 5; i++) {
                     Book b = new Book("Book " + i);
                     Lesson a = new Lesson("Lição 1", "https://static.pexels.com/photos/36487/above-adventure-aerial-air.jpg");
@@ -41,11 +49,8 @@ public class RealmBookDatabase extends BookDatabase {
                     Log.e("lessonId", "" + d.getId());
                     instance.saveBook(b);
                 }
-            }*/
         }
-        return instance;
     }
-
     void deleteAll() {
         Realm realm = Realm.getDefaultInstance();
         realm.beginTransaction();

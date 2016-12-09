@@ -1,10 +1,14 @@
 package com.voxar.arauthtool.activities;
 
 import android.content.ClipboardManager;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.OpenableColumns;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -16,7 +20,13 @@ import android.widget.EditText;
 
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.nbsp.materialfilepicker.MaterialFilePicker;
 import com.voxar.arauthtool.models.LessonItem;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
 
 import cn.refactor.lib.colordialog.ColorDialog;
 import eu.kudan.kudansamples.R;
@@ -146,7 +156,11 @@ public class LessonItemActivity extends AppCompatActivity {
     }
 
     public void pickFile(View v) {
-      /*
+        // openByPicker();
+        openByRequest();
+    }
+
+    void openByPicker() {
         new MaterialFilePicker()
                 .withActivity(this)
                 .withRequestCode(REQUEST_PICK_FILE)
@@ -154,25 +168,17 @@ public class LessonItemActivity extends AppCompatActivity {
                 //  .withFilterDirectories(true) // Set directories filterable (false by default)
                 //  .withHiddenFiles(true) // Show hidden files and folders
                 .start();
-                */
-        // ACTION_OPEN_DOCUMENT is the intent to choose a file via the system's file
-        // browser.
-        Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
-
-        // Filter to only show results that can be "opened", such as a
-        // file (as opposed to a list of contacts or timezones)
-        intent.addCategory(Intent.CATEGORY_OPENABLE);
-
-        // Filter to show only images, using the image MIME data type.
-        // If one wanted to search for ogg vorbis files, the type would be "audio/ogg".
-        // To search for all documents available via installed storage providers,
-        // it would be "*/*".
-        intent.setType("*/*");
-
-        startActivityForResult(intent, REQUEST_PICK_FILE);
-
 
     }
+
+    void openByRequest() {
+        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+        intent.addCategory(Intent.CATEGORY_OPENABLE);
+        intent.setType("*/*");
+        startActivityForResult(intent, REQUEST_PICK_FILE);
+
+    }
+
 
     void save() {
         lessonItem.setName(et_lesson_item_name.getText().toString());
@@ -230,18 +236,69 @@ public class LessonItemActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        switch (requestCode) {
-            case REQUEST_PICK_FILE:
-                Uri uri = null;
-                if (data != null) {
-                    uri = data.getData();
-                    Log.e("TAG", "Uri: " + uri.toString());
-                    Log.e("TAG", "Uri: " + uri.getPath());
-                    et_lesson_item_content.setText(uri.toString());
-                    lessonItem.setType(LessonItem.TYPE_FILE);
+        try {
+            switch (requestCode) {
+                case REQUEST_PICK_FILE:
+                    Uri returnUri = null;
+                    if (data != null) {
+                        returnUri = data.getData();
+                        Log.d("LESSON_ITEM_ACTIVITY", "URI_tostring: " + returnUri.toString());
+                        Log.d("LESSON_ITEM_ACTIVITY", "URI_getPath: " + returnUri.getPath());
+                        Log.d("LESSON_ITEM_ACTIVITY", "URI_getEncodedPath: " + returnUri.getEncodedPath());
+                        Log.d("LESSON_ITEM_ACTIVITY", "File MYMETYPE: " + getContentResolver().getType(returnUri));
+                        Cursor returnCursor =
+                                getContentResolver().query(returnUri, null, null, null, null);
 
-                }
+                        int nameIndex = returnCursor.getColumnIndex(OpenableColumns.DISPLAY_NAME);
+                        int sizeIndex = returnCursor.getColumnIndex(OpenableColumns.SIZE);
+                        returnCursor.moveToFirst();
+                        Log.d("LESSON_ITEM_ACTIVITY", "File Name: " + returnCursor.getString(nameIndex));
+                        Log.d("LESSON_ITEM_ACTIVITY", "File Size: " + returnCursor.getLong(sizeIndex));
+
+                        et_lesson_item_content.setText(returnUri.toString());
+                        lessonItem.setType(LessonItem.TYPE_FILE);
+
+
+                    }
+            }
+        } catch (Exception e) {
+
         }
+    }
+
+    public boolean copyFileFromUri(Context context, Uri fileUri) {
+        InputStream inputStream = null;
+        OutputStream outputStream = null;
+
+        try {
+            ContentResolver content = context.getContentResolver();
+            inputStream = content.openInputStream(fileUri);
+
+            File root = Environment.getExternalStorageDirectory();
+            if (root == null) {
+                Log.d("LESSON_ITEM_ACTIVITY", "Failed to get root");
+            }
+
+            // create a directory
+            File saveDirectory = new File(Environment.getExternalStorageDirectory() + File.separator + "directory_name" + File.separator);
+            // create direcotory if it doesn't exists
+            saveDirectory.mkdirs();
+
+            outputStream = new FileOutputStream(saveDirectory + "filename.extension"); // filename.png, .mp3, .mp4 ...
+            if (outputStream != null) {
+            }
+
+            byte[] buffer = new byte[1000];
+            int bytesRead = 0;
+            while ((bytesRead = inputStream.read(buffer, 0, buffer.length)) >= 0) {
+                outputStream.write(buffer, 0, buffer.length);
+            }
+        } catch (Exception e) {
+            Log.e("LESSON_ITEM_ACTIVITY", "Exception occurred " + e.getMessage());
+        } finally {
+
+        }
+        return true;
     }
 
 
