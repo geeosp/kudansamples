@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.database.DataSetObserver;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.content.FileProvider;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +18,7 @@ import com.voxar.arauthtool.models.Book;
 import com.voxar.arauthtool.models.Lesson;
 import com.voxar.arauthtool.models.LessonItem;
 
+import java.io.File;
 import java.util.List;
 
 import eu.kudan.kudan.ARActivity;
@@ -224,13 +226,17 @@ public class TrackingActivityFinal extends ARActivity {
                             startActivity(i);
                             break;
                         case LessonItem.TYPE_FILE:
-                            Uri uri = Uri.parse(((LessonItem) getItem(position)).getPath());
-                            Intent intent = new Intent();
-                            intent.setAction(Intent.ACTION_VIEW); // SET CUSTOM INTENT ACTION
-                            //    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION); // GRANT TEMPORARY READ PERMISSION
-                            intent.setData(uri);
+                            //Uri uri = Uri.parse(((LessonItem) getItem(position)).getPath());
+                            String path = ((LessonItem) getItem(position)).getPath();
+                            File temp_file = new File(path);
+                            Uri contentUri = FileProvider.getUriForFile(getApplicationContext(), "eu.kudan.kudansamples.fileprovider", temp_file);
+                            Log.d("Content", contentUri.toString());
+
+                            Intent intent = new Intent(Intent.ACTION_VIEW, contentUri);
+
+                            intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
                             startActivity(intent);
+
                             break;
                     }
                 }
