@@ -32,5 +32,7 @@
     <string name="cancel">Cancelar</string>
     <string name="sure_want_to_cancel">Descartar alterações?</string>
     <string name="changes_will_not_be_saved">Todas as suas alterções não salvas serão descartadas</string>
+    <string name="saving_title">Salvando Livro</string>
+    <string name="saving_message">Por favor, espere</string>
 
 </resources>

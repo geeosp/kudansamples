@@ -55,11 +55,11 @@ public class LessonItem extends RealmObject {
         this.type = type;
     }
 
-    public String getContent() {
+    public String getPath() {
         return path;
     }
 
-    public void setContent(String content) {
+    public void setPath(String content) {
         this.path = path;
     }
 }

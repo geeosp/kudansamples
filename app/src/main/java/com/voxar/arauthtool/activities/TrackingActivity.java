@@ -215,7 +215,7 @@ public class TrackingActivity extends ARActivity {
                     switch (item.getType()) {
                         case LessonItem.TYPE_URL:
                             Intent i = new Intent(Intent.ACTION_VIEW,
-                                    Uri.parse(((LessonItem) getItem(position)).getContent()));
+                                    Uri.parse(((LessonItem) getItem(position)).getPath()));
                             startActivity(i);
                             break;
                     }
