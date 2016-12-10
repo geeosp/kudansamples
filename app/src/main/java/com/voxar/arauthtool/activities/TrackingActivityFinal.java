@@ -220,11 +220,11 @@ public class TrackingActivityFinal extends ARActivity {
                         case LessonItem.TYPE_URL:
 
                             Intent i = new Intent(Intent.ACTION_VIEW,
-                                    Uri.parse(((LessonItem) getItem(position)).getContent()));
+                                    Uri.parse(((LessonItem) getItem(position)).getPath()));
                             startActivity(i);
                             break;
                         case LessonItem.TYPE_FILE:
-                            Uri uri = Uri.parse(((LessonItem) getItem(position)).getContent());
+                            Uri uri = Uri.parse(((LessonItem) getItem(position)).getPath());
                             Intent intent = new Intent();
                             intent.setAction(Intent.ACTION_VIEW); // SET CUSTOM INTENT ACTION
                             //    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

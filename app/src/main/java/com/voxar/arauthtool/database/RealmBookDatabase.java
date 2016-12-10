@@ -5,6 +5,7 @@ import android.util.Log;
 
 import com.voxar.arauthtool.models.Book;
 import com.voxar.arauthtool.models.Lesson;
+import com.voxar.arauthtool.models.LessonItem;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -101,23 +102,7 @@ public class RealmBookDatabase extends BookDatabase {
         for (int l = 0; l < book.getLessons().size(); l++) {
             //para cada liçao, salve a
             Lesson lesson = book.getLessons().get(l);
-            String path = lesson.getFilePath();
-            if (!path.contains("http")) {//is a file
-                String extension = path.substring(path.lastIndexOf('.'));
-                Log.d("SavingBook", "lesson Extension: " + extension);
-                File oldFile = new File(path);
-                File newFile = new File(ctx.getFilesDir(), "" + lesson.getId() + extension);
-                String newPath = newFile.getPath();
-                Log.d("SavingBook", "newFilePath: " + newPath);
-                if (!path.equals(newPath)) {
-                    try {
-                        copy(oldFile, newFile);
-                    } catch (IOException e) {
-                        Log.e("SavingBook", "Not Sucessfull" + e.getMessage());
-                    }
-                    lesson.setFilePath(newPath);
-                }
-            }
+            book.updateLesson(prepareLessonToSave(lesson));
         }
 
 
@@ -139,4 +124,65 @@ public class RealmBookDatabase extends BookDatabase {
         in.close();
         out.close();
     }
+
+
+    Lesson prepareLessonToSave(Lesson lesson) {
+        String path = lesson.getFilePath();
+        if (!path.contains("http")) {//is a file
+            String extension = path.substring(path.lastIndexOf('.'));
+            Log.d("SavingBook", "lesson Extension: " + extension);
+            File oldFile = new File(path);
+            File newFile = new File(ctx.getFilesDir(), "" + lesson.getId() + extension);
+            String newPath = newFile.getPath();
+            Log.d("SavingBook", "newFilePath: " + newPath);
+            try {
+                copy(oldFile, newFile);
+            } catch (IOException e) {
+                Log.e("SavingBook", "Not Sucessfull" + e.getMessage());
+            }
+            lesson.setFilePath(newPath);
+        }
+        for (int i = 0; i < lesson.getLessonItems().size(); i++) {
+            LessonItem item = prepareLessonItemToSave(lesson.getLessonItems().get(i));
+            lesson.updateLessonItem(item);
+        }
+
+        return lesson;
+    }
+
+
+    LessonItem prepareLessonItemToSave(LessonItem lessonItem) {
+        switch (lessonItem.getType()) {
+            case LessonItem.TYPE_FILE:
+                String path = lessonItem.getPath();
+                lessonItem.setPath(copyFileToInternStorage(path, lessonItem.getId()));
+                break;
+        }
+        return lessonItem;
+    }
+
+    String copyFileToInternStorage(String currPath, long fileId) {
+        String extension = currPath.substring(currPath.lastIndexOf('.'));
+        Log.d("COPYING_FILE", "lesson Extension: " + extension);
+        File oldFile = new File(currPath);
+        File newFile = new File(ctx.getFilesDir(), "" + fileId + extension);
+        String newPath = newFile.getPath();
+        Log.d("COPYING_FILE", "newFilePath: " + newPath);
+        try {
+            copy(oldFile, newFile);
+        } catch (IOException e) {
+            Log.e("COPYING_FILE", "Not Sucessfull" + e.getMessage());
+        }
+        return newPath;
+    }
+
+
+    byte[] fileToByteArray(File file) throws IOException {
+
+
+        return org.apache.commons.io.FileUtils.readFileToByteArray(file);
+
+    }
+
+
 }

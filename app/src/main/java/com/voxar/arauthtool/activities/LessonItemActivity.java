@@ -67,7 +67,7 @@ public class LessonItemActivity extends AppCompatActivity {
                 break;
             case LessonActivity.REQUEST_EDIT_LESSON_ITEM:
                 lessonItem = Limbo.getCurrentLessonItem();
-                et_lesson_item_content.setText(lessonItem.getContent());
+                et_lesson_item_content.setText(lessonItem.getPath());
                 et_lesson_item_name.setText(lessonItem.getName());
 
 
@@ -150,8 +150,8 @@ public class LessonItemActivity extends AppCompatActivity {
 
 
     public void paste(View v) {
-        lessonItem.setContent(((ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE)).getPrimaryClip().getItemAt(0).getText().toString());
-        et_lesson_item_content.setText(lessonItem.getContent());
+        lessonItem.setPath(((ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE)).getPrimaryClip().getItemAt(0).getText().toString());
+        et_lesson_item_content.setText(lessonItem.getPath());
         lessonItem.setType(LessonItem.TYPE_URL);
     }
 
@@ -182,7 +182,7 @@ public class LessonItemActivity extends AppCompatActivity {
 
     void save() {
         lessonItem.setName(et_lesson_item_name.getText().toString());
-        lessonItem.setContent(et_lesson_item_content.getText().toString());
+        lessonItem.setPath(et_lesson_item_content.getText().toString());
         setResult(LessonActivity.RESULT_LESSON_ITEM_EDITED);
         Limbo.setCurrentLessonItem(lessonItem);
         finish();

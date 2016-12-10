@@ -1,5 +1,6 @@
 package com.voxar.arauthtool.activities;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -154,10 +155,20 @@ public class BookActivity extends AppCompatActivity {
     }
 
     void save() {
+        final ProgressDialog progressDialog = ProgressDialog.show(this, getResources().getString(R.string.saving_title), getResources().getString(R.string.saving_message), true, false);
+
+
+
         book.setName(et_bookName.getText().toString());
         MyApplication.getDatabase().saveBook(book);
         setEditMode(false);
         updateViews();
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                progressDialog.dismiss();
+            }
+        });
     }
 
     void delete() {
