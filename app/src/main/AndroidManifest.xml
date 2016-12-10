@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="eu.kudan.kudansamples">
 
     <uses-feature android:name="android.hardware.camera2" />
@@ -19,6 +20,17 @@
 
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="eu.kudan.kudansamples.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                tools:replace="android:resource"
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths_from_me" />
+
+        </provider>
         <activity
             android:name=".MainActivity"
             android:screenOrientation="portrait">
