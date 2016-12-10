@@ -28,14 +28,6 @@ public class Lesson extends RealmObject {
     String exension;// Extension of the image
 
 
-
-
-
-
-
-
-
-
     RealmList<LessonItem> lessonItems;//conteudo to be linked to image
 
 
@@ -64,10 +56,16 @@ public class Lesson extends RealmObject {
 
 
     public String getName() {
+        if (this.name == null) {
+            this.name = "";
+        }
+
         return name;
     }
 
     public void setName(String name) {
+
+        if (name == null) name = "";
         this.name = name;
     }
 
@@ -76,6 +74,7 @@ public class Lesson extends RealmObject {
     }
 
     public void setFilePath(String filePath) {
+        if (filePath == null) filePath = "";
         this.filePath = filePath;
     }
 

@@ -30,6 +30,8 @@ public class LessonItem extends RealmObject {
     public LessonItem(int type, String name, String content) {
         this.type = type;
         this.path = content;
+        if (name == null) name = "";
+
         this.name = name;
         this.id = System.currentTimeMillis();
     }
@@ -39,10 +41,13 @@ public class LessonItem extends RealmObject {
     }
 
     public String getName() {
+        if (this.name == null)
+            this.name = "";
         return name;
     }
 
     public void setName(String name) {
+        if (this.name == null) this.name = "";
         this.name = name;
     }
 
@@ -56,10 +61,16 @@ public class LessonItem extends RealmObject {
     }
 
     public String getPath() {
+        if (this.path == null) {
+            this.path = "";
+        }
         return path;
     }
 
     public void setPath(String content) {
-        this.path = path;
+        if (content == null) {
+            content = "";
+        }
+        this.path = content;
     }
 }

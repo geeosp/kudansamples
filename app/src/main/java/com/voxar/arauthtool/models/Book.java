@@ -37,6 +37,7 @@ public class Book extends RealmObject {
     public Book(String name) {
         this.id = Math.max(lastId + 1, System.currentTimeMillis());
         lastId = this.id + 1;
+        if (name == null) name = "";
         this.name = name;
         this.createdDate = new Date();
         this.lessons = new RealmList<Lesson>();
@@ -85,10 +86,14 @@ public class Book extends RealmObject {
     }
 
     public String getName() {
-        return name;
+        if (this.name == null) {
+            this.name = "";
+        }
+        return this.name;
     }
 
     public void setName(String name) {
+        if (name == null) name = "";
         this.name = name;
     }
 

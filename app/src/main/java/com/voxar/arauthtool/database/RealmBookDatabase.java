@@ -129,18 +129,7 @@ public class RealmBookDatabase extends BookDatabase {
     Lesson prepareLessonToSave(Lesson lesson) {
         String path = lesson.getFilePath();
         if (!path.contains("http")) {//is a file
-            String extension = path.substring(path.lastIndexOf('.'));
-            Log.d("SavingBook", "lesson Extension: " + extension);
-            File oldFile = new File(path);
-            File newFile = new File(ctx.getFilesDir(), "" + lesson.getId() + extension);
-            String newPath = newFile.getPath();
-            Log.d("SavingBook", "newFilePath: " + newPath);
-            try {
-                copy(oldFile, newFile);
-            } catch (IOException e) {
-                Log.e("SavingBook", "Not Sucessfull" + e.getMessage());
-            }
-            lesson.setFilePath(newPath);
+            lesson.setFilePath(copyFileToInternStorage(path, lesson.getId()));
         }
         for (int i = 0; i < lesson.getLessonItems().size(); i++) {
             LessonItem item = prepareLessonItemToSave(lesson.getLessonItems().get(i));
@@ -167,11 +156,13 @@ public class RealmBookDatabase extends BookDatabase {
         File oldFile = new File(currPath);
         File newFile = new File(ctx.getFilesDir(), "" + fileId + extension);
         String newPath = newFile.getPath();
-        Log.d("COPYING_FILE", "newFilePath: " + newPath);
-        try {
-            copy(oldFile, newFile);
-        } catch (IOException e) {
-            Log.e("COPYING_FILE", "Not Sucessfull" + e.getMessage());
+        if (!currPath.equals(newPath)) {
+            Log.d("COPYING_FILE", "newFilePath: " + newPath);
+            try {
+                copy(oldFile, newFile);
+            } catch (IOException e) {
+                Log.e("COPYING_FILE", "Not Sucessfull" + e.getMessage());
+            }
         }
         return newPath;
     }

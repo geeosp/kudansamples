@@ -30,6 +30,8 @@ import java.io.OutputStream;
 
 import cn.refactor.lib.colordialog.ColorDialog;
 import eu.kudan.kudansamples.R;
+import ir.sohreco.androidfilechooser.ExternalStorageNotAvailableException;
+import ir.sohreco.androidfilechooser.FileChooserDialog;
 
 public class LessonItemActivity extends AppCompatActivity {
     final static int REQUEST_PICK_FILE = 1;
@@ -157,8 +159,24 @@ public class LessonItemActivity extends AppCompatActivity {
 
     public void pickFile(View v) {
         // openByPicker();
-        openByRequest();
+        //  openByRequest();
+
+
+        FileChooserDialog.Builder builder = new FileChooserDialog.Builder(FileChooserDialog.ChooserType.FILE_CHOOSER, new FileChooserDialog.ChooserListener() {
+            @Override
+            public void onSelect(String path) {
+                et_lesson_item_content.setText(path);
+                lessonItem.setType(LessonItem.TYPE_FILE);
+            }
+        });
+        try {
+            builder.build().show(getSupportFragmentManager(), null);
+        } catch (ExternalStorageNotAvailableException e) {
+            e.printStackTrace();
+        }
+
     }
+
 
     void openByPicker() {
         new MaterialFilePicker()
