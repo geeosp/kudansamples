@@ -16,16 +16,12 @@ public class LessonItem extends RealmObject {
     String name;
 
 
-    //    String content;
-    String fileName;
-    String fileMIMEType;
-    String path;
 
+    String path;
 
     public LessonItem() {
         this.id = System.currentTimeMillis();
     }
-
 
     public LessonItem(int type, String name, String content) {
         this.type = type;
@@ -34,6 +30,10 @@ public class LessonItem extends RealmObject {
 
         this.name = name;
         this.id = System.currentTimeMillis();
+    }
+
+    public String getExtension() {
+        return path.substring(path.lastIndexOf('.'));
     }
 
     public long getId() {
@@ -73,4 +73,6 @@ public class LessonItem extends RealmObject {
         }
         this.path = content;
     }
+
+
 }

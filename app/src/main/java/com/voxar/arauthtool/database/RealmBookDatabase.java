@@ -1,10 +1,12 @@
 package com.voxar.arauthtool.database;
 
 import android.content.Context;
+import android.util.Base64;
 import android.util.Log;
 
-import com.google.gson.Gson;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import com.voxar.arauthtool.models.Book;
 import com.voxar.arauthtool.models.Lesson;
 import com.voxar.arauthtool.models.LessonItem;
@@ -15,10 +17,14 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.util.Iterator;
 import java.util.List;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
+
+import static android.R.attr.id;
 
 /**
  * Created by geeo on 03/12/16.
@@ -99,6 +105,31 @@ public class RealmBookDatabase extends BookDatabase {
     }
 
 
+    public String getFilePathToExportBook(long bookId) {
+        Book b = getBook(id);
+
+        String path = ctx.getFilesDir() + File.separator + b.getName() + ".arbook";
+        final File file = new File(path, "config.txt");
+        String data = bookToJsonElement(b).toString();
+        // Save your stream, don't forget to flush() it before closing it.
+
+        try {
+            file.createNewFile();
+            FileOutputStream fOut = new FileOutputStream(file);
+            OutputStreamWriter myOutWriter = new OutputStreamWriter(fOut);
+            myOutWriter.append(data);
+
+            myOutWriter.close();
+
+            fOut.flush();
+            fOut.close();
+        } catch (IOException e) {
+            Log.e("Exception", "File write failed: " + e.toString());
+        }
+        return path;
+    }
+
+
     void copy(File src, File dst) throws IOException {
         InputStream in = new FileInputStream(src);
         OutputStream out = new FileOutputStream(dst);
@@ -115,9 +146,9 @@ public class RealmBookDatabase extends BookDatabase {
 
 
     Lesson prepareLessonToSave(Lesson lesson) {
-        String path = lesson.getFilePath();
+        String path = lesson.getPath();
         if (!path.contains("http")) {//is a file
-            lesson.setFilePath(copyFileToInternStorage(path, lesson.getId()));
+            lesson.setPath(copyFileToInternStorage(path, lesson.getId()));
         }
         for (int i = 0; i < lesson.getLessonItems().size(); i++) {
             LessonItem item = prepareLessonItemToSave(lesson.getLessonItems().get(i));
@@ -156,29 +187,74 @@ public class RealmBookDatabase extends BookDatabase {
     }
 
 
-    String bookToJson(long BookId) {
-        String json = "";
-
+    JsonElement lessonToJsonElement(Lesson lesson) {
+        JsonObject json = new JsonObject();
+        json.addProperty("id", lesson.getId());
+        json.addProperty("name", lesson.getName());
+        json.addProperty("extension", lesson.getExtension());
+        String path = fileToJson(lesson.getPath());
+        json.addProperty("path", path);
+        JsonArray lessonItems = new JsonArray();
+        Iterator<LessonItem> it = lesson.getLessonItems().iterator();
+        while (it.hasNext()) {
+            lessonItems.add(lessonItemToJsonElement(it.next()));
+        }
+        json.add("lessonItems", lessonItems);
 
         return json;
     }
 
-    String lessonToJson(Lesson lesson) {
-        String json = "";
+
+    public JsonElement bookToJsonElement(Book book) {
+        JsonObject json = new JsonObject();
+        Iterator<Lesson> it = book.getLessons().iterator();
+        JsonArray lessons = new JsonArray();
+        while (it.hasNext()) {
+            lessons.add(lessonToJsonElement(it.next()));
+        }
+        json.addProperty("id", book.getId());
+        json.addProperty("name", book.getName());
+        json.add("lessons", lessons);
+
+        return json;
+
+    }
 
 
+    JsonElement lessonItemToJsonElement(LessonItem lessonItem) {
+        JsonObject json = new JsonObject();
+        json.addProperty("id", lessonItem.getId());
+        json.addProperty("type", lessonItem.getType());
+        json.addProperty("name", lessonItem.getName());
+
+        String path = "";
+        switch (lessonItem.getType()) {
+            case LessonItem.TYPE_FILE:
+                path = fileToJson(lessonItem.getPath());
+                json.addProperty("extension", lessonItem.getExtension());
+
+                break;
+            case LessonItem.TYPE_URL:
+                path = lessonItem.getPath();
+        }
+
+        json.addProperty("path", path);
         return json;
     }
 
-    JsonElement lessonItemToJson(LessonItem lessonItem) {
-        Gson gson = new Gson();
-        JsonElement lessonItemJson = gson.toJsonTree(lessonItem);
+    public String fileToJson(String path) {
+        String encodedFile = "";
+        File file = new File(path);
+        try {
+            byte[] bytes = fileToByteArray(file);
+            encodedFile = Base64.encodeToString(bytes, Base64.DEFAULT);
 
-        Log.e("JSON lessonItem: ", lessonItemJson.toString());
 
-        return lessonItemJson;
+        } catch (IOException ioe) {
+            Log.e("Exception", ioe.getMessage());
+        }
+        return encodedFile;
     }
-
 
     byte[] fileToByteArray(File file) throws IOException {
         return org.apache.commons.io.FileUtils.readFileToByteArray(file);

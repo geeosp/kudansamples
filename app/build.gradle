@@ -50,10 +50,8 @@ dependencies {
     compile 'com.nbsp:library:1.1'
     compile 'com.github.andyxialm:ColorDialog:1.0.0'
     compile 'com.google.android.gms:play-services-appindexing:8.4.0'
-    compile 'com.google.code.gson:gson:1.7.2'
+    compile 'com.google.code.gson:gson:2.8.+'
     compile 'org.apache.commons:commons-io:1.3.2'
-
-
     compile 'ir.sohreco.androidfilechooser:android-file-chooser:1.1.0'
 
 }

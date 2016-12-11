@@ -355,7 +355,7 @@ public class BookActivity extends AppCompatActivity {
             });
             Glide
                     .with(getApplicationContext())
-                    .load(lesson.getFilePath())
+                    .load(lesson.getPath())
                     .centerCrop()
                     .crossFade()
                     .signature(new StringSignature(String.valueOf(System.currentTimeMillis())))

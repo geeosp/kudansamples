@@ -22,6 +22,7 @@ import java.io.OutputStream;
 import java.util.Iterator;
 import java.util.List;
 
+import eu.kudan.kudansamples.MyApplication;
 import eu.kudan.kudansamples.R;
 import io.realm.Realm;
 import ir.sohreco.androidfilechooser.ExternalStorageNotAvailableException;
@@ -42,7 +43,7 @@ public class FileTest extends AppCompatActivity {
         Iterator<Book> it = books.iterator();
         String json = "";
         while (it.hasNext()) {
-            json += it.next().toJSON();
+            json += MyApplication.getDatabase().bookToJsonElement(it.next()).toString();
             if (it.hasNext()) {
                 json += ",";
             }

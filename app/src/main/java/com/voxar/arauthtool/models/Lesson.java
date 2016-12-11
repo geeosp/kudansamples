@@ -19,36 +19,22 @@ public class Lesson extends RealmObject {
     static long lastId;
     @PrimaryKey
     long id;//is also the name of the file saved in the internal storage
-    String filePath; //path to image tracked
+    String path; //path to image tracked
     String name;
     //use to export data within jsons
-    @Ignore
-    byte[] fileData;
-    @Ignore
-    String exension;// Extension of the image
-
-
     RealmList<LessonItem> lessonItems;//conteudo to be linked to image
-
 
     public Lesson() {
         this.id = Math.max(lastId + 1, System.currentTimeMillis());
         lastId = this.id + 1;
         this.lessonItems = new RealmList<LessonItem>();
-        this.filePath = "";
+        this.path = "";
         this.name = "";
     }
 
-    /*
-    public Lesson(String name, String filePath) {
-        this.id = Math.max(lastId + 1, System.currentTimeMillis());
-        lastId = this.id + 1;
-        this.name = name;
-        this.filePath = filePath;
-        this.lessonItems = new RealmList<LessonItem>();
-
+    public String getExtension() {
+        return path.substring(path.lastIndexOf('.'));
     }
-*/
 
     public long getId() {
         return id;
@@ -69,13 +55,13 @@ public class Lesson extends RealmObject {
         this.name = name;
     }
 
-    public String getFilePath() {
-        return filePath;
+    public String getPath() {
+        return path;
     }
 
-    public void setFilePath(String filePath) {
-        if (filePath == null) filePath = "";
-        this.filePath = filePath;
+    public void setPath(String path) {
+        if (path == null) path = "";
+        this.path = path;
     }
 
     public RealmList<LessonItem> getLessonItems() {

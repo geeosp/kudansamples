@@ -62,7 +62,7 @@ public class TrackingActivity extends ARActivity {
 
         // Initialise image trackable
         ARImageTrackable trackable = new ARImageTrackable(lesson.getName());
-        trackable.loadFromPath(lesson.getFilePath());
+        trackable.loadFromPath(lesson.getPath());
 
         // Get instance of image tracker manager
         ARImageTracker trackableManager = ARImageTracker.getInstance();

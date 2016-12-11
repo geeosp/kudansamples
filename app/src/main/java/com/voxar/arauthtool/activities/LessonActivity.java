@@ -18,7 +18,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.signature.StringSignature;
 import com.nguyenhoanglam.imagepicker.activity.ImagePicker;
 import com.nguyenhoanglam.imagepicker.activity.ImagePickerActivity;
@@ -91,7 +90,7 @@ public class LessonActivity extends AppCompatActivity {
         recyclerView.setAdapter(new LessonItemAdapter());
         Glide
                 .with(getApplicationContext())
-                .load(lesson.getFilePath())
+                .load(lesson.getPath())
                 .centerCrop()
                 .crossFade()
                 .signature(new StringSignature(String.valueOf(System.currentTimeMillis())))
@@ -214,7 +213,7 @@ public class LessonActivity extends AppCompatActivity {
                         if (data != null) {
                             ArrayList<Image> images = data.getParcelableArrayListExtra(ImagePickerActivity.INTENT_EXTRA_SELECTED_IMAGES);
                             Log.e("Image picked", images.get(0).getPath());
-                            lesson.setFilePath(images.get(0).getPath());
+                            lesson.setPath(images.get(0).getPath());
                             updateViews();
                         }
                         break;

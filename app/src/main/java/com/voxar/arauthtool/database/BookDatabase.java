@@ -1,5 +1,6 @@
 package com.voxar.arauthtool.database;
 
+import com.google.gson.JsonElement;
 import com.voxar.arauthtool.models.Book;
 
 import java.util.List;
@@ -16,6 +17,6 @@ public abstract class BookDatabase {
 
     public abstract void saveBook(Book book);
 
-
+    public abstract JsonElement bookToJsonElement(Book book);
     public abstract void deleteBook(long id);
 }
