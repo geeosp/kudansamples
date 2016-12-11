@@ -80,33 +80,39 @@ public class BookActivity extends AppCompatActivity {
     }
 
     void updateViews() {
-        et_bookName.setText(book.getName());
-        if (editMode) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                et_bookName.setText(book.getName());
+                if (editMode) {
 
-            setTitle(getResources().getString(R.string.edit_book));
-            et_bookName.setVisibility(VISIBLE);
-            et_bookName.setText(book.getName());
-            floatingActionButton.setImageResource(R.drawable.ic_action_add);
-            floatingActionButton.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    openLesson(REQUEST_CREATE_LESSON, -1);
-                }
-            });
+                    setTitle(getResources().getString(R.string.edit_book));
+                    et_bookName.setVisibility(VISIBLE);
+                    et_bookName.setText(book.getName());
+                    floatingActionButton.setImageResource(R.drawable.ic_action_add);
+                    floatingActionButton.setOnClickListener(new OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            openLesson(REQUEST_CREATE_LESSON, -1);
+                        }
+                    });
 
-        } else {
-            setTitle(book.getName());
-            et_bookName.setVisibility(View.GONE);
-            floatingActionButton.setImageResource(R.drawable.ic_action_play);
-            floatingActionButton.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    playBook();
+                } else {
+                    setTitle(book.getName());
+                    et_bookName.setVisibility(View.GONE);
+                    floatingActionButton.setImageResource(R.drawable.ic_action_play);
+                    floatingActionButton.setOnClickListener(new OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            playBook();
+                        }
+                    });
                 }
-            });
-        }
-        invalidateOptionsMenu();
-        recyclerView.setAdapter(new LessonAdapter());
+                invalidateOptionsMenu();
+                recyclerView.setAdapter(new LessonAdapter());
+            }
+        });
+
     }
 
 
@@ -149,27 +155,39 @@ public class BookActivity extends AppCompatActivity {
 
                     this.finish();
                 }
+                break;
+            case R.id.menu_share:
+
+                exportBook();
+                break;
 
 
         }
         return true;
     }
 
+    void exportBook() {
+
+
+    }
+
+
     void save() {
         final ProgressDialog progressDialog = ProgressDialog.show(this, getResources().getString(R.string.saving_title), getResources().getString(R.string.saving_message), true, false);
 
-
-
-        book.setName(et_bookName.getText().toString());
-        MyApplication.getDatabase().saveBook(book);
-        setEditMode(false);
-        updateViews();
-        runOnUiThread(new Runnable() {
+        Thread mThread = new Thread() {
             @Override
             public void run() {
+                book.setName(et_bookName.getText().toString());
+                MyApplication.getDatabase().saveBook(book);
+                setEditMode(false);
+                updateViews();
                 progressDialog.dismiss();
             }
-        });
+        };
+        mThread.start();
+
+
     }
 
     void delete() {
