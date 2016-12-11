@@ -3,6 +3,8 @@ package com.voxar.arauthtool.database;
 import android.content.Context;
 import android.util.Log;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonElement;
 import com.voxar.arauthtool.models.Book;
 import com.voxar.arauthtool.models.Lesson;
 import com.voxar.arauthtool.models.LessonItem;
@@ -41,23 +43,9 @@ public class RealmBookDatabase extends BookDatabase {
     }
 
     static void prepopulate() {
-
         if (instance.loadBooks().size() < 5) {
             for (int i = 0; i < 5; i++) {
                 Book b = new Book("Book " + i);
-
-                    /*Lesson a = new Lesson("Lição 1", "https://static.pexels.com/photos/36487/above-adventure-aerial-air.jpg");
-                    b.addLesson(a);
-                    Log.e("lessonId", "" + a.getId());
-                    instance.saveBook(b);
-                    Lesson c = new Lesson("Lição 2", "http://www.w3schools.com/howto/img_fjords.jpg");
-                    Log.e("lessonId", "" + c.getId());
-                    b.addLesson(c);
-                    instance.saveBook(b);
-                    Lesson d = new Lesson("Lição 3", "https://www.planwallpaper.com/static/images/butterfly-wallpaper.jpeg");
-                    b.addLesson(d);
-                    Log.e("lessonId", "" + d.getId());
-*/
                 instance.saveBook(b);
             }
         }
@@ -168,12 +156,31 @@ public class RealmBookDatabase extends BookDatabase {
     }
 
 
-    byte[] fileToByteArray(File file) throws IOException {
+    String bookToJson(long BookId) {
+        String json = "";
 
 
-        return org.apache.commons.io.FileUtils.readFileToByteArray(file);
+        return json;
+    }
 
+    String lessonToJson(Lesson lesson) {
+        String json = "";
+
+
+        return json;
+    }
+
+    JsonElement lessonItemToJson(LessonItem lessonItem) {
+        Gson gson = new Gson();
+        JsonElement lessonItemJson = gson.toJsonTree(lessonItem);
+
+        Log.e("JSON lessonItem: ", lessonItemJson.toString());
+
+        return lessonItemJson;
     }
 
 
+    byte[] fileToByteArray(File file) throws IOException {
+        return org.apache.commons.io.FileUtils.readFileToByteArray(file);
+    }
 }

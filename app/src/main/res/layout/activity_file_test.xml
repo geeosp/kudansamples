@@ -14,18 +14,30 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/pick_file"
-        android:onClick="pickFile"/>
+        android:onClick="pickFile"
+        android:text="@string/pick_file" />
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Copy"
-        android:onClick="copy"/>
+        android:onClick="copy"
+        android:text="Copy" />
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/pick_file"
-        android:onClick="openInternFile"/>
+        android:onClick="openInternFile"
+        android:text="@string/pick_file" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="fileToJson"
+        android:text="File to JSon" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="jsonToFile"
+        android:text="FJsontoFile" />
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"

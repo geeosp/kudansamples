@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.webkit.MimeTypeMap;
@@ -18,7 +19,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.net.URI;
 import java.util.Iterator;
 import java.util.List;
 
@@ -26,8 +26,6 @@ import eu.kudan.kudansamples.R;
 import io.realm.Realm;
 import ir.sohreco.androidfilechooser.ExternalStorageNotAvailableException;
 import ir.sohreco.androidfilechooser.FileChooserDialog;
-
-import static java.security.AccessController.getContext;
 
 public class FileTest extends AppCompatActivity {
     TextView textView;
@@ -111,6 +109,51 @@ public class FileTest extends AppCompatActivity {
         out.close();
     }
 
+    public void fileToJson(View v) {
+        String path = textView.getText().toString();
+        File file = new File(path);
+        try {
+            byte[] bytes = fileToByteArray(file);
+            String encodedFile = Base64.encodeToString(bytes, Base64.DEFAULT);
+            textView.setText(encodedFile);
+
+        } catch (IOException ioe) {
+            Log.e("Exception", ioe.getMessage());
+        }
+
+    }
+
+    public void jsonToFile(View v) {
+        String encoded = textView.getText().toString();
+        String path = getFilesDir().getPath() + "/" + System.currentTimeMillis() + ".jpg";
+        File s = Base64ToFile(textView.getText().toString(), path);
+        textView.setText(s.getPath());
+
+
+    }
+
+
+    byte[] fileToByteArray(File file) throws IOException {
+        return org.apache.commons.io.FileUtils.readFileToByteArray(file);
+    }
+
+    File Base64ToFile(String encoded, String fullPath) {
+        encoded = textView.getText().toString();
+        byte[] data = Base64.decode(encoded, Base64.DEFAULT);
+        File file = new File(fullPath);
+        try {
+            org.apache.commons.io.FileUtils.writeByteArrayToFile(file, data);
+        } catch (IOException ioe) {
+            Log.e("Exception", ioe.getMessage());
+        }
+
+
+        return file;
+    }
+
+
+
+
     public void openInternFile(View v){
         /*
         String path= textView.getText().toString();
@@ -145,4 +188,6 @@ public class FileTest extends AppCompatActivity {
         }
         return type;
     }
+
+
 }
