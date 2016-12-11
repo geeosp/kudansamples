@@ -1,6 +1,7 @@
 package com.voxar.arauthtool.activities;
 
 import android.Manifest;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -27,6 +28,8 @@ import java.util.List;
 
 import eu.kudan.kudansamples.MyApplication;
 import eu.kudan.kudansamples.R;
+import ir.sohreco.androidfilechooser.ExternalStorageNotAvailableException;
+import ir.sohreco.androidfilechooser.FileChooserDialog;
 
 public class BookListActivity extends AppCompatActivity {
     final int MY_PERMISSION_CAMERA = 1;
@@ -139,10 +142,7 @@ public class BookListActivity extends AppCompatActivity {
         switch (item.getItemId()) {
 
             case R.id.menu_import_book:
-                Intent intent = new Intent(Intent.ACTION_PICK);
-
-                intent.setType("*/*" + getResources().getString(R.string.export_file_extension));
-                startActivity(intent);
+                startImporting();
 
                 break;
         }
@@ -150,6 +150,34 @@ public class BookListActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+
+    public void startImporting() {
+        final Context ctx = this;
+        FileChooserDialog.Builder builder = new FileChooserDialog.Builder(FileChooserDialog.ChooserType.FILE_CHOOSER, new FileChooserDialog.ChooserListener() {
+            @Override
+            public void onSelect(String path) {
+                final String finalPath = path;
+                final ProgressDialog progressDialog = ProgressDialog.show(ctx, getResources().getString(R.string.importing_title), getResources().getString(R.string.importing_message), true, false);
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        MyApplication.getDatabase().importBook(finalPath);
+                        progressDialog.dismiss();
+                    }
+                });
+
+
+            }
+        });
+        try {
+            builder.build().show(getSupportFragmentManager(), null);
+        } catch (ExternalStorageNotAvailableException e) {
+            e.printStackTrace();
+        }
+
+    }
+
 
     @Override
     protected void onResume() {

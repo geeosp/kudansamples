@@ -23,6 +23,10 @@ public class LessonItem extends RealmObject {
         this.id = System.currentTimeMillis();
     }
 
+    public void setId(long id) {
+        this.id = id;
+    }
+
     public LessonItem(int type, String name, String content) {
         this.type = type;
         this.path = content;

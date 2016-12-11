@@ -32,6 +32,10 @@ public class Lesson extends RealmObject {
         this.name = "";
     }
 
+    public void setId(long id) {
+        this.id = id;
+    }
+
     public String getExtension() {
         return path.substring(path.lastIndexOf('.'));
     }

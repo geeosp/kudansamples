@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.Base64;
 import android.util.Log;
 
+import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -11,10 +12,13 @@ import com.voxar.arauthtool.models.Book;
 import com.voxar.arauthtool.models.Lesson;
 import com.voxar.arauthtool.models.LessonItem;
 
+import org.apache.commons.io.FileUtils;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -25,6 +29,7 @@ import java.util.List;
 
 import eu.kudan.kudansamples.R;
 import io.realm.Realm;
+import io.realm.RealmList;
 import io.realm.RealmResults;
 
 /**
@@ -58,7 +63,7 @@ public class RealmBookDatabase extends BookDatabase {
         }
     }
 
-    public static String convertStreamToString(InputStream is) throws Exception {
+    public static String convertStreamToString(InputStream is) throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(is));
         StringBuilder sb = new StringBuilder();
         String line = null;
@@ -69,13 +74,62 @@ public class RealmBookDatabase extends BookDatabase {
         return sb.toString();
     }
 
-    public static String getStringFromFile(String filePath) throws Exception {
+    public static String getStringFromFile(String filePath) throws IOException {
         File fl = new File(filePath);
         FileInputStream fin = new FileInputStream(fl);
         String ret = convertStreamToString(fin);
         //Make sure you close all streams.
         fin.close();
         return ret;
+    }
+
+    @Override
+    public void importBook(String path) {
+        try {
+            Gson gson = new Gson();
+            JsonElement json = gson.fromJson(new FileReader(path), JsonElement.class);
+            if (json.isJsonObject()) {
+                Book book = new Book();
+                JsonObject jsonObject = (JsonObject) json;
+                book.setName(jsonObject.get("name").getAsString());
+                book.setId(jsonObject.get("id").getAsLong());
+                JsonArray jsonLessons = jsonObject.getAsJsonArray("lessons");
+                RealmList<Lesson> lessons = new RealmList<>();
+                for (int l = 0; l < jsonLessons.size(); l++) {
+                    Lesson lesson = new Lesson();
+                    JsonObject jsonLesson = jsonLessons.get(l).getAsJsonObject();
+                    lesson.setName(jsonLesson.get("name").getAsString());
+                    lesson.setId(jsonLesson.get("id").getAsLong());
+                    String extension = jsonLesson.get("extension").getAsString();
+                    byte[] data = Base64.decode(jsonLesson.get("path").getAsString(), Base64.DEFAULT);
+                    String fileName = lesson.getId()+ extension;
+                    File file = new File(ctx.getFilesDir(), fileName);
+                    FileUtils.writeByteArrayToFile(file, data);
+                    lesson.setPath(file.getPath());
+
+
+
+
+
+
+
+                    book.addLesson(lesson);
+
+
+
+
+                }
+
+
+                saveBook(book);
+            }
+
+
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+        }
+
+
     }
 
     void deleteAll() {
@@ -132,6 +186,12 @@ public class RealmBookDatabase extends BookDatabase {
         final File file = new File(path);
         String data = bookToJsonElement(b).toString();
         // Save your stream, don't forget to flush() it before closing it.
+        writeStringDataToFile(data, file);
+        return path;
+    }
+
+    public void writeStringDataToFile(String data, File file) {
+
         try {
             if (file.exists()) file.delete();
             file.createNewFile();
@@ -146,7 +206,7 @@ public class RealmBookDatabase extends BookDatabase {
         } catch (IOException e) {
             Log.e("Exception", "File write failed: " + e.toString());
         }
-        return path;
+
     }
 
     void copy(File src, File dst) throws IOException {
@@ -262,8 +322,6 @@ public class RealmBookDatabase extends BookDatabase {
         try {
             byte[] bytes = fileToByteArray(file);
             encodedFile = Base64.encodeToString(bytes, Base64.DEFAULT);
-
-
         } catch (IOException ioe) {
             Log.e("Exception", ioe.getMessage());
         }
@@ -271,7 +329,10 @@ public class RealmBookDatabase extends BookDatabase {
     }
 
     byte[] fileToByteArray(File file) throws IOException {
+
         return org.apache.commons.io.FileUtils.readFileToByteArray(file);
     }
+
+
 
 }

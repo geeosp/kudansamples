@@ -41,5 +41,7 @@
     <string name="exporting_message">Por favor, espere</string>
     <string name="something_wrong">Se você está vendo essa tela, alguma coisa deu errado:\nPor favor, volte e tente novamente</string>
     <string name="menu_import_book">Importar Livro</string>
+    <string name="importing_title">Importando livro</string>
+    <string name="importing_message">@string/saving_message</string>
 
 </resources>

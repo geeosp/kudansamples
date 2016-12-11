@@ -21,4 +21,6 @@ public abstract class BookDatabase {
     public abstract void deleteBook(long id);
 
     public abstract String getFilePathToExportBook(long bookId);
+
+    public abstract void importBook(String path);
 }

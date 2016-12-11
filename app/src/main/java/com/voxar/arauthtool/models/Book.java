@@ -23,6 +23,10 @@ public class Book extends RealmObject {
     @PrimaryKey
     long id;
 
+    public void setId(long id) {
+        this.id = id;
+    }
+
     private RealmList<Lesson> lessons;
     private String name;
     private Date createdDate;
@@ -31,6 +35,7 @@ public class Book extends RealmObject {
         this.id = Math.max(lastId + 1, System.currentTimeMillis());
         lastId = this.id + 1;
         this.name = "";
+        this.lessons = new RealmList<Lesson>();
     }
 
 
