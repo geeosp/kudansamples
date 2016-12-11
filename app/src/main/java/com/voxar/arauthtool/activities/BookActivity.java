@@ -47,7 +47,7 @@ public class BookActivity extends AppCompatActivity {
     //Realm realm;
     RecyclerView recyclerView;
     FloatingActionButton floatingActionButton;
-
+    View placeHolder;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,7 +58,7 @@ public class BookActivity extends AppCompatActivity {
         et_bookName = (EditText) findViewById(R.id.et_book_name);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         recyclerView = (RecyclerView) findViewById(R.id.recycler);
-
+        placeHolder = findViewById(R.id.placeholder);
 
         if (bookId == -1) {
             book = new Book(getResources().getString(R.string.book_name_default));
@@ -114,6 +114,12 @@ public class BookActivity extends AppCompatActivity {
                 }
                 invalidateOptionsMenu();
                 recyclerView.setAdapter(new LessonAdapter());
+                if (book.getLessons().size() > 0) {
+                    placeHolder.setVisibility(View.GONE);
+                } else {
+                    placeHolder.setVisibility(View.VISIBLE);
+
+                }
             }
         });
 

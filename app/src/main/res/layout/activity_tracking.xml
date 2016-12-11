@@ -5,8 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
 
-    android:padding="10dp"
+
     tools:context="com.voxar.arauthtool.activities.TrackingActivity">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="@string/something_wrong"
+        android:textSize="34sp" />
 
     <eu.kudan.kudan.ARView
         android:id="@+id/arview"
@@ -23,13 +29,7 @@
         android:gravity="right"
         android:visibility="visible">
 
-        <ProgressBar
-            style="@android:style/Widget.Material.Light.ProgressBar.Large"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_margin="20dp">
 
-        </ProgressBar>
     </RelativeLayout>
 
     <RelativeLayout

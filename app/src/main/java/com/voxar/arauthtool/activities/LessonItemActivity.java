@@ -200,6 +200,13 @@ public class LessonItemActivity extends AppCompatActivity {
 
     void save() {
         lessonItem.setName(et_lesson_item_name.getText().toString());
+        String path = et_lesson_item_content.getText().toString();
+        if (path.equals("")) {
+            path = "http://";
+
+        }
+
+
         lessonItem.setPath(et_lesson_item_content.getText().toString());
         setResult(LessonActivity.RESULT_LESSON_ITEM_EDITED);
         Limbo.setCurrentLessonItem(lessonItem);

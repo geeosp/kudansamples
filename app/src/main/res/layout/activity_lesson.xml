@@ -62,15 +62,28 @@
                 android:onClick="pickImage" />
         </RelativeLayout>
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recycler"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@id/et_book_name"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/et_book_name">
 
-            android:padding="2dp">
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycler"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
 
-        </android.support.v7.widget.RecyclerView>
+                android:padding="2dp">
+
+            </android.support.v7.widget.RecyclerView>
+
+            <TextView
+                android:id="@+id/placeholder"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:padding="2dp"
+                android:text="@string/do_not_have_lesson_itens" />
+        </RelativeLayout>
 
     </LinearLayout>
 

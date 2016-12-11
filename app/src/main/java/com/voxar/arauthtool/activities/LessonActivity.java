@@ -44,7 +44,7 @@ public class LessonActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     FloatingActionButton floatingActionButton;
     int request;
-
+    View placeHolder;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,6 +81,7 @@ public class LessonActivity extends AppCompatActivity {
         RecyclerView.LayoutManager layout = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layout);
         recyclerView.setAdapter(new LessonItemAdapter());
+        placeHolder = findViewById(R.id.placeholder);
         updateViews();
 
     }
@@ -88,6 +89,11 @@ public class LessonActivity extends AppCompatActivity {
     void updateViews() {
 
         recyclerView.setAdapter(new LessonItemAdapter());
+        if (lesson.getLessonItems().size() > 0) {
+            placeHolder.setVisibility(View.GONE);
+        } else {
+            placeHolder.setVisibility(View.VISIBLE);
+        }
         Glide
                 .with(getApplicationContext())
                 .load(lesson.getPath())

@@ -36,6 +36,7 @@ public class BookListActivity extends AppCompatActivity {
     List<Book> books;
     RecyclerView recyclerView;
     BookAdapter bookAdapter;
+    View placeholder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,12 +54,12 @@ public class BookListActivity extends AppCompatActivity {
         recyclerView = (RecyclerView) findViewById(R.id.recycler);
         bookAdapter = new BookAdapter();
         recyclerView.setAdapter(bookAdapter);
-
+        placeholder = findViewById(R.id.placeholder);
         RecyclerView.LayoutManager layout = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
 
 
         //RecyclerView.LayoutManager layout = new GridLayoutManager(this,2);
-
+        placeholder = findViewById(R.id.placeholder);
         recyclerView.setLayoutManager(layout);
         permissionsRequest();
 
@@ -117,6 +118,11 @@ public class BookListActivity extends AppCompatActivity {
     protected void onPostResume() {
         super.onPostResume();
         recyclerView.invalidate();
+        if (books.size() > 0) {
+            placeholder.setVisibility(View.GONE);
+        } else {
+            placeholder.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override

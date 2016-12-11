@@ -40,6 +40,15 @@
 
     </android.support.v7.widget.RecyclerView>
 
+    <TextView
+        android:id="@+id/placeholder"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/et_book_name"
+        android:gravity="center"
+        android:padding="2dp"
+        android:text="@string/do_not_have_lessons" />
+
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/floatingActionButton"
         android:layout_width="100dp"
