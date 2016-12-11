@@ -36,5 +36,8 @@
     <string name="saving_message">Por favor, espere</string>
     <string name="menu_share">Compartilhar</string>
     <string name="share_using">Compartilhar usando...</string>
+    <string name="export_file_extension">.txt</string>
+    <string name="exporting_title">Preparando para exportar</string>
+    <string name="exporting_message">Por favor, espere</string>
 
 </resources>

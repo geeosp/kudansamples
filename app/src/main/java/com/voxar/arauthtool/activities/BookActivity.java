@@ -172,21 +172,22 @@ public class BookActivity extends AppCompatActivity {
 
     void exportBook() {
         Log.d("SHARE", "Starting");
-        final ProgressDialog progressDialog = ProgressDialog.show(this, getResources().getString(R.string.saving_title), getResources().getString(R.string.saving_message), true, false);
+        final ProgressDialog progressDialog = ProgressDialog.show(this, getResources().getString(R.string.exporting_title), getResources().getString(R.string.exporting_message), true, false);
+
         Thread thread = new Thread() {
             @Override
             public void run() {
-                File file = new File(getApplicationContext().getFilesDir(), book.getName() + ".arbook");
+                File file = new File(MyApplication.getDatabase().getFilePathToExportBook(book.getId()));
                 Uri uri = FileProvider.getUriForFile(getApplicationContext(), "eu.kudan.kudansamples.fileprovider", file);
                 Intent shareIntent = new Intent();
                 shareIntent.setAction(Intent.ACTION_SEND);
                 shareIntent.putExtra(Intent.EXTRA_STREAM, uri);
-                shareIntent.setType("*/arbook");
+                shareIntent.setType("*/" + getResources().getString(R.string.export_file_extension));
                 startActivity(Intent.createChooser(shareIntent, getResources().getText(R.string.share_using)));
                 progressDialog.dismiss();
             }
         };
-        thread.run();
+        thread.start();
 
     }
 

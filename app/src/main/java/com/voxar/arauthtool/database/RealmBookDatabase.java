@@ -21,10 +21,9 @@ import java.io.OutputStreamWriter;
 import java.util.Iterator;
 import java.util.List;
 
+import eu.kudan.kudansamples.R;
 import io.realm.Realm;
 import io.realm.RealmResults;
-
-import static android.R.attr.id;
 
 /**
  * Created by geeo on 03/12/16.
@@ -106,10 +105,10 @@ public class RealmBookDatabase extends BookDatabase {
 
 
     public String getFilePathToExportBook(long bookId) {
-        Book b = getBook(id);
+        Book b = getBook(bookId);
 
-        String path = ctx.getFilesDir() + File.separator + b.getName() + ".arbook";
-        final File file = new File(path, "config.txt");
+        String path = ctx.getFilesDir() + File.separator + b.getName() + ctx.getResources().getString(R.string.export_file_extension);
+        final File file = new File(path);
         String data = bookToJsonElement(b).toString();
         // Save your stream, don't forget to flush() it before closing it.
 

@@ -19,4 +19,6 @@ public abstract class BookDatabase {
 
     public abstract JsonElement bookToJsonElement(Book book);
     public abstract void deleteBook(long id);
+
+    public abstract String getFilePathToExportBook(long bookId);
 }
