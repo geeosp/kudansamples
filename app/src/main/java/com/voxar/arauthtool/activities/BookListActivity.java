@@ -152,7 +152,8 @@ public class BookListActivity extends AppCompatActivity {
     }
 
     void updatViews() {
-        recyclerView.invalidate();
+        bookAdapter = new BookAdapter();
+        recyclerView.setAdapter(bookAdapter);
     }
 
     public void startImporting() {
