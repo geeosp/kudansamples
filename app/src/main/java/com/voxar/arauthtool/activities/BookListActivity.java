@@ -32,6 +32,7 @@ public class BookListActivity extends AppCompatActivity {
     final int MY_PERMISSION_CAMERA = 1;
     final int MY_PERMISSION_READ_EXTERNAL_STORAGE = 2;
     final int MY_PERMISSION_WRITE_EXTERNAL_STORAGE = 3;
+    final int REQUEST_IMPORT_BOOK = 4;
     BookDatabase database;
     List<Book> books;
     RecyclerView recyclerView;
@@ -136,14 +137,14 @@ public class BookListActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-           /*
-            case R.id.menu_create_book:
-                Intent intent = new Intent(this, BookActivity.class);
-                intent.putExtra("book_id", -1);
+
+            case R.id.menu_import_book:
+                Intent intent = new Intent(Intent.ACTION_PICK);
+
+                intent.setType("*/*" + getResources().getString(R.string.export_file_extension));
                 startActivity(intent);
 
                 break;
-        */
         }
 
 

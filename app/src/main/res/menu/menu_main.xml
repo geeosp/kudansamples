@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu>
-    <!--item
-        android:id="@+id/menu_create_book"
-        android:icon="@drawable/ic_action_add"
-        app:showAsAction="ifRoom"
-        android:title="@string/menu_create_book">
-    </item-->
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/menu_import_book"
+        android:icon="@drawable/ic_action_import"
+        android:title="@string/menu_import_book"
+        app:showAsAction="ifRoom"></item>
 </menu>

@@ -11,11 +11,13 @@ import com.voxar.arauthtool.models.Book;
 import com.voxar.arauthtool.models.Lesson;
 import com.voxar.arauthtool.models.LessonItem;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.util.Iterator;
@@ -54,6 +56,26 @@ public class RealmBookDatabase extends BookDatabase {
                 instance.saveBook(b);
             }
         }
+    }
+
+    public static String convertStreamToString(InputStream is) throws Exception {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+        StringBuilder sb = new StringBuilder();
+        String line = null;
+        while ((line = reader.readLine()) != null) {
+            sb.append(line).append("\n");
+        }
+        reader.close();
+        return sb.toString();
+    }
+
+    public static String getStringFromFile(String filePath) throws Exception {
+        File fl = new File(filePath);
+        FileInputStream fin = new FileInputStream(fl);
+        String ret = convertStreamToString(fin);
+        //Make sure you close all streams.
+        fin.close();
+        return ret;
     }
 
     void deleteAll() {
@@ -103,16 +125,15 @@ public class RealmBookDatabase extends BookDatabase {
         realm.commitTransaction();
     }
 
-
     public String getFilePathToExportBook(long bookId) {
         Book b = getBook(bookId);
 
-        String path = ctx.getFilesDir() + File.separator + b.getName() + ctx.getResources().getString(R.string.export_file_extension);
+        String path = ctx.getExternalFilesDir(null) + File.separator + b.getName() + ctx.getResources().getString(R.string.export_file_extension);
         final File file = new File(path);
         String data = bookToJsonElement(b).toString();
         // Save your stream, don't forget to flush() it before closing it.
-
         try {
+            if (file.exists()) file.delete();
             file.createNewFile();
             FileOutputStream fOut = new FileOutputStream(file);
             OutputStreamWriter myOutWriter = new OutputStreamWriter(fOut);
@@ -128,7 +149,6 @@ public class RealmBookDatabase extends BookDatabase {
         return path;
     }
 
-
     void copy(File src, File dst) throws IOException {
         InputStream in = new FileInputStream(src);
         OutputStream out = new FileOutputStream(dst);
@@ -143,7 +163,6 @@ public class RealmBookDatabase extends BookDatabase {
         out.close();
     }
 
-
     Lesson prepareLessonToSave(Lesson lesson) {
         String path = lesson.getPath();
         if (!path.contains("http")) {//is a file
@@ -156,7 +175,6 @@ public class RealmBookDatabase extends BookDatabase {
 
         return lesson;
     }
-
 
     LessonItem prepareLessonItemToSave(LessonItem lessonItem) {
         switch (lessonItem.getType()) {
@@ -185,7 +203,6 @@ public class RealmBookDatabase extends BookDatabase {
         return newPath;
     }
 
-
     JsonElement lessonToJsonElement(Lesson lesson) {
         JsonObject json = new JsonObject();
         json.addProperty("id", lesson.getId());
@@ -203,7 +220,6 @@ public class RealmBookDatabase extends BookDatabase {
         return json;
     }
 
-
     public JsonElement bookToJsonElement(Book book) {
         JsonObject json = new JsonObject();
         Iterator<Lesson> it = book.getLessons().iterator();
@@ -218,7 +234,6 @@ public class RealmBookDatabase extends BookDatabase {
         return json;
 
     }
-
 
     JsonElement lessonItemToJsonElement(LessonItem lessonItem) {
         JsonObject json = new JsonObject();
@@ -258,4 +273,5 @@ public class RealmBookDatabase extends BookDatabase {
     byte[] fileToByteArray(File file) throws IOException {
         return org.apache.commons.io.FileUtils.readFileToByteArray(file);
     }
+
 }

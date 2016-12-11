@@ -26,9 +26,9 @@
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data
-                tools:replace="android:resource"
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/provider_paths_from_me" />
+                android:resource="@xml/provider_paths_from_me"
+                tools:replace="android:resource" />
 
         </provider>
         <activity
@@ -68,10 +68,10 @@
             android:value="@integer/google_play_services_version" />
 
         <activity android:name="com.voxar.arauthtool.tests.FileTest">
-            <intent-filter android:label="ARToolFileTest">
+            <!--intent-filter android:label="ARToolFileTest">
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            </intent-filter-->
         </activity>
     </application>
 
