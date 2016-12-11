@@ -102,20 +102,40 @@ public class RealmBookDatabase extends BookDatabase {
                     lesson.setId(jsonLesson.get("id").getAsLong());
                     String extension = jsonLesson.get("extension").getAsString();
                     byte[] data = Base64.decode(jsonLesson.get("path").getAsString(), Base64.DEFAULT);
-                    String fileName = lesson.getId()+ extension;
+                    String fileName = lesson.getId() + extension;
                     File file = new File(ctx.getFilesDir(), fileName);
                     FileUtils.writeByteArrayToFile(file, data);
                     lesson.setPath(file.getPath());
 
 
+                    JsonArray jsonLessonItems = jsonLesson.get("lessonItems").getAsJsonArray();
+                    for (int i = 0; i < jsonLessonItems.size(); i++) {
+                        JsonObject jsonLessonItem = jsonLessonItems.get(i).getAsJsonObject();
+                        LessonItem lessonItem = new LessonItem();
+                        lessonItem.setId(jsonLessonItem.get("id").getAsLong());
+                        lessonItem.setName(jsonLessonItem.get("name").getAsString());
+                        lessonItem.setType(jsonLessonItem.get("type").getAsInt());
+                        switch (lessonItem.getType()) {
+                            case LessonItem.TYPE_URL:
+                                lessonItem.setPath(jsonLessonItem.get("path").getAsString());
+                                break;
+                            case LessonItem.TYPE_FILE:
+                                extension = jsonLessonItem.get("extension").getAsString();
+                                data = Base64.decode(jsonLessonItem.get("path").getAsString(), Base64.DEFAULT);
+                                fileName = lessonItem.getId() + extension;
+                                file = new File(ctx.getFilesDir(), fileName);
+                                FileUtils.writeByteArrayToFile(file, data);
+                                lessonItem.setPath(file.getPath());
 
+                                break;
 
+                        }
+                        lesson.addLessonItem(lessonItem);
 
+                    }
 
 
                     book.addLesson(lesson);
-
-
 
 
                 }
@@ -332,7 +352,6 @@ public class RealmBookDatabase extends BookDatabase {
 
         return org.apache.commons.io.FileUtils.readFileToByteArray(file);
     }
-
 
 
 }
