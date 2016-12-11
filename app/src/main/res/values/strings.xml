@@ -1,4 +1,5 @@
 <resources>
+    <string name="export_file_extension">.arbook</string>
     <string name="app_name">AR Auth Tool</string>
     <string name="menu_create_book">Criar Livro</string>
     <string name="menu_edit">Editar</string>
@@ -36,7 +37,6 @@
     <string name="saving_message">Por favor, espere</string>
     <string name="menu_share">Compartilhar</string>
     <string name="share_using">Compartilhar usando...</string>
-    <string name="export_file_extension">.txt</string>
     <string name="exporting_title">Preparando para exportar</string>
     <string name="exporting_message">Por favor, espere</string>
     <string name="something_wrong">Se você está vendo essa tela, alguma coisa deu errado:\nPor favor, volte e tente novamente</string>
