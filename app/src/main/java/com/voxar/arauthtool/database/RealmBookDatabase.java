@@ -107,7 +107,6 @@ public class RealmBookDatabase extends BookDatabase {
                     FileUtils.writeByteArrayToFile(file, data);
                     lesson.setPath(file.getPath());
 
-
                     JsonArray jsonLessonItems = jsonLesson.get("lessonItems").getAsJsonArray();
                     for (int i = 0; i < jsonLessonItems.size(); i++) {
                         JsonObject jsonLessonItem = jsonLessonItems.get(i).getAsJsonObject();

@@ -151,6 +151,9 @@ public class BookListActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    void updatViews() {
+        recyclerView.invalidate();
+    }
 
     public void startImporting() {
         final Context ctx = this;
@@ -159,16 +162,31 @@ public class BookListActivity extends AppCompatActivity {
             public void onSelect(String path) {
                 final String finalPath = path;
                 final ProgressDialog progressDialog = ProgressDialog.show(ctx, getResources().getString(R.string.importing_title), getResources().getString(R.string.importing_message), true, false);
-                runOnUiThread(new Runnable() {
+                new Thread(new Runnable() {
                     @Override
                     public void run() {
                         MyApplication.getDatabase().importBook(finalPath);
-                        progressDialog.dismiss();
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                //progressDialog.show();
+                                progressDialog.dismiss();
+                                updatViews();
+                            }
+                        });
                     }
-                });
+
+                    @Override
+                    protected void finalize() throws Throwable {
+                        progressDialog.dismiss();
+                        super.finalize();
+                    }
+                }).start();
 
 
             }
+
+
         });
         try {
             builder.build().show(getSupportFragmentManager(), null);
