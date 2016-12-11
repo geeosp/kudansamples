@@ -35,5 +35,6 @@
     <string name="saving_title">Salvando Livro</string>
     <string name="saving_message">Por favor, espere</string>
     <string name="menu_share">Compartilhar</string>
+    <string name="share_using">Compartilhar usando...</string>
 
 </resources>

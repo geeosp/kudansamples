@@ -2,8 +2,10 @@ package com.voxar.arauthtool.activities;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -22,6 +24,8 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.signature.StringSignature;
 import com.voxar.arauthtool.models.Book;
 import com.voxar.arauthtool.models.Lesson;
+
+import java.io.File;
 
 import cn.refactor.lib.colordialog.ColorDialog;
 import eu.kudan.kudansamples.MyApplication;
@@ -167,7 +171,22 @@ public class BookActivity extends AppCompatActivity {
     }
 
     void exportBook() {
-
+        Log.d("SHARE", "Starting");
+        final ProgressDialog progressDialog = ProgressDialog.show(this, getResources().getString(R.string.saving_title), getResources().getString(R.string.saving_message), true, false);
+        Thread thread = new Thread() {
+            @Override
+            public void run() {
+                File file = new File(getApplicationContext().getFilesDir(), book.getName() + ".arbook");
+                Uri uri = FileProvider.getUriForFile(getApplicationContext(), "eu.kudan.kudansamples.fileprovider", file);
+                Intent shareIntent = new Intent();
+                shareIntent.setAction(Intent.ACTION_SEND);
+                shareIntent.putExtra(Intent.EXTRA_STREAM, uri);
+                shareIntent.setType("*/arbook");
+                startActivity(Intent.createChooser(shareIntent, getResources().getText(R.string.share_using)));
+                progressDialog.dismiss();
+            }
+        };
+        thread.run();
 
     }
 
