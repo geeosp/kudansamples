@@ -18,6 +18,7 @@
             android:layout_height="85dp"
             android:gravity="center"
             android:text="LessonItem"
+            android:textColor="@color/text_color"
             android:textSize="20dp"
 
             />

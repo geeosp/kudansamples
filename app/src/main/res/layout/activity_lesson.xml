@@ -30,9 +30,10 @@
             style="@style/Widget.AppCompat.AutoCompleteTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
             android:hint="@string/et_lesson_name_hint"
+
             android:maxLines="1"
+            android:textColor="@color/text_color"
 
             android:textSize="24sp" />
 
@@ -82,7 +83,8 @@
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:padding="2dp"
-                android:text="@string/do_not_have_lesson_itens" />
+                android:text="@string/do_not_have_lesson_itens"
+                android:textColor="@color/text_color" />
         </RelativeLayout>
 
     </LinearLayout>

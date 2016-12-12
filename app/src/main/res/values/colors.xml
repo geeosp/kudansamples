@@ -5,4 +5,5 @@
     <color name="card_background">@color/md_blue_grey_50</color>
     <color name="action_text_color">@color/md_white_1000</color>
     <color name="image_placeholder">#606060ff</color>
+    <color name="text_color">@color/black</color>
 </resources>

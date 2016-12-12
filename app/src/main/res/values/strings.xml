@@ -43,5 +43,6 @@
     <string name="menu_import_book">Importar Livro</string>
     <string name="importing_title">Importando livro</string>
     <string name="importing_message">@string/saving_message</string>
+    <string name="kudan_api">GAWAE-FBVCC-XA8ST-GQVZV-93PQB-X7SBD-P6V4W-6RS9C-CQRLH-78YEU-385XP-T6MCG-2CNWB-YK8SR-8UUQ</string>
 
 </resources>

@@ -23,10 +23,11 @@
         style="@style/Widget.AppCompat.AutoCompleteTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
         android:layout_below="@id/toolbar"
+
         android:hint="@string/et_book_name_hint"
         android:maxLines="1"
+        android:textColor="@color/text_color"
 
         android:textSize="24sp" />
 
@@ -47,7 +48,8 @@
         android:layout_below="@id/et_book_name"
         android:gravity="center"
         android:padding="2dp"
-        android:text="@string/do_not_have_lessons" />
+        android:text="@string/do_not_have_lessons"
+        android:textColor="@color/text_color" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/floatingActionButton"

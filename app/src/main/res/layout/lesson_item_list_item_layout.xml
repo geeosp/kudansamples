@@ -37,6 +37,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:text="lesson name"
+                android:textColor="@color/text_color"
                 android:textSize="24sp" />
         </LinearLayout>
     </android.support.v7.widget.CardView>

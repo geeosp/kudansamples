@@ -21,7 +21,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/toolbar"
-        android:text="@string/lesson_item_edit_explanation" />
+        android:text="@string/lesson_item_edit_explanation"
+        android:textColor="@color/text_color" />
 
     <!--LinearLayout
         android:layout_width="match_parent"
@@ -48,21 +49,25 @@
         android:id="@+id/et_lesson_item_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/lesson_item_name_hint" />
+        android:hint="@string/lesson_item_name_hint"
+        android:textColor="@color/text_color" />
 
     <EditText
         android:id="@+id/et_lesson_item_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/lesson_item_content_hint"
-        android:inputType="textUri" />
+
+        android:inputType="textUri"
+        android:textColor="@color/text_color" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/lesson_item_edit_explanation"
         android:gravity="center"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:textColor="@color/text_color">
 
         <Button
             android:id="@+id/bt_copy_clipboard"

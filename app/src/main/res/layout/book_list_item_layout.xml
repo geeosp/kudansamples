@@ -37,6 +37,7 @@
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:text="book name"
+                android:textColor="@color/text_color"
                 android:textSize="24sp" />
         </LinearLayout>
     </android.support.v7.widget.CardView>
