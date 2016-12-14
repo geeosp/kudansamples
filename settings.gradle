@@ -1,1 +1,1 @@
-include ':app', ':cardboard', ':kudanar'
+include ':app', ':kudanar2'

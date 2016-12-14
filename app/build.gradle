@@ -35,8 +35,8 @@ dependencies {
     })
     compile 'com.android.support:appcompat-v7:25.0.0'
     testCompile 'junit:junit:4.12'
-    compile project(':cardboard')
-    compile project(':kudanar')
+    // compile project(':cardboard')
+    //    compile project(':kudanar')
     //compile 'gun0912.ted:tedbottompicker:1.0.3'
     //compile 'com.android.support.constraint:constraint-layout:1.0.0-beta2'
     compile 'com.android.support:cardview-v7:+'
@@ -53,4 +53,5 @@ dependencies {
     compile 'com.google.code.gson:gson:2.8.+'
     compile 'org.apache.commons:commons-io:1.3.2'
     compile 'ir.sohreco.androidfilechooser:android-file-chooser:1.1.0'
+    compile project(':kudanar2')
 }
