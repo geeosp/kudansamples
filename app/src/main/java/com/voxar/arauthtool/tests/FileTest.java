@@ -11,6 +11,8 @@ import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.TextView;
 
+import com.voxar.arauthtool.MyApplication;
+import com.voxar.arauthtool.R;
 import com.voxar.arauthtool.models.Book;
 
 import java.io.File;
@@ -22,8 +24,6 @@ import java.io.OutputStream;
 import java.util.Iterator;
 import java.util.List;
 
-import eu.kudan.kudansamples.MyApplication;
-import eu.kudan.kudansamples.R;
 import io.realm.Realm;
 import ir.sohreco.androidfilechooser.ExternalStorageNotAvailableException;
 import ir.sohreco.androidfilechooser.FileChooserDialog;

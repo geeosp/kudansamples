@@ -21,15 +21,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.signature.StringSignature;
+import com.voxar.arauthtool.MyApplication;
+import com.voxar.arauthtool.R;
 import com.voxar.arauthtool.models.Book;
 import com.voxar.arauthtool.models.Lesson;
 
 import java.io.File;
 
 import cn.refactor.lib.colordialog.ColorDialog;
-import eu.kudan.kudansamples.MyApplication;
-import eu.kudan.kudansamples.R;
+
 
 import static android.support.v7.widget.RecyclerView.OnClickListener;
 import static android.support.v7.widget.RecyclerView.VISIBLE;
@@ -363,9 +363,9 @@ public class BookActivity extends AppCompatActivity {
             Glide
                     .with(getApplicationContext())
                     .load(lesson.getPath())
-                    .centerCrop()
-                    .crossFade()
-                    .signature(new StringSignature(String.valueOf(System.currentTimeMillis())))
+                   // .centerCrop()
+                   // .crossFade()
+                   // .signature(new StringSignature(String.valueOf(System.currentTimeMillis())))
                     .into(holder.iv_lesson_thumbnail);
         }
 

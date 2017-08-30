@@ -13,6 +13,7 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.voxar.arauthtool.R;
 import com.voxar.arauthtool.models.Lesson;
 import com.voxar.arauthtool.models.LessonItem;
 
@@ -28,7 +29,6 @@ import eu.kudan.kudan.ARModelImporter;
 import eu.kudan.kudan.ARModelNode;
 import eu.kudan.kudan.ARTexture2D;
 import eu.kudan.kudan.ARView;
-import eu.kudan.kudansamples.R;
 
 public class TrackingActivity extends ARActivity {
     public Lesson lesson;

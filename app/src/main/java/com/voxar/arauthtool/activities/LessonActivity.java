@@ -18,17 +18,18 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.signature.StringSignature;
+//import com.bumptech.glide.signature.StringSignature;
 import com.nguyenhoanglam.imagepicker.activity.ImagePicker;
 import com.nguyenhoanglam.imagepicker.activity.ImagePickerActivity;
 import com.nguyenhoanglam.imagepicker.model.Image;
+import com.voxar.arauthtool.R;
 import com.voxar.arauthtool.models.Lesson;
 import com.voxar.arauthtool.models.LessonItem;
 
 import java.util.ArrayList;
 
 import cn.refactor.lib.colordialog.ColorDialog;
-import eu.kudan.kudansamples.R;
+
 
 public class LessonActivity extends AppCompatActivity {
 
@@ -97,9 +98,9 @@ public class LessonActivity extends AppCompatActivity {
         Glide
                 .with(getApplicationContext())
                 .load(lesson.getPath())
-                .centerCrop()
-                .crossFade()
-                .signature(new StringSignature(String.valueOf(System.currentTimeMillis())))
+          //      .centerCrop()
+            //    .crossFade()
+              //  .signature(new StringSignature(String.valueOf(System.currentTimeMillis())))
                 .into(iv_lesson_image);
     }
 

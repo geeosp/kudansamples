@@ -3,7 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/cardboard/cardboard.iml" filepath="$PROJECT_DIR$/cardboard/cardboard.iml" />
       <module fileurl="file://$PROJECT_DIR$/kudanar/kudanar.iml" filepath="$PROJECT_DIR$/kudanar/kudanar.iml" />
       <module fileurl="file://$PROJECT_DIR$/kudansamples.iml" filepath="$PROJECT_DIR$/kudansamples.iml" />
     </modules>

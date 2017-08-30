@@ -8,6 +8,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.voxar.arauthtool.R;
 import com.voxar.arauthtool.models.Book;
 import com.voxar.arauthtool.models.Lesson;
 import com.voxar.arauthtool.models.LessonItem;
@@ -27,7 +28,6 @@ import java.io.OutputStreamWriter;
 import java.util.Iterator;
 import java.util.List;
 
-import eu.kudan.kudansamples.R;
 import io.realm.Realm;
 import io.realm.RealmList;
 import io.realm.RealmResults;

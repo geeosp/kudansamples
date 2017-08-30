@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="eu.kudan.kudansamples">
+    package="com.voxar.arauthtool">
 
     <uses-feature android:name="android.hardware.camera2" />
     <uses-feature android:name="android.hardware.camera" />
@@ -45,10 +45,13 @@
         </activity>
         <activity
             android:name="com.voxar.arauthtool.activities.TrackingActivity"
-            android:screenOrientation="portrait" />
+
+            android:configChanges="orientation|screenSize"
+            android:screenOrientation="fullSensor"/>
         <activity
             android:name="com.voxar.arauthtool.activities.TrackingActivityFinal"
-            android:screenOrientation="portrait" />
+            android:configChanges="orientation|screenSize"
+            android:screenOrientation="fullSensor" />
         <activity android:name="com.voxar.arauthtool.activities.BookListActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -21,6 +21,7 @@ import android.widget.EditText;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.nbsp.materialfilepicker.MaterialFilePicker;
+import com.voxar.arauthtool.R;
 import com.voxar.arauthtool.models.LessonItem;
 
 import java.io.File;
@@ -29,7 +30,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 import cn.refactor.lib.colordialog.ColorDialog;
-import eu.kudan.kudansamples.R;
+
 import ir.sohreco.androidfilechooser.ExternalStorageNotAvailableException;
 import ir.sohreco.androidfilechooser.FileChooserDialog;
 
